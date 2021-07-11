@@ -3,53 +3,61 @@ import styles from "./Window.module.scss";
 
 export default function Window({ width, height, top, left }) {
   const [isDragging, setIsDragging] = useState(false);
-  const domElement = useRef(null);
+  const domElementRef = useRef(null);
   const coordinates = useRef({ xOffset: 0, yOffset: 0 });
 
   const handleDragStart = (event) => {
+    // todo: fix issue where moving the mouse too quicky stops dragging
     setIsDragging(true);
+    const domElement = coordinates.current;
 
     if (event.type === "touchstart") {
-      coordinates.current.initialX = event.touches[0].clientX - coordinates.current.xOffset;
-      coordinates.current.initialY = event.touches[0].clientY - coordinates.current.yOffset;
+      domElement.initialX = event.touches[0].clientX - domElement.xOffset;
+      domElement.initialY = event.touches[0].clientY - domElement.yOffset;
     } else {
-      coordinates.current.initialX = event.clientX - coordinates.current.xOffset;
-      coordinates.current.initialY = event.clientY - coordinates.current.yOffset;
+      domElement.initialX = event.clientX - domElement.xOffset;
+      domElement.initialY = event.clientY - domElement.yOffset;
     }
   };
 
   const handleDragEnd = () => {
-    coordinates.current.initialX = coordinates.current.currentX;
-    coordinates.current.initialY = coordinates.current.currentY;
+    const domElement = coordinates.current;
+    domElement.initialX = domElement.currentX;
+    domElement.initialY = domElement.currentY;
+
     setIsDragging(false);
   };
+
   const handleDragMove = (event) => {
     if (isDragging) {
       event.preventDefault();
+      const domElement = coordinates.current;
 
       if (event.type === "touchmove") {
-        coordinates.current.currentX = event.touches[0].clientX - coordinates.current.initialX;
-        coordinates.current.currentY = event.touches[0].clientY - coordinates.current.initialY;
+        domElement.currentX = event.touches[0].clientX - domElement.initialX;
+        domElement.currentY = event.touches[0].clientY - domElement.initialY;
       } else {
-        coordinates.current.currentX = event.clientX - coordinates.current.initialX;
-        coordinates.current.currentY = event.clientY - coordinates.current.initialY;
+        domElement.currentX = event.clientX - domElement.initialX;
+        domElement.currentY = event.clientY - domElement.initialY;
       }
 
-      coordinates.current.xOffset = coordinates.current.currentX;
-      coordinates.current.yOffset = coordinates.current.currentY;
+      domElement.xOffset = domElement.currentX;
+      domElement.yOffset = domElement.currentY;
 
-      domElement.current.style.transform = `translate3d(${coordinates.current.currentX}px, ${coordinates.current.currentY}px, 0)`;
+      domElementRef.current.style.transform = `translate3d(${coordinates.current.currentX}px, ${coordinates.current.currentY}px, 0px)`;
     }
   };
 
-  const moveTo = (x, y) => {
-    domElement.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  const handleMouseOut = () => {
+    if (isDragging) {
+      handleDragEnd();
+    }
   };
 
   return (
     <div
       className={styles.window}
-      ref={domElement}
+      ref={domElementRef}
       style={{ width, height, top, left }}
       onTouchStart={handleDragStart}
       onTouchEnd={handleDragEnd}
@@ -57,6 +65,7 @@ export default function Window({ width, height, top, left }) {
       onMouseDown={handleDragStart}
       onMouseUp={handleDragEnd}
       onMouseMove={handleDragMove}
+      onMouseOut={handleMouseOut}
     ></div>
   );
 }
