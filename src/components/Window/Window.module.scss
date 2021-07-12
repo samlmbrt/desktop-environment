@@ -2,3 +2,12 @@
   position: absolute;
   background-color: white;
 }
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background-color: blue;
+  color: white;
+  user-select: none;
+}

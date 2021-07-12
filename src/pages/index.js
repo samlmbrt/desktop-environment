@@ -1,10 +1,10 @@
-import Window from "../components/Window/Window.js";
-import styles from "./index.module.scss";
+import Desktop from "../components/Desktop/Desktop";
+import Window from "../components/Window/Window";
 
 export default function Index() {
   return (
-    <div className={styles.container}>
-      <Window width={640} height={480} top={10} left={10} />
-    </div>
+    <Desktop>
+      <Window title="Text Editor" width={640} height={480} top={10} left={10} />
+    </Desktop>
   );
 }
