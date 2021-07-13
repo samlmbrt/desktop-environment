@@ -1,13 +1,15 @@
 .window {
   position: absolute;
   background-color: white;
+  box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
 }
 
 .titleBar {
   display: flex;
   align-items: center;
   height: 30px;
-  background-color: blue;
+  padding: 0 8px;
+  background-color: hsl(213, 69%, 21%);
   color: white;
   user-select: none;
 }
