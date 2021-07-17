@@ -1,4 +1,7 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import Image from "next/image";
+
+import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
 export default function Deskop({ children }) {
@@ -59,16 +62,19 @@ export default function Deskop({ children }) {
   };
 
   return (
-    <div
-      className={styles.desktop}
-      onTouchStart={handleDragStart}
-      onTouchEnd={handleDragEnd}
-      onTouchMove={handleDragMove}
-      onMouseDown={handleDragStart}
-      onMouseUp={handleDragEnd}
-      onMouseMove={handleDragMove}
-    >
-      {children}
-    </div>
+    <>
+      <div
+        className={styles.desktop}
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEnd}
+        onTouchMove={handleDragMove}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEnd}
+        onMouseMove={handleDragMove}
+      >
+        <Image src={wallpaper} alt="Background wallpaper" layout="fill" objectFit="cover" />
+        {children}
+      </div>
+    </>
   );
 }
