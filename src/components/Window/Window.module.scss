@@ -13,9 +13,15 @@ $window-body-margin: 3px;
   display: flex;
   align-items: center;
   height: $window-height;
+  margin-top: 2px;
   padding: 0 8px;
   color: white;
   user-select: none;
+}
+
+.title {
+  flex-grow: 1;
+  pointer-events: none;
 }
 
 .body {
