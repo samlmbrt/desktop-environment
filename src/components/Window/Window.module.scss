@@ -1,15 +1,27 @@
+$window-height: 30px;
+$window-body-margin: 3px;
+
 .window {
   position: absolute;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
+  border-radius: 5px;
 }
 
 .titleBar {
   display: flex;
   align-items: center;
-  height: 30px;
+  height: $window-height;
   padding: 0 8px;
-  background-color: hsl(213, 69%, 21%);
   color: white;
   user-select: none;
+}
+
+.body {
+  position: absolute;
+  background-color: white;
+  width: calc(100% - 2 * #{$window-body-margin});
+  height: calc(100% - #{$window-height} - 2 * #{$window-body-margin});
+  margin: $window-body-margin;
 }
