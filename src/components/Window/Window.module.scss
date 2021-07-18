@@ -13,7 +13,7 @@ $window-body-margin: 3px;
   display: flex;
   align-items: center;
   height: $window-height;
-  margin-top: 2px;
+  margin-top: 3px;
   padding: 0 8px;
   color: white;
   user-select: none;
@@ -28,6 +28,82 @@ $window-body-margin: 3px;
   position: absolute;
   background-color: white;
   width: calc(100% - 2 * #{$window-body-margin});
-  height: calc(100% - #{$window-height} - 2 * #{$window-body-margin});
+  height: calc(100% - #{$window-height} - 3 * #{$window-body-margin});
   margin: $window-body-margin;
+}
+
+.topBorder {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 5px;
+  cursor: n-resize;
+  z-index: 1;
+}
+
+.rightBorder {
+  position: absolute;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: e-resize;
+  z-index: 1;
+}
+
+.bottomBorder {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  cursor: s-resize;
+  z-index: 1;
+}
+
+.leftBorder {
+  position: absolute;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  cursor: w-resize;
+  z-index: 1;
+}
+
+.topLeftCorner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  cursor: nw-resize;
+  z-index: 2;
+}
+
+.topRightCorner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  cursor: ne-resize;
+  z-index: 2;
+}
+
+.bottomLeftCorner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  cursor: sw-resize;
+  z-index: 2;
+}
+
+.bottomRightCorner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  cursor: se-resize;
+  z-index: 2;
 }
