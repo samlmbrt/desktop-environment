@@ -25,6 +25,9 @@ export default function Deskop({ children }) {
     } else {
       element.initialX = event.clientX - element.xOffset;
       element.initialY = event.clientY - element.yOffset;
+
+      var { x } = element.getBoundingClientRect();
+      console.log(x);
     }
 
     setIsActive(true);
