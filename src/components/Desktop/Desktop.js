@@ -10,44 +10,34 @@ export default function Deskop({ children }) {
   // This means a drag could stop prematurely if the user moves the mouse
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
-  const [isActive, setIsActive] = useState(false);
   const [activeElement, setActiveElement] = useState(null);
 
   const handleDragStart = (event) => {
     const element = event.target;
-    if (!element?.classList.contains("titleBar")) return;
+
     if (!element.xOffset) element.xOffset = 0;
     if (!element.yOffset) element.yOffset = 0;
 
-    if (event.type === "touchstart") {
-      element.initialX = event.touches[0].clientX - element.xOffset;
-      element.initialY = event.touches[0].clientY - element.yOffset;
-    } else {
-      element.initialX = event.clientX - element.xOffset;
-      element.initialY = event.clientY - element.yOffset;
-
-      var { x } = element.getBoundingClientRect();
-      console.log(x);
+    if (element.classList.contains("titleBar")) {
+      if (event.type === "touchstart") {
+        element.initialX = event.touches[0].clientX - element.xOffset;
+        element.initialY = event.touches[0].clientY - element.yOffset;
+      } else {
+        element.initialX = event.clientX - element.xOffset;
+        element.initialY = event.clientY - element.yOffset;
+      }
     }
 
-    setIsActive(true);
     setActiveElement(element);
   };
 
-  const handleDragEnd = () => {
-    if (activeElement) {
-      activeElement.initialX = activeElement.currentX;
-      activeElement.initialY = activeElement.currentY;
-    }
-
-    setIsActive(false);
-    setActiveElement(null);
-  };
-
   const handleDragMove = (event) => {
-    if (isActive) {
-      event.preventDefault();
+    if (!activeElement) return;
 
+    event.preventDefault();
+    const windowElement = activeElement.parentNode;
+
+    if (activeElement.classList.contains("titleBar")) {
       if (event.type === "touchmove") {
         activeElement.currentX = event.touches[0].clientX - activeElement.initialX;
         activeElement.currentY = event.touches[0].clientY - activeElement.initialY;
@@ -59,9 +49,29 @@ export default function Deskop({ children }) {
       activeElement.xOffset = activeElement.currentX;
       activeElement.yOffset = activeElement.currentY;
 
-      const windowElement = activeElement.parentNode;
       windowElement.style.transform = `translate3d(${activeElement.currentX}px, ${activeElement.currentY}px, 0px)`;
+    } else if (activeElement.classList.contains("rightBorder")) {
+      const offset = event.type === "touchstart" ? event.touches[0].clientX : event.clientX;
+      const { x } = windowElement.getBoundingClientRect();
+
+      windowElement.style.width = `${offset - x}px`;
+    } else if (activeElement.classList.contains("bottomBorder")) {
+      const offset = event.type === "touchstart" ? event.touches[0].clientY : event.clientY;
+      const { y } = windowElement.getBoundingClientRect();
+
+      windowElement.style.height = `${offset - y}px`;
     }
+  };
+
+  const handleDragEnd = () => {
+    if (!activeElement) return;
+
+    if (activeElement.classList.contains("titleBar")) {
+      activeElement.initialX = activeElement.currentX;
+      activeElement.initialY = activeElement.currentY;
+    }
+
+    setActiveElement(null);
   };
 
   return (
