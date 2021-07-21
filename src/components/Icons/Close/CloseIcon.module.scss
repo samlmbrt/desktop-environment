@@ -5,8 +5,9 @@
   margin: 1px 0 0 12px;
   cursor: pointer;
   border-radius: 50%;
+  opacity: 0.75;
   transform: rotate(45deg);
-  transition: background-color 0.2s ease;
+  transition: opacity 0.2s ease;
 
   &:before {
     position: absolute;
@@ -31,6 +32,6 @@
   }
 
   &:hover {
-    background-color: hsla(3, 62%, 62%, 0.8);
+    opacity: 1;
   }
 }
