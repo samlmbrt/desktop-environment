@@ -13,20 +13,20 @@ export default function Deskop({ children }) {
 
   const [dragElement, setDragElement] = useState(null);
 
+  const getEventCoords = (event, xDelta = 0, yDelta = 0) => {
+    return event.type === "touchmove"
+      ? [event.touches[0].clientX - xDelta, event.touches[0].clientY - yDelta]
+      : [event.clientX - xDelta, event.clientY - yDelta];
+  };
+
   const moveWindow = (event) => {
     if (!dragElement) return;
     const window = dragElement.parentNode;
 
-    if (event.type === "touchmove") {
-      window.currentX = event.touches[0].clientX - window.initialX;
-      window.currentY = event.touches[0].clientY - window.initialY;
-    } else {
-      window.currentX = event.clientX - window.initialX;
-      window.currentY = event.clientY - window.initialY;
-    }
-
+    [window.currentX, window.currentY] = getEventCoords(event, window.initialX, window.initialY);
     window.xOffset = window.currentX;
     window.yOffset = window.currentY;
+
     window.style.transform = `translate3d(${window.currentX}px, ${window.currentY}px, 0px)`;
   };
 
@@ -36,13 +36,16 @@ export default function Deskop({ children }) {
     if (eventTarget.classList.contains("titleBar") || eventTarget.classList.contains("topBorder")) {
       const window = eventTarget.parentNode;
 
-      if (event.type === "touchstart") {
-        window.initialX = event.touches[0].clientX - (window.xOffset || 0);
-        window.initialY = event.touches[0].clientY - (window.yOffset || 0);
-      } else {
-        window.initialX = event.clientX - (window.xOffset || 0);
-        window.initialY = event.clientY - (window.yOffset || 0);
-      }
+      if (!window.xOffset) window.xOffset = 0;
+      if (!window.yOffset) window.yOffset = 0;
+
+      const { top, left, width, height } = window.getBoundingClientRect();
+      window.initialTop = top;
+      window.initialLeft = left;
+      window.initialWidth = width;
+      window.initialHeight = height;
+
+      [window.initialX, window.initialY] = getEventCoords(event, window.xOffset, window.yOffset);
     }
 
     setDragElement(eventTarget);
@@ -57,17 +60,16 @@ export default function Deskop({ children }) {
     if (dragElement.classList.contains("titleBar")) {
       moveWindow(event);
     } else if (dragElement.classList.contains("topBorder")) {
-      // todosam
+      const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
+      window.style.height = `${window.initialHeight - yOffset + window.initialY}px`;
     } else if (dragElement.classList.contains("rightBorder")) {
-      const offset = event.type === "touchstart" ? event.touches[0].clientX : event.clientX;
+      const [xOffset, _] = getEventCoords(event, window.xOffset, 0);
       const { x } = window.getBoundingClientRect();
-
-      window.style.width = `${offset - x}px`;
+      window.style.width = `${xOffset - x}px`;
     } else if (dragElement.classList.contains("bottomBorder")) {
-      const offset = event.type === "touchstart" ? event.touches[0].clientY : event.clientY;
+      const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
       const { y } = window.getBoundingClientRect();
-
-      window.style.height = `${offset - y}px`;
+      window.style.height = `${yOffset - y}px`;
     }
   };
 
