@@ -5,7 +5,7 @@ import styles from "./Window.module.scss";
 
 export default function Window({ title, width, height, top, left, children }) {
   return (
-    <div className={styles.window} style={{ width, height, top, left }}>
+    <div className={`window ${styles.window}`} style={{ width, height, top, left }}>
       <div className={`topBorder ${styles.topBorder}`}></div>
       <div className={`rightBorder ${styles.rightBorder}`}></div>
       <div className={`bottomBorder ${styles.bottomBorder}`}></div>

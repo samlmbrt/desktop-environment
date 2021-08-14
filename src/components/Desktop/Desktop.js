@@ -10,68 +10,78 @@ export default function Deskop({ children }) {
   // This means a drag could stop prematurely if the user moves the mouse
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
-  const [activeElement, setActiveElement] = useState(null);
+
+  const [dragElement, setDragElement] = useState(null);
+
+  const moveWindow = (event) => {
+    if (!dragElement) return;
+    const window = dragElement.parentNode;
+
+    if (event.type === "touchmove") {
+      window.currentX = event.touches[0].clientX - window.initialX;
+      window.currentY = event.touches[0].clientY - window.initialY;
+    } else {
+      window.currentX = event.clientX - window.initialX;
+      window.currentY = event.clientY - window.initialY;
+    }
+
+    window.xOffset = window.currentX;
+    window.yOffset = window.currentY;
+    window.style.transform = `translate3d(${window.currentX}px, ${window.currentY}px, 0px)`;
+  };
 
   const handleDragStart = (event) => {
-    const element = event.target;
+    const eventTarget = event.target;
 
-    if (!element.xOffset) element.xOffset = 0;
-    if (!element.yOffset) element.yOffset = 0;
+    if (eventTarget.classList.contains("titleBar") || eventTarget.classList.contains("topBorder")) {
+      const window = eventTarget.parentNode;
 
-    if (element.classList.contains("titleBar")) {
       if (event.type === "touchstart") {
-        element.initialX = event.touches[0].clientX - element.xOffset;
-        element.initialY = event.touches[0].clientY - element.yOffset;
+        window.initialX = event.touches[0].clientX - (window.xOffset || 0);
+        window.initialY = event.touches[0].clientY - (window.yOffset || 0);
       } else {
-        element.initialX = event.clientX - element.xOffset;
-        element.initialY = event.clientY - element.yOffset;
+        window.initialX = event.clientX - (window.xOffset || 0);
+        window.initialY = event.clientY - (window.yOffset || 0);
       }
     }
 
-    setActiveElement(element);
+    setDragElement(eventTarget);
   };
 
   const handleDragMove = (event) => {
-    if (!activeElement) return;
-
     event.preventDefault();
-    const windowElement = activeElement.parentNode;
 
-    if (activeElement.classList.contains("titleBar")) {
-      if (event.type === "touchmove") {
-        activeElement.currentX = event.touches[0].clientX - activeElement.initialX;
-        activeElement.currentY = event.touches[0].clientY - activeElement.initialY;
-      } else {
-        activeElement.currentX = event.clientX - activeElement.initialX;
-        activeElement.currentY = event.clientY - activeElement.initialY;
-      }
+    if (!dragElement) return;
+    const window = dragElement.parentNode;
 
-      activeElement.xOffset = activeElement.currentX;
-      activeElement.yOffset = activeElement.currentY;
-
-      windowElement.style.transform = `translate3d(${activeElement.currentX}px, ${activeElement.currentY}px, 0px)`;
-    } else if (activeElement.classList.contains("rightBorder")) {
+    if (dragElement.classList.contains("titleBar")) {
+      moveWindow(event);
+    } else if (dragElement.classList.contains("topBorder")) {
+      // todosam
+    } else if (dragElement.classList.contains("rightBorder")) {
       const offset = event.type === "touchstart" ? event.touches[0].clientX : event.clientX;
-      const { x } = windowElement.getBoundingClientRect();
+      const { x } = window.getBoundingClientRect();
 
-      windowElement.style.width = `${offset - x}px`;
-    } else if (activeElement.classList.contains("bottomBorder")) {
+      window.style.width = `${offset - x}px`;
+    } else if (dragElement.classList.contains("bottomBorder")) {
       const offset = event.type === "touchstart" ? event.touches[0].clientY : event.clientY;
-      const { y } = windowElement.getBoundingClientRect();
+      const { y } = window.getBoundingClientRect();
 
-      windowElement.style.height = `${offset - y}px`;
+      window.style.height = `${offset - y}px`;
     }
   };
 
   const handleDragEnd = () => {
-    if (!activeElement) return;
+    if (!dragElement) return;
 
-    if (activeElement.classList.contains("titleBar")) {
-      activeElement.initialX = activeElement.currentX;
-      activeElement.initialY = activeElement.currentY;
+    if (dragElement.classList.contains("titleBar") || dragElement.classList.contains("topBorder")) {
+      const window = dragElement.parentNode;
+
+      window.initialX = window.currentX;
+      window.initialY = window.currentY;
     }
 
-    setActiveElement(null);
+    setDragElement(null);
   };
 
   return (
