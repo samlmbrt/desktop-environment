@@ -4,6 +4,57 @@ import Image from "next/image";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
+const isMoverElement = (element) => {
+  if (!element) return false;
+
+  const classes = element.classList;
+  return (
+    classes.contains("titleBar") ||
+    classes.contains("topBorder") ||
+    classes.contains("leftBorder") ||
+    classes.contains("topLeftCorner")
+  );
+};
+
+const isResizerElement = (element) => {
+  if (!element) return false;
+
+  const classes = element.classList;
+  return (
+    classes.contains("topBorder") ||
+    classes.contains("rightBorder") ||
+    classes.contains("bottomBorder") ||
+    classes.contains("leftBorder") ||
+    classes.contains("topLeftCorner") ||
+    classes.contains("topRightCorner") ||
+    classes.contains("bottomLeftCorner") ||
+    classes.contains("bottomRightCorner")
+  );
+};
+
+const getEventPosition = (event) => {
+  return event.type === "touchmove"
+    ? [event.touches[0].clientX, event.touches[0].clientY]
+    : [event.clientX, event.clientY];
+};
+
+const moveElement = (element, x, y) => {
+  if (!element) return;
+
+  // Using translate3d() to force GPU rendering
+  element.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
+  element.xOffset = x;
+  element.yOffset = y;
+};
+
+const resizeElement = (element, xDelta, yDelta) => {
+  if (!element) return;
+
+  const { x, y } = element.getBoundingClientRect();
+  if (xDelta) element.style.width = `${xDelta - x}px`;
+  if (yDelta) element.style.height = `${yDelta - y}px`;
+};
+
 export default function Deskop({ children }) {
   // We manage the drag events for Window components here since 'mousemove'
   // events are not triggered for every pixel when moving the mouse around.
@@ -13,27 +64,10 @@ export default function Deskop({ children }) {
 
   const [dragElement, setDragElement] = useState(null);
 
-  const getEventCoords = (event, xDelta = 0, yDelta = 0) => {
-    return event.type === "touchmove"
-      ? [event.touches[0].clientX - xDelta, event.touches[0].clientY - yDelta]
-      : [event.clientX - xDelta, event.clientY - yDelta];
-  };
-
-  const moveWindow = (event) => {
-    if (!dragElement) return;
-    const window = dragElement.parentNode;
-
-    [window.currentX, window.currentY] = getEventCoords(event, window.initialX, window.initialY);
-    window.xOffset = window.currentX;
-    window.yOffset = window.currentY;
-
-    window.style.transform = `translate3d(${window.currentX}px, ${window.currentY}px, 0px)`;
-  };
-
   const handleDragStart = (event) => {
     const eventTarget = event.target;
 
-    if (eventTarget.classList.contains("titleBar") || eventTarget.classList.contains("topBorder")) {
+    if (isMoverElement(eventTarget)) {
       const window = eventTarget.parentNode;
 
       if (!window.xOffset) window.xOffset = 0;
@@ -45,7 +79,9 @@ export default function Deskop({ children }) {
       window.initialWidth = width;
       window.initialHeight = height;
 
-      [window.initialX, window.initialY] = getEventCoords(event, window.xOffset, window.yOffset);
+      const [x, y] = getEventPosition(event);
+      window.initialX = x - window.xOffset;
+      window.initialY = y - window.yOffset;
     }
 
     setDragElement(eventTarget);
@@ -58,18 +94,19 @@ export default function Deskop({ children }) {
     const window = dragElement.parentNode;
 
     if (dragElement.classList.contains("titleBar")) {
-      moveWindow(event);
+      const [x, y] = getEventPosition(event);
+      moveElement(window, x - window.initialX, y - window.initialY);
     } else if (dragElement.classList.contains("topBorder")) {
-      const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
-      window.style.height = `${window.initialHeight - yOffset + window.initialY}px`;
+      // todosam: refactor
+      // const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
+      // window.style.height = `${window.initialHeight - yOffset + window.initialY}px`;
+      // const [x, y] = getEventCoords(event, window.initialX, window.initialY);
     } else if (dragElement.classList.contains("rightBorder")) {
-      const [xOffset, _] = getEventCoords(event, window.xOffset, 0);
-      const { x } = window.getBoundingClientRect();
-      window.style.width = `${xOffset - x}px`;
+      const [x, _] = getEventPosition(event);
+      resizeElement(window, x, 0);
     } else if (dragElement.classList.contains("bottomBorder")) {
-      const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
-      const { y } = window.getBoundingClientRect();
-      window.style.height = `${yOffset - y}px`;
+      const [_, y] = getEventPosition(event);
+      resizeElement(window, 0, y);
     }
   };
 
@@ -78,7 +115,6 @@ export default function Deskop({ children }) {
 
     if (dragElement.classList.contains("titleBar") || dragElement.classList.contains("topBorder")) {
       const window = dragElement.parentNode;
-
       window.initialX = window.currentX;
       window.initialY = window.currentY;
     }
