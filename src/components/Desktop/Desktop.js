@@ -47,12 +47,11 @@ const moveElement = (element, x, y) => {
   element.yOffset = y;
 };
 
-const resizeElement = (element, xDelta, yDelta) => {
+const resizeElement = (element, x, y) => {
   if (!element) return;
 
-  const { x, y } = element.getBoundingClientRect();
-  if (xDelta) element.style.width = `${xDelta - x}px`;
-  if (yDelta) element.style.height = `${yDelta - y}px`;
+  if (x) element.style.width = `${x}px`;
+  if (y) element.style.height = `${y}px`;
 };
 
 export default function Deskop({ children }) {
@@ -97,16 +96,17 @@ export default function Deskop({ children }) {
       const [x, y] = getEventPosition(event);
       moveElement(window, x - window.initialX, y - window.initialY);
     } else if (dragElement.classList.contains("topResizer")) {
-      // todosam: refactor
-      // const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
-      // window.style.height = `${window.initialHeight - yOffset + window.initialY}px`;
-      // const [x, y] = getEventCoords(event, window.initialX, window.initialY);
+      const [_, y] = getEventPosition(event);
+      resizeElement(window, 0, window.initialHeight + window.yOffset + window.initialY - y);
+      // todosam: add move
     } else if (dragElement.classList.contains("rightResizer")) {
       const [x, _] = getEventPosition(event);
-      resizeElement(window, x, 0);
+      const { x: oldX } = window.getBoundingClientRect();
+      resizeElement(window, x - oldX, 0);
     } else if (dragElement.classList.contains("bottomResizer")) {
       const [_, y] = getEventPosition(event);
-      resizeElement(window, 0, y);
+      const { y: oldY } = window.getBoundingClientRect();
+      resizeElement(window, 0, y - oldY);
     }
   };
 
