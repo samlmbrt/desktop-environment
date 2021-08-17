@@ -10,9 +10,9 @@ const isMoverElement = (element) => {
   const classes = element.classList;
   return (
     classes.contains("titleBar") ||
-    classes.contains("topBorder") ||
-    classes.contains("leftBorder") ||
-    classes.contains("topLeftCorner")
+    classes.contains("topResizer") ||
+    classes.contains("leftResizer") ||
+    classes.contains("topLeftResizer")
   );
 };
 
@@ -21,14 +21,14 @@ const isResizerElement = (element) => {
 
   const classes = element.classList;
   return (
-    classes.contains("topBorder") ||
-    classes.contains("rightBorder") ||
-    classes.contains("bottomBorder") ||
-    classes.contains("leftBorder") ||
-    classes.contains("topLeftCorner") ||
-    classes.contains("topRightCorner") ||
-    classes.contains("bottomLeftCorner") ||
-    classes.contains("bottomRightCorner")
+    classes.contains("topResizer") ||
+    classes.contains("rightResizer") ||
+    classes.contains("bottomResizer") ||
+    classes.contains("leftResizer") ||
+    classes.contains("topLeftResizer") ||
+    classes.contains("topRightResizer") ||
+    classes.contains("bottomLeftResizer") ||
+    classes.contains("bottomRightResizer")
   );
 };
 
@@ -96,15 +96,15 @@ export default function Deskop({ children }) {
     if (dragElement.classList.contains("titleBar")) {
       const [x, y] = getEventPosition(event);
       moveElement(window, x - window.initialX, y - window.initialY);
-    } else if (dragElement.classList.contains("topBorder")) {
+    } else if (dragElement.classList.contains("topResizer")) {
       // todosam: refactor
       // const [_, yOffset] = getEventCoords(event, 0, window.yOffset);
       // window.style.height = `${window.initialHeight - yOffset + window.initialY}px`;
       // const [x, y] = getEventCoords(event, window.initialX, window.initialY);
-    } else if (dragElement.classList.contains("rightBorder")) {
+    } else if (dragElement.classList.contains("rightResizer")) {
       const [x, _] = getEventPosition(event);
       resizeElement(window, x, 0);
-    } else if (dragElement.classList.contains("bottomBorder")) {
+    } else if (dragElement.classList.contains("bottomResizer")) {
       const [_, y] = getEventPosition(event);
       resizeElement(window, 0, y);
     }
@@ -113,7 +113,10 @@ export default function Deskop({ children }) {
   const handleDragEnd = () => {
     if (!dragElement) return;
 
-    if (dragElement.classList.contains("titleBar") || dragElement.classList.contains("topBorder")) {
+    if (
+      dragElement.classList.contains("titleBar") ||
+      dragElement.classList.contains("topResizer")
+    ) {
       const window = dragElement.parentNode;
       window.initialX = window.currentX;
       window.initialY = window.currentY;

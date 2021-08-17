@@ -6,14 +6,14 @@ import styles from "./Window.module.scss";
 export default function Window({ title, width, height, top, left, children }) {
   return (
     <div className={`window ${styles.window}`} style={{ width, height, top, left }}>
-      <div className={`topBorder ${styles.topBorder}`}></div>
-      <div className={`rightBorder ${styles.rightBorder}`}></div>
-      <div className={`bottomBorder ${styles.bottomBorder}`}></div>
-      <div className={`leftBorder ${styles.leftBorder}`}></div>
-      <div className={`topLeftCorner ${styles.topLeftCorner}`}></div>
-      <div className={`topRightCorner ${styles.topRightCorner}`}></div>
-      <div className={`bottomLeftCorner ${styles.bottomLeftCorner}`}></div>
-      <div className={`bottomRightCorner ${styles.bottomRightCorner}`}></div>
+      <div className={`topResizer ${styles.topResizer}`}></div>
+      <div className={`rightResizer ${styles.rightResizer}`}></div>
+      <div className={`bottomResizer ${styles.bottomResizer}`}></div>
+      <div className={`leftResizer ${styles.leftResizer}`}></div>
+      <div className={`topLeftResizer ${styles.topLeftResizer}`}></div>
+      <div className={`topRightResizer ${styles.topRightResizer}`}></div>
+      <div className={`bottomLeftResizer ${styles.bottomLeftResizer}`}></div>
+      <div className={`bottomRightResizer ${styles.bottomRightResizer}`}></div>
       <div className={`titleBar ${styles.titleBar}`}>
         <div className={styles.title}>{title}</div>
         <MinimizeIcon />

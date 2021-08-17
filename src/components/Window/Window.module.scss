@@ -32,7 +32,7 @@ $window-body-margin: 3px;
   margin: $window-body-margin;
 }
 
-.topBorder {
+.topResizer {
   position: absolute;
   top: 0;
   width: 100%;
@@ -41,7 +41,7 @@ $window-body-margin: 3px;
   z-index: 1;
 }
 
-.rightBorder {
+.rightResizer {
   position: absolute;
   right: 0;
   width: 5px;
@@ -50,7 +50,7 @@ $window-body-margin: 3px;
   z-index: 1;
 }
 
-.bottomBorder {
+.bottomResizer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -59,7 +59,7 @@ $window-body-margin: 3px;
   z-index: 1;
 }
 
-.leftBorder {
+.leftResizer {
   position: absolute;
   left: 0;
   width: 5px;
@@ -68,7 +68,7 @@ $window-body-margin: 3px;
   z-index: 1;
 }
 
-.topLeftCorner {
+.topLeftResizer {
   position: absolute;
   top: 0;
   left: 0;
@@ -78,7 +78,7 @@ $window-body-margin: 3px;
   z-index: 2;
 }
 
-.topRightCorner {
+.topRightResizer {
   position: absolute;
   top: 0;
   right: 0;
@@ -88,7 +88,7 @@ $window-body-margin: 3px;
   z-index: 2;
 }
 
-.bottomLeftCorner {
+.bottomLeftResizer {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -98,7 +98,7 @@ $window-body-margin: 3px;
   z-index: 2;
 }
 
-.bottomRightCorner {
+.bottomRightResizer {
   position: absolute;
   bottom: 0;
   right: 0;
