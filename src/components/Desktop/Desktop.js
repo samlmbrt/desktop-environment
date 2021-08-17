@@ -113,10 +113,7 @@ export default function Deskop({ children }) {
   const handleDragEnd = () => {
     if (!dragElement) return;
 
-    if (
-      dragElement.classList.contains("titleBar") ||
-      dragElement.classList.contains("topResizer")
-    ) {
+    if (dragElement.classList.contains("titleBar") || dragElement.classList.contains("topResizer")) {
       const window = dragElement.parentNode;
       window.initialX = window.currentX;
       window.initialY = window.currentY;
