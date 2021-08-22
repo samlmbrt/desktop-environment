@@ -4,7 +4,15 @@ import Image from "next/image";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
-const isMoverElement = (element) => {
+// todo:
+// - add min/max window sizes + ellipses
+// - add focus on click
+// - add wallpaper blur
+// - improve visuals of transparent title bar
+// - replace title bar icons with svgs
+// - prevent triggering another resizer when resizing
+
+const isDragElement = (element) => {
   if (!element) return false;
 
   const classes = element.classList;
@@ -12,19 +20,8 @@ const isMoverElement = (element) => {
     classes.contains("titleBar") ||
     classes.contains("topResizer") ||
     classes.contains("leftResizer") ||
-    classes.contains("topLeftResizer")
-  );
-};
-
-const isResizerElement = (element) => {
-  if (!element) return false;
-
-  const classes = element.classList;
-  return (
-    classes.contains("topResizer") ||
     classes.contains("rightResizer") ||
     classes.contains("bottomResizer") ||
-    classes.contains("leftResizer") ||
     classes.contains("topLeftResizer") ||
     classes.contains("topRightResizer") ||
     classes.contains("bottomLeftResizer") ||
@@ -66,7 +63,7 @@ export default function Deskop({ children }) {
 
     const element = event.target;
 
-    if (isMoverElement(element)) {
+    if (isDragElement(element)) {
       const [x, y] = getEventPosition(event);
 
       const window = element.parentNode;
@@ -84,10 +81,31 @@ export default function Deskop({ children }) {
 
     const element = dragState.current.element;
     const window = element.parentNode;
+    const [x, y] = getEventPosition(event);
 
     if (element.classList.contains("titleBar")) {
-      const [x, y] = getEventPosition(event);
       moveElement(window, state.left + x - state.x, state.top + y - state.y);
+    } else if (element.classList.contains("rightResizer")) {
+      resizeElement(window, state.width + x - state.x, 0);
+    } else if (element.classList.contains("bottomResizer")) {
+      resizeElement(window, 0, state.height + y - state.y);
+    } else if (element.classList.contains("bottomRightResizer")) {
+      resizeElement(window, state.width + x - state.x, state.height + y - state.y);
+    } else if (element.classList.contains("leftResizer")) {
+      moveElement(window, state.left + x - state.x, 0);
+      resizeElement(window, state.width - x + state.x, 0);
+    } else if (element.classList.contains("topResizer")) {
+      moveElement(window, 0, state.top + y - state.y);
+      resizeElement(window, 0, state.height - y + state.y);
+    } else if (element.classList.contains("topLeftResizer")) {
+      moveElement(window, state.left + x - state.x, state.top + y - state.y);
+      resizeElement(window, state.width - x + state.x, state.height - y + state.y);
+    } else if (element.classList.contains("topRightResizer")) {
+      moveElement(window, 0, state.top + y - state.y);
+      resizeElement(window, state.width + x - state.x, state.height - y + state.y);
+    } else if (element.classList.contains("bottomLeftResizer")) {
+      moveElement(window, state.left + x - state.x, 0);
+      resizeElement(window, state.width - x + state.x, state.height + y - state.y);
     }
   };
 
