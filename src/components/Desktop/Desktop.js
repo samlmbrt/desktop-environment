@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 
 import wallpaper from "/public/wallpaper.png";
@@ -38,20 +38,18 @@ const getEventPosition = (event) => {
     : [event.clientX, event.clientY];
 };
 
-const moveElement = (element, x, y) => {
+const moveElement = (element, x = 0, y = 0) => {
   if (!element) return;
 
-  // Using translate3d() to force GPU rendering
-  element.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
-  element.xOffset = x;
-  element.yOffset = y;
+  if (x) element.style.left = `${x}px`;
+  if (y) element.style.top = `${y}px`;
 };
 
-const resizeElement = (element, x, y) => {
+const resizeElement = (element, width = 0, height = 0) => {
   if (!element) return;
 
-  if (x) element.style.width = `${x}px`;
-  if (y) element.style.height = `${y}px`;
+  if (width) element.style.width = `${width}px`;
+  if (height) element.style.height = `${height}px`;
 };
 
 export default function Deskop({ children }) {
@@ -61,65 +59,44 @@ export default function Deskop({ children }) {
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
 
-  const [dragElement, setDragElement] = useState(null);
+  const dragState = useRef();
 
   const handleDragStart = (event) => {
-    const eventTarget = event.target;
+    event.preventDefault();
 
-    if (isMoverElement(eventTarget)) {
-      const window = eventTarget.parentNode;
+    const element = event.target;
 
-      if (!window.xOffset) window.xOffset = 0;
-      if (!window.yOffset) window.yOffset = 0;
-
-      const { top, left, width, height } = window.getBoundingClientRect();
-      window.initialTop = top;
-      window.initialLeft = left;
-      window.initialWidth = width;
-      window.initialHeight = height;
-
+    if (isMoverElement(element)) {
       const [x, y] = getEventPosition(event);
-      window.initialX = x - window.xOffset;
-      window.initialY = y - window.yOffset;
-    }
 
-    setDragElement(eventTarget);
+      const window = element.parentNode;
+      const { top, left, width, height } = window.getBoundingClientRect();
+
+      dragState.current = { element, x, y, top, left, width, height };
+    }
   };
 
   const handleDragMove = (event) => {
     event.preventDefault();
 
-    if (!dragElement) return;
-    const window = dragElement.parentNode;
+    const state = dragState.current;
+    if (!state) return;
 
-    if (dragElement.classList.contains("titleBar")) {
+    const element = dragState.current.element;
+    const window = element.parentNode;
+
+    if (element.classList.contains("titleBar")) {
       const [x, y] = getEventPosition(event);
-      moveElement(window, x - window.initialX, y - window.initialY);
-    } else if (dragElement.classList.contains("topResizer")) {
-      const [_, y] = getEventPosition(event);
-      resizeElement(window, 0, window.initialHeight + window.yOffset + window.initialY - y);
-      // todosam: add move
-    } else if (dragElement.classList.contains("rightResizer")) {
-      const [x, _] = getEventPosition(event);
-      const { x: oldX } = window.getBoundingClientRect();
-      resizeElement(window, x - oldX, 0);
-    } else if (dragElement.classList.contains("bottomResizer")) {
-      const [_, y] = getEventPosition(event);
-      const { y: oldY } = window.getBoundingClientRect();
-      resizeElement(window, 0, y - oldY);
+      moveElement(window, state.left + x - state.x, state.top + y - state.y);
     }
   };
 
-  const handleDragEnd = () => {
-    if (!dragElement) return;
+  const handleDragEnd = (event) => {
+    event.preventDefault();
 
-    if (dragElement.classList.contains("titleBar") || dragElement.classList.contains("topResizer")) {
-      const window = dragElement.parentNode;
-      window.initialX = window.currentX;
-      window.initialY = window.currentY;
+    if (dragState.current) {
+      dragState.current = null;
     }
-
-    setDragElement(null);
   };
 
   return (
