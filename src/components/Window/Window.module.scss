@@ -1,8 +1,11 @@
-$window-height: 30px;
-$window-body-margin: 3px;
+$body-margin: 3px;
+$min-width: 200px;
+$titlebar-height: 30px;
 
 .window {
   position: absolute;
+  min-width: $min-width;
+  min-height: calc(#{$titlebar-height} + 3 * #{$body-margin});
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
@@ -12,7 +15,7 @@ $window-body-margin: 3px;
 .titleBar {
   display: flex;
   align-items: center;
-  height: $window-height;
+  height: $titlebar-height;
   margin-top: 3px;
   padding: 0 8px;
   color: white;
@@ -22,14 +25,17 @@ $window-body-margin: 3px;
 .title {
   flex-grow: 1;
   pointer-events: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .body {
   position: absolute;
+  width: calc(100% - 2 * #{$body-margin});
   background-color: white;
-  width: calc(100% - 2 * #{$window-body-margin});
-  height: calc(100% - #{$window-height} - 3 * #{$window-body-margin});
-  margin: $window-body-margin;
+  height: calc(100% - #{$titlebar-height} - 3 * #{$body-margin});
+  margin: $body-margin;
 }
 
 .topResizer {

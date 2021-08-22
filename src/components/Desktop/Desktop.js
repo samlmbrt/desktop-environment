@@ -5,7 +5,6 @@ import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
 // todo:
-// - add min/max window sizes + ellipses
 // - add focus on click
 // - add wallpaper blur
 // - improve visuals of transparent title bar
