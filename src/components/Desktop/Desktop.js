@@ -7,7 +7,6 @@ import styles from "./Desktop.module.scss";
 // todo:
 // - add focus on click
 // - add wallpaper blur
-// - improve visuals of transparent title bar
 // - replace title bar icons with svgs
 // - prevent triggering another resizer when resizing
 

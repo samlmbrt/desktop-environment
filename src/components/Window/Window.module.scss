@@ -6,7 +6,7 @@ $titlebar-height: 30px;
   position: absolute;
   min-width: $min-width;
   min-height: calc(#{$titlebar-height} + 3 * #{$body-margin});
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(0, 183, 185, 0.3);
   backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
   border-radius: 5px;
