@@ -6,7 +6,6 @@ import styles from "./Desktop.module.scss";
 
 // todo:
 // - add focus on click
-// - add wallpaper blur
 // - replace title bar icons with svgs
 // - prevent triggering another resizer when resizing
 
@@ -126,7 +125,7 @@ export default function Deskop({ children }) {
         onMouseUp={handleDragEnd}
         onMouseMove={handleDragMove}
       >
-        <Image src={wallpaper} alt="Background wallpaper" layout="fill" objectFit="cover" />
+        <Image src={wallpaper} alt="Background wallpaper" placeholder="blur" layout="fill" objectFit="cover" />
         {children}
       </div>
     </>
