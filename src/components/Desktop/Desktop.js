@@ -5,9 +5,10 @@ import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
 // todo:
-// - add focus on click
 // - replace title bar icons with svgs
 // - prevent triggering another resizer when resizing
+// - make titlebar transparency look nicer
+// - changed unfocused window's titlebar color
 
 const isDragElement = (element) => {
   if (!element) return false;
@@ -24,6 +25,13 @@ const isDragElement = (element) => {
     classes.contains("bottomLeftResizer") ||
     classes.contains("bottomRightResizer")
   );
+};
+
+const isFocusElement = (element) => {
+  if (!element) return false;
+
+  const classes = element.classList;
+  return isDragElement(element) || classes.contains("body");
 };
 
 const getEventPosition = (event) => {
@@ -55,10 +63,14 @@ export default function Deskop({ children }) {
 
   const dragState = useRef();
 
-  const handleDragStart = (event) => {
+  const handleMouseDown = (event) => {
     event.preventDefault();
 
     const element = event.target;
+
+    if (isFocusElement(element)) {
+      handleFocusChange(event);
+    }
 
     if (isDragElement(element)) {
       const [x, y] = getEventPosition(event);
@@ -70,7 +82,19 @@ export default function Deskop({ children }) {
     }
   };
 
-  const handleDragMove = (event) => {
+  const handleFocusChange = (event) => {
+    const visibleWindows = document.getElementsByClassName("window");
+
+    for (const window of visibleWindows) {
+      const zIndex = parseInt(window.style.zIndex) || 0;
+      if (zIndex > 0) window.style.zIndex = zIndex - 1;
+    }
+
+    const targetWindow = event.target.parentNode;
+    targetWindow.style.zIndex = (visibleWindows.length - 1).toString();
+  };
+
+  const handleMouseMove = (event) => {
     event.preventDefault();
 
     const state = dragState.current;
@@ -106,7 +130,7 @@ export default function Deskop({ children }) {
     }
   };
 
-  const handleDragEnd = (event) => {
+  const handleMouseUp = (event) => {
     event.preventDefault();
 
     if (dragState.current) {
@@ -118,12 +142,12 @@ export default function Deskop({ children }) {
     <>
       <div
         className={styles.desktop}
-        onTouchStart={handleDragStart}
-        onTouchEnd={handleDragEnd}
-        onTouchMove={handleDragMove}
-        onMouseDown={handleDragStart}
-        onMouseUp={handleDragEnd}
-        onMouseMove={handleDragMove}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
       >
         <Image src={wallpaper} alt="Background wallpaper" placeholder="blur" layout="fill" objectFit="cover" />
         {children}

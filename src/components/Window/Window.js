@@ -24,7 +24,7 @@ export default function Window({ title, width, height, top, left, children, isRe
         <MaximizeIcon />
         <CloseIcon />
       </div>
-      <div className={styles.body}>{children}</div>
+      <div className={`body ${styles.body}`}>{children}</div>
     </div>
   );
 }
