@@ -4,12 +4,6 @@ import Image from "next/image";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
-// todo:
-// - replace title bar icons with svgs
-// - prevent triggering another resizer when resizing
-// - make titlebar transparency look nicer
-// - changed unfocused window's titlebar color
-
 const isDragElement = (element) => {
   if (!element) return false;
 
@@ -27,7 +21,7 @@ const isDragElement = (element) => {
   );
 };
 
-const isFocusElement = (element) => {
+const isFocusableElement = (element) => {
   if (!element) return false;
 
   const classes = element.classList;
@@ -61,15 +55,18 @@ export default function Deskop({ children }) {
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
 
-  const dragState = useRef();
+  const desktopRef = useRef(null);
+  const dragState = useRef(null);
 
   const handleMouseDown = (event) => {
     event.preventDefault();
 
     const element = event.target;
 
-    if (isFocusElement(element)) {
+    if (isFocusableElement(element)) {
       handleFocusChange(event);
+    } else {
+      desktopRef.current.focus();
     }
 
     if (isDragElement(element)) {
@@ -149,6 +146,8 @@ export default function Deskop({ children }) {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        ref={desktopRef}
+        tabIndex={-1}
       >
         <Image src={wallpaper} alt="Background wallpaper" placeholder="blur" layout="fill" objectFit="cover" />
         {children}

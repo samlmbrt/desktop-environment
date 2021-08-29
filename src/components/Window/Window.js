@@ -14,7 +14,7 @@ export default function Window({ title, width, height, top, left, children, isRe
   }, []);
 
   return (
-    <div className={`window ${styles.window}`} style={{ width, height, top, left }} ref={windowRef} tabIndex="-1">
+    <div className={`window ${styles.window}`} style={{ width, height, top, left }} ref={windowRef} tabIndex={-1}>
       {isResizable && (
         <>
           <div className={`topResizer ${styles.topResizer}`}></div>
