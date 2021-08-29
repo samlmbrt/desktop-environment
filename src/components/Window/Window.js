@@ -1,11 +1,20 @@
+import { useEffect, useRef } from "react";
+
 import CloseIcon from "../Icons/Close/CloseIcon";
 import MaximizeIcon from "../Icons/Maximize/MaximizeIcon";
 import MinimizeIcon from "../Icons/Minimize/MinimizeIcon";
+
 import styles from "./Window.module.scss";
 
 export default function Window({ title, width, height, top, left, children, isResizable = true }) {
+  const windowRef = useRef(null);
+
+  useEffect(() => {
+    windowRef.current.focus();
+  }, []);
+
   return (
-    <div className={`window ${styles.window}`} style={{ width, height, top, left }}>
+    <div className={`window ${styles.window}`} style={{ width, height, top, left }} ref={windowRef} tabIndex="-1">
       {isResizable && (
         <>
           <div className={`topResizer ${styles.topResizer}`}></div>

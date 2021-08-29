@@ -1,15 +1,22 @@
 $body-margin: 3px;
 $min-width: 200px;
 $titlebar-height: 30px;
+$titlebar-color-focused: rgba(0, 183, 185, 0.6);
+$titlebar-color-unfocused: rgba(220, 220, 220, 0.6);
 
 .window {
   position: absolute;
   min-width: $min-width;
   min-height: calc(#{$titlebar-height} + 3 * #{$body-margin});
-  background-color: rgba(0, 183, 185, 0.3);
+  background-color: $titlebar-color-unfocused;
   backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
   border-radius: 5px;
+
+  &:focus {
+    outline: none;
+    background-color: $titlebar-color-focused;
+  }
 }
 
 .titleBar {

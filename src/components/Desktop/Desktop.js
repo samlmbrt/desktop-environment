@@ -92,6 +92,7 @@ export default function Deskop({ children }) {
 
     const targetWindow = event.target.parentNode;
     targetWindow.style.zIndex = (visibleWindows.length - 1).toString();
+    targetWindow.focus();
   };
 
   const handleMouseMove = (event) => {
