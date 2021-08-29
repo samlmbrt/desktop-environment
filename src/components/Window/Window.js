@@ -10,7 +10,7 @@ export default function Window({ title, width, height, top, left, children, isRe
   const windowRef = useRef(null);
 
   useEffect(() => {
-    windowRef.current.focus();
+    windowRef.current.focus({ preventScroll: true });
   }, []);
 
   return (

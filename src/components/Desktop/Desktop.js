@@ -66,7 +66,7 @@ export default function Deskop({ children }) {
     if (isFocusableElement(element)) {
       handleFocusChange(event);
     } else {
-      desktopRef.current.focus();
+      desktopRef.current.focus({ preventScroll: true });
     }
 
     if (isDragElement(element)) {
@@ -89,7 +89,7 @@ export default function Deskop({ children }) {
 
     const targetWindow = event.target.parentNode;
     targetWindow.style.zIndex = (visibleWindows.length - 1).toString();
-    targetWindow.focus();
+    targetWindow.focus({ preventScroll: true });
   };
 
   const handleMouseMove = (event) => {
