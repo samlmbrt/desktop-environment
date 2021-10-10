@@ -4,8 +4,7 @@
   height: 18px;
   margin-left: 12px;
   cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
+  pointer-events: none;
 
   &:before {
     position: absolute;
@@ -27,9 +26,5 @@
     left: 8px;
     border-radius: 1px;
     background-color: white;
-  }
-
-  &:hover {
-    opacity: 1;
   }
 }
