@@ -1,5 +1,4 @@
 Things to do:
-- Update all NPM dependencies
 - Support theme/mode used by the OS amd/or browser (dark or light)
 - Fix focus order in overlapping windows
 - Fix window resizing from the left
