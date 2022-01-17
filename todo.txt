@@ -1,8 +1,7 @@
 Things to do:
-- Support theme/mode used by the OS amd/or browser (dark or light)
-- Fix focus order in overlapping windows
 - Fix window resizing from the left
-- Add some soft of dock
+- Support theme/mode used by the OS amd/or browser (dark or light)
+- Add some sort of dock
 - Implement support for close button
 - Implement support for maximize button
 - Implement support for minimize button

@@ -83,12 +83,11 @@ export default function Deskop({ children }) {
     const visibleWindows = document.getElementsByClassName("window");
 
     for (const window of visibleWindows) {
-      const zIndex = parseInt(window.style.zIndex) || 0;
-      if (zIndex > 0) window.style.zIndex = zIndex - 1;
+      window.style.zIndex = 0;
     }
 
     const targetWindow = event.target.parentNode;
-    targetWindow.style.zIndex = (visibleWindows.length - 1).toString();
+    targetWindow.style.zIndex = 1;
     targetWindow.focus({ preventScroll: true });
   };
 
