@@ -14,7 +14,12 @@ export default function Window({ title, width, height, top, left, children, isRe
   }, []);
 
   return (
-    <div className={`window ${styles.window}`} style={{ width, height, top, left }} ref={windowRef} tabIndex={-1}>
+    <div
+      className={`window ${styles.window}`}
+      style={{ width, height, top, left, minWidth, minHeight }}
+      ref={windowRef}
+      tabIndex={-1}
+    >
       {isResizable && (
         <>
           <div className={`topResizer ${styles.topResizer}`}></div>
@@ -27,13 +32,27 @@ export default function Window({ title, width, height, top, left, children, isRe
           <div className={`bottomRightResizer ${styles.bottomRightResizer}`}></div>
         </>
       )}
-      <div className={`titleBar ${styles.titleBar}`}>
+      <div className={`titleBar ${styles.titleBar}`} style={{ height: titleBarHeight }}>
         <div className={styles.title}>{title}</div>
         <MinimizeIcon />
         <MaximizeIcon />
         <CloseIcon />
       </div>
-      <div className={`body ${styles.body}`}>{children}</div>
+      <div
+        className={`body ${styles.body}`}
+        style={{
+          width: `calc(100% - 2 * ${bodyMargin}px)`,
+          height: `calc(100% - ${titleBarHeight}px - 3 * ${bodyMargin}px)`,
+          margin: bodyMargin,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
+
+export const titleBarHeight = 30;
+export const bodyMargin = 3;
+export const minWidth = 200;
+export const minHeight = titleBarHeight + 3 * bodyMargin;
