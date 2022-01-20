@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 
+import { minWidth, minHeight } from "/src/components/Window/Window";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
@@ -34,11 +35,11 @@ const getEventPosition = (event) => {
     : [event.clientX, event.clientY];
 };
 
-const moveElement = (element, x = 0, y = 0) => {
+const moveElement = (element, x = 0, y = 0, xLimit = Number.MAX_VALUE, yLimit = Number.MAX_VALUE) => {
   if (!element) return;
 
-  if (x) element.style.left = `${x}px`;
-  if (y) element.style.top = `${y}px`;
+  if (x && x < xLimit) element.style.left = `${x}px`;
+  if (y && y < yLimit) element.style.top = `${y}px`;
 };
 
 const resizeElement = (element, width = 0, height = 0) => {
@@ -101,6 +102,13 @@ export default function Deskop({ children }) {
     const window = element.parentNode;
     const [x, y] = getEventPosition(event);
 
+    // These values store (in pixels) how "far" it is possible to move. This
+    // is useful to prevent a window from moving when resizing to its minimal
+    // size from the left.
+
+    const xRange = state.width - x + state.x - minWidth;
+    const yRange = state.height - y + state.y - minHeight;
+
     if (element.classList.contains("titleBar")) {
       moveElement(window, state.left + x - state.x, state.top + y - state.y);
     } else if (element.classList.contains("rightResizer")) {
@@ -109,21 +117,31 @@ export default function Deskop({ children }) {
       resizeElement(window, 0, state.height + y - state.y);
     } else if (element.classList.contains("bottomRightResizer")) {
       resizeElement(window, state.width + x - state.x, state.height + y - state.y);
-    } else if (element.classList.contains("leftResizer")) {
-      moveElement(window, state.left + x - state.x, 0);
-      resizeElement(window, state.width - x + state.x, 0);
-    } else if (element.classList.contains("topResizer")) {
-      moveElement(window, 0, state.top + y - state.y);
-      resizeElement(window, 0, state.height - y + state.y);
-    } else if (element.classList.contains("topLeftResizer")) {
-      moveElement(window, state.left + x - state.x, state.top + y - state.y);
-      resizeElement(window, state.width - x + state.x, state.height - y + state.y);
     } else if (element.classList.contains("topRightResizer")) {
       moveElement(window, 0, state.top + y - state.y);
       resizeElement(window, state.width + x - state.x, state.height - y + state.y);
-    } else if (element.classList.contains("bottomLeftResizer")) {
+    } else if (element.classList.contains("leftResizer") && xRange >= 0) {
       moveElement(window, state.left + x - state.x, 0);
+      resizeElement(window, state.width - x + state.x, 0);
+    } else if (element.classList.contains("topResizer") && yRange >= 0) {
+      moveElement(window, 0, state.top + y - state.y);
+      resizeElement(window, 0, state.height - y + state.y);
+    } else if (element.classList.contains("bottomLeftResizer")) {
+      // todosam: refactor this!
+      if (xRange >= 0) {
+        moveElement(window, state.left + x - state.x, 0);
+      }
       resizeElement(window, state.width - x + state.x, state.height + y - state.y);
+    } else if (element.classList.contains("topLeftResizer")) {
+      // todosam: refactor this!
+      if (xRange >= 0) {
+        moveElement(window, state.left + x - state.x, 0);
+        resizeElement(window, state.width - x + state.x, 0);
+      }
+      if (yRange >= 0) {
+        moveElement(window, 0, state.top + y - state.y);
+        resizeElement(window, 0, state.height - y + state.y);
+      }
     }
   };
 
