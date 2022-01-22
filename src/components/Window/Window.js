@@ -6,9 +6,8 @@ import MinimizeIcon from "../Icons/Minimize/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 
-export default function Window({ title, width, height, top, left, children, isResizable = true }) {
+export default function Window({ key, title, width, height, top, left, zIndex, children, isResizable = true }) {
   const windowRef = useRef(null);
-
   useEffect(() => {
     windowRef.current.focus({ preventScroll: true });
   }, []);
@@ -16,7 +15,7 @@ export default function Window({ title, width, height, top, left, children, isRe
   return (
     <div
       className={`window ${styles.window}`}
-      style={{ width, height, top, left, minWidth, minHeight }}
+      style={{ width, height, top, left, minWidth, minHeight, zIndex }}
       ref={windowRef}
       tabIndex={-1}
     >

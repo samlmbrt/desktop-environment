@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { cloneElement, useRef } from "react";
 import Image from "next/image";
 
 import { minWidth, minHeight } from "/src/components/Window/Window";
@@ -58,6 +58,7 @@ export default function Deskop({ children }) {
 
   const desktopRef = useRef(null);
   const dragState = useRef(null);
+  let windowCount = useRef(0);
 
   const handleMouseDown = (event) => {
     event.preventDefault();
@@ -83,12 +84,17 @@ export default function Deskop({ children }) {
   const handleFocusChange = (event) => {
     const visibleWindows = document.getElementsByClassName("window");
 
+    const targetWindow = event.target.parentNode;
+    const cutoffIndex = targetWindow.style.zIndex;
+
     for (const window of visibleWindows) {
-      window.style.zIndex = 0;
+      const currentIndex = window.style.zIndex;
+      if (currentIndex > cutoffIndex) {
+        window.style.zIndex = currentIndex - 1;
+      }
     }
 
-    const targetWindow = event.target.parentNode;
-    targetWindow.style.zIndex = 1;
+    targetWindow.style.zIndex = Math.max(visibleWindows.length - 1, 0);
     targetWindow.focus({ preventScroll: true });
   };
 
@@ -166,8 +172,8 @@ export default function Deskop({ children }) {
         ref={desktopRef}
         tabIndex={-1}
       >
-        <Image src={wallpaper} alt="Background wallpaper" placeholder="blur" layout="fill" objectFit="cover" />
-        {children}
+        <Image src={wallpaper} alt="" placeholder="blur" layout="fill" objectFit="cover" />
+        {children.map((child) => cloneElement(child, { key: windowCount.current, zIndex: windowCount.current++ }))}
       </div>
     </>
   );
