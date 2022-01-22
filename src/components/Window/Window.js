@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 
-import CloseIcon from "../Icons/Close/CloseIcon";
-import MaximizeIcon from "../Icons/Maximize/MaximizeIcon";
-import MinimizeIcon from "../Icons/Minimize/MinimizeIcon";
+import CloseIcon from "/src/components/Icons/Close/CloseIcon";
+import MaximizeIcon from "/src/components/Icons/Maximize/MaximizeIcon";
+import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 

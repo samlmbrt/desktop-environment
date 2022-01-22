@@ -1,5 +1,6 @@
 Things to do:
-- Add unsupported message for mobile viewers
+- Make the blue screen look credible and badass!
+- usePreventDefault?
 - Transform Desktop.js into idiomatic React code
 - Resize to the minimum has weird glitch when making smaller from the right
 - Support theme/mode used by the OS amd/or browser (dark or light)
