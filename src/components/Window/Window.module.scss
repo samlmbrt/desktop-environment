@@ -1,5 +1,5 @@
-$titlebar-color-focused: rgba(0, 183, 185, 0.6);
-$titlebar-color-unfocused: rgba(220, 220, 220, 0.6);
+$titlebar-color-focused: hsla(180, 100%, 36%, 0.6);
+$titlebar-color-unfocused: hsla(0, 0%, 86%, 0.6);
 
 .window {
   position: absolute;
