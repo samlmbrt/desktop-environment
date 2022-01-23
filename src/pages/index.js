@@ -3,9 +3,12 @@ import Window from "/src/components/Window/Window";
 import BlueScreen from "/src/components/BlueScreen/BlueScreen";
 
 export default function Index() {
-  const isMobile = false;
+  const isMobile = true;
   return isMobile ? (
-    <BlueScreen message="This application is not yet available for mobile users." />
+    <BlueScreen
+      errorCode="0x1A (INVALID_SCREEN_SIZE)"
+      cause="The system requires a screen resolution of at least 800x600. Current resolution is 640x480."
+    />
   ) : (
     <Desktop>
       <Window title="Window 1" width={640} height={480} top={10} left={10} />
