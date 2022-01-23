@@ -1,8 +1,12 @@
 import Desktop from "/src/components/Desktop/Desktop";
 import Window from "/src/components/Window/Window";
 import BlueScreen from "/src/components/BlueScreen/BlueScreen";
+import useViewport from "/src/hooks/useViewport";
 
 export default function Index() {
+  const { width, height } = useViewport();
+
+  console.log(width, height);
   const isMobile = true;
   return isMobile ? (
     <BlueScreen
