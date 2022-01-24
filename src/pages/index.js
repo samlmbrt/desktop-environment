@@ -1,19 +1,11 @@
-import Desktop from "/src/components/Desktop/Desktop";
+import dynamic from "next/dynamic";
 import Window from "/src/components/Window/Window";
-import BlueScreen from "/src/components/BlueScreen/BlueScreen";
-import useViewport from "/src/hooks/useViewport";
+
+// Disabling server-side rendering so we can retrieve the screen resolution on first render.
+const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
 
 export default function Index() {
-  const { width, height } = useViewport();
-
-  console.log(width, height);
-  const isMobile = true;
-  return isMobile ? (
-    <BlueScreen
-      errorCode="0x1A (INVALID_SCREEN_SIZE)"
-      cause="The system requires a screen resolution of at least 800x600. Current resolution is 640x480."
-    />
-  ) : (
+  return (
     <Desktop>
       <Window title="Window 1" width={640} height={480} top={10} left={10} />
       <Window title="Window 2" width={640} height={480} top={110} left={110} />

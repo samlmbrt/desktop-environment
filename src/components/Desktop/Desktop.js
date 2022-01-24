@@ -2,6 +2,8 @@ import { cloneElement, useRef } from "react";
 import Image from "next/image";
 
 import { minWidth, minHeight } from "/src/components/Window/Window";
+import BlueScreen from "/src/components/BlueScreen/BlueScreen";
+import useViewport from "/src/hooks/useViewport";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";
 
@@ -56,6 +58,7 @@ export default function Deskop({ children }) {
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
 
+  const { width, height } = useViewport();
   const desktopRef = useRef(null);
   const dragState = useRef(null);
   let windowCount = useRef(0);
@@ -159,7 +162,7 @@ export default function Deskop({ children }) {
     }
   };
 
-  return (
+  return width >= requiredViewportWidth && height >= requiredViewportHeight ? (
     <>
       <div
         className={styles.desktop}
@@ -176,5 +179,13 @@ export default function Deskop({ children }) {
         {children.map((child) => cloneElement(child, { key: windowCount.current, zIndex: windowCount.current++ }))}
       </div>
     </>
+  ) : (
+    <BlueScreen
+      errorCode={"0x1A (INVALID_SCREEN_SIZE)"}
+      cause={`The system requires a screen resolution of at least ${requiredViewportWidth}x${requiredViewportHeight}. Current resolution is ${width}x${height}.`}
+    />
   );
 }
+
+export const requiredViewportWidth = 800;
+export const requiredViewportHeight = 600;
