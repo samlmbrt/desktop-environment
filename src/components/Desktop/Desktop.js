@@ -1,7 +1,7 @@
 import { cloneElement, useRef } from "react";
 import Image from "next/image";
 
-import { minWidth, minHeight } from "/src/components/Window/Window";
+import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
 import BlueScreen from "/src/components/BlueScreen/BlueScreen";
 import useViewport from "/src/hooks/useViewport";
 import wallpaper from "/public/wallpaper.png";
@@ -37,11 +37,11 @@ const getEventPosition = (event) => {
     : [event.clientX, event.clientY];
 };
 
-const moveElement = (element, x = 0, y = 0, xLimit = Number.MAX_VALUE, yLimit = Number.MAX_VALUE) => {
+const moveElement = (element, x = 0, y = 0) => {
   if (!element) return;
 
-  if (x && x < xLimit) element.style.left = `${x}px`;
-  if (y && y < yLimit) element.style.top = `${y}px`;
+  if (x) element.style.left = `${x}px`;
+  if (y) element.style.top = `${y}px`;
 };
 
 const resizeElement = (element, width = 0, height = 0) => {
@@ -129,12 +129,12 @@ export default function Deskop({ children }) {
     } else if (element.classList.contains("topRightResizer")) {
       moveElement(window, 0, state.top + y - state.y);
       resizeElement(window, state.width + x - state.x, state.height - y + state.y);
-    } else if (element.classList.contains("leftResizer") && xRange >= 0) {
-      moveElement(window, state.left + x - state.x, 0);
-      resizeElement(window, state.width - x + state.x, 0);
-    } else if (element.classList.contains("topResizer") && yRange >= 0) {
-      moveElement(window, 0, state.top + y - state.y);
-      resizeElement(window, 0, state.height - y + state.y);
+    } else if (element.classList.contains("leftResizer")) {
+      moveElement(window, Math.min(state.left + x - state.x, state.left + state.width - minWidth), 0);
+      resizeElement(window, Math.max(state.width - x + state.x, minWidth), 0);
+    } else if (element.classList.contains("topResizer")) {
+      moveElement(window, 0, Math.min(state.top + y - state.y, state.top + state.height - minHeight - bodyMargin - 1));
+      resizeElement(window, 0, Math.max(state.height - y + state.y, minHeight));
     } else if (element.classList.contains("bottomLeftResizer")) {
       // todosam: refactor this!
       if (xRange >= 0) {
