@@ -111,13 +111,6 @@ export default function Deskop({ children }) {
     const window = element.parentNode;
     const [x, y] = getEventPosition(event);
 
-    // These values store (in pixels) how "far" it is possible to move. This
-    // is useful to prevent a window from moving when resizing to its minimal
-    // size from the left.
-
-    const xRange = state.width - x + state.x - minWidth;
-    const yRange = state.height - y + state.y - minHeight;
-
     if (element.classList.contains("titleBar")) {
       moveElement(window, state.left + x - state.x, state.top + y - state.y);
     } else if (element.classList.contains("rightResizer")) {
@@ -136,21 +129,19 @@ export default function Deskop({ children }) {
       moveElement(window, 0, Math.min(state.top + y - state.y, state.top + state.height - minHeight - bodyMargin - 1));
       resizeElement(window, 0, Math.max(state.height - y + state.y, minHeight));
     } else if (element.classList.contains("bottomLeftResizer")) {
-      // todosam: refactor this!
-      if (xRange >= 0) {
-        moveElement(window, state.left + x - state.x, 0);
-      }
-      resizeElement(window, state.width - x + state.x, state.height + y - state.y);
+      moveElement(window, Math.min(state.left + x - state.x, state.left + state.width - minWidth), 0);
+      resizeElement(window, Math.max(state.width - x + state.x, minWidth), state.height + y - state.y);
     } else if (element.classList.contains("topLeftResizer")) {
-      // todosam: refactor this!
-      if (xRange >= 0) {
-        moveElement(window, state.left + x - state.x, 0);
-        resizeElement(window, state.width - x + state.x, 0);
-      }
-      if (yRange >= 0) {
-        moveElement(window, 0, state.top + y - state.y);
-        resizeElement(window, 0, state.height - y + state.y);
-      }
+      moveElement(
+        window,
+        Math.min(state.left + x - state.x, state.left + state.width - minWidth),
+        Math.min(state.top + y - state.y, state.top + state.height - minHeight - bodyMargin - 1)
+      );
+      resizeElement(
+        window,
+        Math.max(state.width - x + state.x, minWidth),
+        Math.max(state.height - y + state.y, minHeight)
+      );
     }
   };
 

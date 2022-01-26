@@ -7,9 +7,9 @@ const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: 
 export default function Index() {
   return (
     <Desktop>
-      <Window title="Window 1" width={640} height={480} top={10} left={10} />
-      <Window title="Window 2" width={640} height={480} top={110} left={110} />
-      <Window title="Window 3" width={640} height={480} top={210} left={210} />
+      <Window title="Text Editor" width={640} height={480} top={10} left={10} />
+      <Window title="Browser" width={640} height={480} top={110} left={110} />
+      <Window title="Calculator" width={640} height={480} top={210} left={210} />
     </Desktop>
   );
 }
