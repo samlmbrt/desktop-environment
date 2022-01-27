@@ -1,7 +1,5 @@
 Things to do:
-- Refactor clusterfuck move handler in Desktop.js
 - usePreventDefault?
-- Support touch
 - Transform Desktop.js into idiomatic React code
 - Support theme/mode used by the OS amd/or browser (dark or light)
 - tabIndex?

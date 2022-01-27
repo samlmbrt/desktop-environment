@@ -32,7 +32,7 @@ const isFocusableElement = (element) => {
 };
 
 const getEventPosition = (event) => {
-  return event.type === "touchmove"
+  return event.type.startsWith("touch")
     ? [event.touches[0].clientX, event.touches[0].clientY]
     : [event.clientX, event.clientY];
 };
