@@ -1,8 +1,7 @@
 Things to do:
-- usePreventDefault?
 - Transform Desktop.js into idiomatic React code
-- Support theme/mode used by the OS amd/or browser (dark or light)
 - tabIndex?
+- Support theme/mode used by the OS amd/or browser (dark or light)
 - Add some sort of dock
 - Implement support for close button
 - Implement support for maximize button
