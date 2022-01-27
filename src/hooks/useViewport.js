@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
-export default function useViewport() {
+const useViewport = () => {
   const [width, setWidth] = useState(typeof window !== "undefined" ? window.innerWidth : null);
   const [height, setHeight] = useState(typeof window !== "undefined" ? window.innerHeight : null);
 
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
-    }
+    };
 
     window.addEventListener("resize", handleResize);
 
@@ -18,4 +18,6 @@ export default function useViewport() {
   }, []);
 
   return { width, height };
-}
+};
+
+export default useViewport;

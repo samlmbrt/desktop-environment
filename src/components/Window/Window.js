@@ -6,7 +6,7 @@ import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 
-export default function Window({ key, title, width, height, top, left, zIndex, children, isResizable = true }) {
+const Window = ({ key, title, width, height, top, left, zIndex, children, isResizable = true }) => {
   const windowRef = useRef(null);
   useEffect(() => {
     windowRef.current.focus({ preventScroll: true });
@@ -49,8 +49,9 @@ export default function Window({ key, title, width, height, top, left, zIndex, c
       </div>
     </div>
   );
-}
+};
 
+export default Window;
 export const titleBarHeight = 30;
 export const bodyMargin = 3;
 export const minWidth = 200;

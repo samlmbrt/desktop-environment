@@ -1,5 +1,7 @@
 import styles from "./MinimizeIcon.module.scss";
 
-export default function MinimizeIcon() {
+const MinimizeIcon = () => {
   return <div className={styles.minimizeIcon}></div>;
-}
+};
+
+export default MinimizeIcon;

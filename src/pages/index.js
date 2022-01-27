@@ -4,7 +4,7 @@ import Window from "/src/components/Window/Window";
 // Disabling server-side rendering so we can retrieve the screen resolution on first render.
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
 
-export default function Index() {
+const Index = () => {
   return (
     <Desktop>
       <Window title="Text Editor" width={640} height={480} top={10} left={10} />
@@ -12,4 +12,6 @@ export default function Index() {
       <Window title="Calculator" width={640} height={480} top={210} left={210} />
     </Desktop>
   );
-}
+};
+
+export default Index;

@@ -51,7 +51,7 @@ const resizeElement = (element, width = 0, height = 0) => {
   if (height) element.style.height = `${height}px`;
 };
 
-export default function Deskop({ children }) {
+const Desktop = ({ children }) => {
   // We manage the drag events for Window components here since 'mousemove'
   // events are not triggered for every pixel when moving the mouse around.
   // This means a drag could stop prematurely if the user moves the mouse
@@ -176,7 +176,8 @@ export default function Deskop({ children }) {
       cause={`The system requires a screen resolution of at least ${requiredViewportWidth}x${requiredViewportHeight}. Current resolution is ${width}x${height}.`}
     />
   );
-}
+};
 
+export default Desktop;
 export const requiredViewportWidth = 800;
 export const requiredViewportHeight = 600;

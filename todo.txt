@@ -1,4 +1,5 @@
 Things to do:
+- Refactor clusterfuck move handler in Desktop.js
 - Use uniform syntax for functions throughout the codebase
 - usePreventDefault?
 - Support touch

@@ -1,6 +1,6 @@
 import styles from "./BlueScreen.module.scss";
 
-export default function BlueScreen({ errorCode = "Unknown", cause = "Unknown" }) {
+const BlueScreen = ({ errorCode = "Unknown", cause = "Unknown" }) => {
   return (
     <div className={styles.blueScreen}>
       <div className={styles.title}>SYSTEM FAILURE</div>
@@ -21,4 +21,6 @@ export default function BlueScreen({ errorCode = "Unknown", cause = "Unknown" })
       </div>
     </div>
   );
-}
+};
+
+export default BlueScreen;

@@ -1,5 +1,7 @@
 import styles from "./MaximizeIcon.module.scss";
 
-export default function MaximizeIcon() {
+const MaximizeIcon = () => {
   return <div className={styles.maximizeIcon}></div>;
-}
+};
+
+export default MaximizeIcon;
