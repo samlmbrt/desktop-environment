@@ -52,7 +52,7 @@ const resizeElement = (element, width = 0, height = 0) => {
 };
 
 const Desktop = ({ children }) => {
-  // We manage the drag events for Window components here since 'mousemove'
+  // We manage the drag events ˇˇˇˇˇor Window components here since 'mousemove'
   // events are not triggered for every pixel when moving the mouse around.
   // This means a drag could stop prematurely if the user moves the mouse
   // too fast. By setting the event handlers on the Desktop component, we
@@ -111,37 +111,39 @@ const Desktop = ({ children }) => {
     const window = element.parentNode;
     const [x, y] = getEventPosition(event);
 
+    // Various calculations for next window position and size.
+    const xResizeDelta = state.width + x - state.x;
+    const yResizeDelta = state.height + y - state.y;
+    const xResizeOffset = state.width - x + state.x;
+    const yResizeOffset = state.height - y + state.y;
+    const xMoveDelta = state.left + x - state.x;
+    const yMoveDelta = state.top + y - state.y;
+    const xMoveLimit = state.left + state.width - minWidth;
+    const yMoveLimit = state.top + state.height - minHeight - bodyMargin - 1;
+
     if (element.classList.contains("titleBar")) {
-      moveElement(window, state.left + x - state.x, state.top + y - state.y);
+      moveElement(window, xMoveDelta, yMoveDelta);
     } else if (element.classList.contains("rightResizer")) {
-      resizeElement(window, state.width + x - state.x, 0);
+      resizeElement(window, xResizeDelta, 0);
     } else if (element.classList.contains("bottomResizer")) {
-      resizeElement(window, 0, state.height + y - state.y);
+      resizeElement(window, 0, yResizeDelta);
     } else if (element.classList.contains("bottomRightResizer")) {
-      resizeElement(window, state.width + x - state.x, state.height + y - state.y);
+      resizeElement(window, xResizeDelta, yResizeDelta);
     } else if (element.classList.contains("topRightResizer")) {
-      moveElement(window, 0, state.top + y - state.y);
-      resizeElement(window, state.width + x - state.x, state.height - y + state.y);
+      moveElement(window, 0, yMoveDelta);
+      resizeElement(window, xResizeDelta, yResizeOffset);
     } else if (element.classList.contains("leftResizer")) {
-      moveElement(window, Math.min(state.left + x - state.x, state.left + state.width - minWidth), 0);
-      resizeElement(window, Math.max(state.width - x + state.x, minWidth), 0);
+      moveElement(window, Math.min(xMoveDelta, xMoveLimit), 0);
+      resizeElement(window, Math.max(xResizeOffset, minWidth), 0);
     } else if (element.classList.contains("topResizer")) {
-      moveElement(window, 0, Math.min(state.top + y - state.y, state.top + state.height - minHeight - bodyMargin - 1));
-      resizeElement(window, 0, Math.max(state.height - y + state.y, minHeight));
+      moveElement(window, 0, Math.min(yMoveDelta, yMoveLimit));
+      resizeElement(window, 0, Math.max(yResizeOffset, minHeight));
     } else if (element.classList.contains("bottomLeftResizer")) {
-      moveElement(window, Math.min(state.left + x - state.x, state.left + state.width - minWidth), 0);
-      resizeElement(window, Math.max(state.width - x + state.x, minWidth), state.height + y - state.y);
+      moveElement(window, Math.min(xMoveDelta, xMoveLimit), 0);
+      resizeElement(window, Math.max(xResizeOffset, minWidth), yResizeDelta);
     } else if (element.classList.contains("topLeftResizer")) {
-      moveElement(
-        window,
-        Math.min(state.left + x - state.x, state.left + state.width - minWidth),
-        Math.min(state.top + y - state.y, state.top + state.height - minHeight - bodyMargin - 1)
-      );
-      resizeElement(
-        window,
-        Math.max(state.width - x + state.x, minWidth),
-        Math.max(state.height - y + state.y, minHeight)
-      );
+      moveElement(window, Math.min(xMoveDelta, xMoveLimit), Math.min(yMoveDelta, yMoveLimit));
+      resizeElement(window, Math.max(xResizeOffset, minWidth), Math.max(yResizeOffset, minHeight));
     }
   };
 

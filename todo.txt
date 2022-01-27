@@ -1,6 +1,5 @@
 Things to do:
 - Refactor clusterfuck move handler in Desktop.js
-- Use uniform syntax for functions throughout the codebase
 - usePreventDefault?
 - Support touch
 - Transform Desktop.js into idiomatic React code
@@ -13,5 +12,3 @@ Things to do:
 - Make text editor
 - Make browser
 - Make calculator
-- React strict mode?
-- Add a sticky thing that snaps once window is almost at minimum
