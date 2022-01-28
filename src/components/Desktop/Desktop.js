@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 
 import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
@@ -62,13 +62,8 @@ const Desktop = ({ children }) => {
   const desktopRef = useRef(null);
   const dragState = useRef(null);
 
-  useEffect(() => {
-    // Adjusting the initial z-index of the windows.
-    let windowIndex = 0;
-    children.map((child) => cloneElement(child, { key: windowIndex, zIndex: windowIndex++ }));
-  }, [children]);
-
   const handleFocusChange = (event) => {
+    // Fixme: use idiomatic React code instead of using the DOM API.
     const visibleWindows = document.getElementsByClassName("window");
 
     const targetWindow = event.target.parentNode;

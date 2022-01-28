@@ -1,11 +1,11 @@
 Things to do:
-- Transform Desktop.js into idiomatic React code
 - tabIndex?
 - Support theme/mode used by the OS amd/or browser (dark or light)
+- Make text editor
+- Make browser
+- Make calculator
+- Find upcoming applications icons as SVG
 - Add some sort of dock
 - Implement support for close button
 - Implement support for maximize button
 - Implement support for minimize button
-- Make text editor
-- Make browser
-- Make calculator
