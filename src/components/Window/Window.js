@@ -6,7 +6,7 @@ import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 
-const Window = ({ key, title, width, height, top, left, zIndex, children, isResizable = true }) => {
+const Window = ({ title, width, height, top, left, zIndex, children, isResizable = true }) => {
   const windowRef = useRef(null);
   useEffect(() => {
     windowRef.current.focus({ preventScroll: true });

@@ -1,4 +1,4 @@
-import { cloneElement, useRef } from "react";
+import { cloneElement, useEffect, useRef } from "react";
 import Image from "next/image";
 
 import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
@@ -61,7 +61,12 @@ const Desktop = ({ children }) => {
   const { width, height } = useViewport();
   const desktopRef = useRef(null);
   const dragState = useRef(null);
-  let windowCount = useRef(0);
+
+  useEffect(() => {
+    // Adjusting the initial z-index of the windows.
+    let windowIndex = 0;
+    children.map((child) => cloneElement(child, { key: windowIndex, zIndex: windowIndex++ }));
+  }, [children]);
 
   const handleFocusChange = (event) => {
     const visibleWindows = document.getElementsByClassName("window");
@@ -181,7 +186,7 @@ const Desktop = ({ children }) => {
         tabIndex={-1}
       >
         <Image src={wallpaper} alt="" placeholder="blur" layout="fill" objectFit="cover" />
-        {children.map((child) => cloneElement(child, { key: windowCount.current, zIndex: windowCount.current++ }))}
+        {children}
       </div>
     </>
   ) : (
