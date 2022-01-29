@@ -1,6 +1,7 @@
 Things to do:
 - Use the closest API
 - tabIndex?
+- Double click on title bar maximize
 - Make calculator
 - Make browser
 - Support theme/mode used by the OS amd/or browser (dark or light)
