@@ -6,6 +6,5 @@ Things to do:
 - Make calculator
 - Find upcoming applications icons as SVG
 - Add some sort of dock
-- Implement support for close button
 - Implement support for maximize button
 - Implement support for minimize button

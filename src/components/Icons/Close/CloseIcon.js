@@ -1,7 +1,7 @@
 import styles from "./CloseIcon.module.scss";
 
-const CloseIcon = () => {
-  return <div className={styles.closeIcon}></div>;
+const CloseIcon = ({ callback }) => {
+  return <div className={styles.closeIcon} onClick={callback}></div>;
 };
 
 export default CloseIcon;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import CloseIcon from "/src/components/Icons/Close/CloseIcon";
 import MaximizeIcon from "/src/components/Icons/Maximize/MaximizeIcon";
@@ -7,6 +7,7 @@ import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
 import styles from "./Window.module.scss";
 
 const Window = ({ title, width, height, top, left, zIndex, children, isResizable = true }) => {
+  const [isVisible, setIsVisible] = useState(true);
   const windowRef = useRef(null);
   useEffect(() => {
     windowRef.current.focus({ preventScroll: true });
@@ -15,7 +16,7 @@ const Window = ({ title, width, height, top, left, zIndex, children, isResizable
   return (
     <div
       className={`window ${styles.window}`}
-      style={{ width, height, top, left, minWidth, minHeight, zIndex }}
+      style={{ width, height, top, left, minWidth, minHeight, zIndex, visibility: isVisible ? "visible" : "hidden" }}
       ref={windowRef}
       tabIndex={-1}
     >
@@ -35,7 +36,11 @@ const Window = ({ title, width, height, top, left, zIndex, children, isResizable
         <div className={styles.title}>{title}</div>
         <MinimizeIcon />
         <MaximizeIcon />
-        <CloseIcon />
+        <CloseIcon
+          callback={() => {
+            setIsVisible(false);
+          }}
+        />
       </div>
       <div
         className={`body ${styles.body}`}
