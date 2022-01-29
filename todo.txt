@@ -1,6 +1,5 @@
 Things to do:
 - Allow context menu in Text editor
-- Fix textarea glitch when minimized
 - Use the closest API
 - Remove export default for components
 - tabIndex?
@@ -11,3 +10,4 @@ Things to do:
 - Add some sort of dock
 - Implement support for maximize button
 - Implement support for minimize button
+- Optimize by limiting reflows etc

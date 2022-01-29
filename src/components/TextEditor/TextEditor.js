@@ -14,7 +14,7 @@ const TextEditor = (props) => {
         textAreaRef.current.focus();
       }}
     >
-      <textarea className={styles.textArea} wrap="off" ref={textAreaRef}></textarea>
+      <div className={styles.textArea} contentEditable="true" ref={textAreaRef} />
     </Window>
   );
 };
