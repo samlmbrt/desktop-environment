@@ -6,19 +6,28 @@ import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 
-const Window = ({ title, width, height, top, left, zIndex, children, isResizable = true }) => {
+const Window = ({ title, width, height, top, left, zIndex, focusCallback, children, isResizable = true }) => {
+  const [isFocused, setIsFocused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const windowRef = useRef(null);
+
   useEffect(() => {
-    windowRef.current.focus({ preventScroll: true });
-  }, []);
+    typeof focusCallback === "function" && focusCallback();
+  }, [focusCallback]);
 
   return (
     <div
-      className={`window ${styles.window}`}
+      className={`window ${styles.window} ${isFocused && styles.focused}`}
       style={{ width, height, top, left, minWidth, minHeight, zIndex, visibility: isVisible ? "visible" : "hidden" }}
       ref={windowRef}
       tabIndex={-1}
+      onFocus={() => {
+        typeof focusCallback === "function" && focusCallback();
+        setIsFocused(true);
+      }}
+      onBlur={() => {
+        setIsFocused(false);
+      }}
     >
       {isResizable && (
         <>

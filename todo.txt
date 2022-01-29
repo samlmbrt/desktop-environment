@@ -1,7 +1,10 @@
 Things to do:
+- Allow context menu in Text editor
+- Fix textarea glitch when minimized
+- Use the closest API
+- Remove export default for components
 - tabIndex?
 - Support theme/mode used by the OS amd/or browser (dark or light)
-- Make text editor
 - Make browser
 - Make calculator
 - Find upcoming applications icons as SVG

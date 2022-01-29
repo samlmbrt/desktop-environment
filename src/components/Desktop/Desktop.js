@@ -27,8 +27,7 @@ const isDragElement = (element) => {
 const isFocusableElement = (element) => {
   if (!element) return false;
 
-  const classes = element.classList;
-  return isDragElement(element) || classes.contains("body");
+  return isDragElement(element) || element.closest(".body");
 };
 
 const getEventPosition = (event) => {
@@ -62,11 +61,11 @@ const Desktop = ({ children }) => {
   const desktopRef = useRef(null);
   const dragState = useRef(null);
 
-  const handleFocusChange = (event) => {
+  const handleFocusChange = (element) => {
     // Fixme: use idiomatic React code instead of using the DOM API.
     const visibleWindows = document.getElementsByClassName("window");
 
-    const targetWindow = event.target.parentNode;
+    const targetWindow = element.closest(".window");
     const cutoffIndex = targetWindow.style.zIndex;
 
     for (const window of visibleWindows) {
@@ -86,7 +85,7 @@ const Desktop = ({ children }) => {
     const element = event.target;
 
     if (isFocusableElement(element)) {
-      handleFocusChange(event);
+      handleFocusChange(element);
     } else {
       desktopRef.current.focus({ preventScroll: true });
     }
