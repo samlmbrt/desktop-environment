@@ -79,9 +79,7 @@ const Desktop = ({ children }) => {
     targetWindow.focus({ preventScroll: true });
   };
 
-  const handleMouseDown = (event, preventDefault = true) => {
-    if (preventDefault) event.preventDefault();
-
+  const handleMouseDown = (event) => {
     const element = event.target;
 
     if (isFocusableElement(element)) {
@@ -100,9 +98,7 @@ const Desktop = ({ children }) => {
     }
   };
 
-  const handleMouseMove = (event, preventDefault = true) => {
-    if (preventDefault) event.preventDefault();
-
+  const handleMouseMove = (event) => {
     const state = dragState.current;
     if (!state) return;
 
@@ -146,33 +142,19 @@ const Desktop = ({ children }) => {
     }
   };
 
-  const handleMouseUp = (event, preventDefault = true) => {
-    if (preventDefault) event.preventDefault();
-
+  const handleMouseUp = () => {
     if (dragState.current) {
       dragState.current = null;
     }
-  };
-
-  const handleTouchStart = (event) => {
-    handleMouseDown(event, false);
-  };
-
-  const handleTouchMove = (event) => {
-    handleMouseMove(event, false);
-  };
-
-  const handleTouchEnd = (event) => {
-    handleMouseUp(event, false);
   };
 
   return width >= requiredViewportWidth && height >= requiredViewportHeight ? (
     <>
       <div
         className={styles.desktop}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

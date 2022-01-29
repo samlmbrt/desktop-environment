@@ -1,11 +1,9 @@
 Things to do:
-- Allow context menu in Text editor
 - Use the closest API
-- Remove export default for components
 - tabIndex?
-- Support theme/mode used by the OS amd/or browser (dark or light)
-- Make browser
 - Make calculator
+- Make browser
+- Support theme/mode used by the OS amd/or browser (dark or light)
 - Find upcoming applications icons as SVG
 - Add some sort of dock
 - Implement support for maximize button
