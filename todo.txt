@@ -1,12 +1,11 @@
 Things to do:
-- Use the closest API
 - tabIndex?
+- Implement support for maximize button
 - Double click on title bar maximize
+- Implement support for minimize button
+- Support theme/mode used by the OS amd/or browser (dark or light)
 - Make calculator
 - Make browser
-- Support theme/mode used by the OS amd/or browser (dark or light)
-- Find upcoming applications icons as SVG
 - Add some sort of dock
-- Implement support for maximize button
-- Implement support for minimize button
 - Optimize by limiting reflows etc
+- Metadata (title, favicon, sharing images)
