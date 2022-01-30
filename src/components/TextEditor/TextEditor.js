@@ -14,7 +14,7 @@ const TextEditor = (props) => {
         textAreaRef.current.focus();
       }}
     >
-      <div className={styles.textArea} contentEditable="true" ref={textAreaRef} />
+      <div className={styles.textArea} contentEditable="true" ref={textAreaRef} tabIndex={-1} />
     </Window>
   );
 };

@@ -1,5 +1,4 @@
 Things to do:
-- tabIndex?
 - Implement support for maximize button
 - Double click on title bar maximize
 - Implement support for minimize button
