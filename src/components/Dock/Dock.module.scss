@@ -1,0 +1,15 @@
+.dock {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  bottom: 10px;
+  left: 50%;
+  padding: 0 10px;
+  border-radius: 10px;
+  transform: translateX(-50%);
+  background-color: hsla(0, 0%, 86%, 0.1);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
+  z-index: 100;
+}

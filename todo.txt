@@ -1,10 +1,12 @@
 Things to do:
 - Implement support for maximize button
-- Double click on title bar maximize
+- Double click on title bar maximize/restore
 - Implement support for minimize button
 - Support theme/mode used by the OS amd/or browser (dark or light)
 - Make calculator
 - Make browser
-- Add some sort of dock
+- Centralize theme
+- Dock tooltips with app name
+- Restructure code directory
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
