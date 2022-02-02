@@ -9,4 +9,4 @@ Things to do:
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
-- Animate dock icon on press
+- Use pointer events in Desktop

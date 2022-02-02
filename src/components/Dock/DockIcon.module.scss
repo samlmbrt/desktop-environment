@@ -15,6 +15,10 @@
   opacity: 1;
 }
 
+.pressed {
+  mix-blend-mode: difference;
+}
+
 .dockIcon {
   position: relative;
   display: flex;

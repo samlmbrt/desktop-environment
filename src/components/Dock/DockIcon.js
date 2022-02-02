@@ -5,21 +5,38 @@ import styles from "./DockIcon.module.scss";
 
 const DockIcon = ({ icon, alt, tooltip }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handlePointerEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handlePointerLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handlePointerDown = () => {
+    setIsPressed(true);
+  };
+
+  const handlePointerUp = () => {
+    setIsPressed(false);
+  };
+
   return (
     <div className={styles.dockIcon}>
       <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
       <Image
+        className={`${isPressed && styles.pressed}`}
         src={icon}
         alt={alt}
         placeholder="blur"
         width={64}
         height={64}
-        onMouseEnter={() => {
-          setIsHovered(true);
-        }}
-        onMouseLeave={() => {
-          setIsHovered(false);
-        }}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
       />
       <div className={styles.dot} />
     </div>
