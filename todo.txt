@@ -1,5 +1,4 @@
 Things to do:
-- Fix strange alpha for tooltip arrow
 - Implement support for maximize button
 - Double click on title bar maximize/restore
 - Implement support for minimize button
@@ -7,6 +6,7 @@ Things to do:
 - Make calculator
 - Make browser
 - Centralize theme
-- Restructure code directory
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
+- Create README
+- Animate dock icon on press

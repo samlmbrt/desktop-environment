@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Image from "next/image";
 
 import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
-import BlueScreen from "/src/components/BlueScreen/BlueScreen";
+import BlueScreen from "/src/components/Desktop/BlueScreen";
 import useViewport from "/src/hooks/useViewport";
 import wallpaper from "/public/wallpaper.png";
 import styles from "./Desktop.module.scss";

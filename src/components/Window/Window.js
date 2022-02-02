@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
-import CloseIcon from "/src/components/Icons/Close/CloseIcon";
-import MaximizeIcon from "/src/components/Icons/Maximize/MaximizeIcon";
-import MinimizeIcon from "/src/components/Icons/Minimize/MinimizeIcon";
+import CloseIcon from "/src/components/Window/CloseIcon";
+import MaximizeIcon from "/src/components/Window/MaximizeIcon";
+import MinimizeIcon from "/src/components/Window/MinimizeIcon";
 
 import styles from "./Window.module.scss";
 
 const Window = ({ title, width, height, top, left, zIndex, focusCallback, children, isResizable = true }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(false);
   const windowRef = useRef(null);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
 
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused}`}
+      className={`window ${styles.window} ${isFocused && styles.focused} ${isMaximized && styles.maximized}`}
       style={{ width, height, top, left, minWidth, minHeight, zIndex, visibility: isVisible ? "visible" : "hidden" }}
       ref={windowRef}
       tabIndex={-1}
@@ -43,8 +44,18 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
       )}
       <div className={`titleBar ${styles.titleBar}`} style={{ height: titleBarHeight }}>
         <div className={styles.title}>{title}</div>
-        <MinimizeIcon />
-        <MaximizeIcon />
+        <MinimizeIcon
+          callback={() => {
+            // temporaryto
+            setIsMaximized(false);
+          }}
+        />
+        <MaximizeIcon
+          callback={() => {
+            console.log("!!!");
+            setIsMaximized(true);
+          }}
+        />
         <CloseIcon
           callback={() => {
             setIsVisible(false);

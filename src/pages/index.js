@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 
 import Dock from "/src/components/Dock/Dock";
-import DockIcon from "/src/components/DockIcon/DockIcon";
-import TextEditor from "/src/components/TextEditor/TextEditor";
+import DockIcon from "/src/components/Dock/DockIcon";
+import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
 import Window from "/src/components/Window/Window";
 
 import browserIcon from "/public/icons/browser.png";
