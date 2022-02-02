@@ -9,18 +9,6 @@
   white-space: nowrap;
   box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.6);
   transition: opacity 0.2s ease-in;
-
-  &::after {
-    content: "";
-    position: absolute;
-    background-color: hsla(187, 0%, 11%, 0.9);
-    width: 8px;
-    height: 8px;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.6);
-  }
 }
 
 .hovered {
