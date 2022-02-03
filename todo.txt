@@ -5,7 +5,9 @@ Things to do:
 - Support theme/mode used by the OS amd/or browser (dark or light)
 - Make calculator
 - Make browser
-- Centralize theme
+- Centralize themes with dark and light
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
+- Improve window buttons
+- Create useToggle custom hook and use it for dark mode
