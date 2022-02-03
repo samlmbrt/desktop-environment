@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 
 import Dock from "/src/components/Dock/Dock";
 import DockIcon from "/src/components/Dock/DockIcon";
+import Separator from "/src/components/Dock/Separator";
 import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
 import Window from "/src/components/Window/Window";
 
@@ -22,6 +23,7 @@ const Index = () => {
         <DockIcon icon={browserIcon} alt="Icon for browser" tooltip="Browser" />
         <DockIcon icon={calculatorIcon} alt="Icon for calculator" tooltip="Calculator" />
         <DockIcon icon={textEditorIcon} alt="Icon for text editor" tooltip="Text Editor" />
+        <Separator />
       </Dock>
     </Desktop>
   );
