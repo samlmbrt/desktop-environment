@@ -9,4 +9,3 @@ Things to do:
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
-- Use pointer events in Desktop

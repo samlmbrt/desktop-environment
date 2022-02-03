@@ -79,7 +79,7 @@ const Desktop = ({ children }) => {
     targetWindow.focus({ preventScroll: true });
   };
 
-  const handleMouseDown = (event) => {
+  const handlePointerDown = (event) => {
     const element = event.target;
 
     if (isFocusableElement(element)) {
@@ -98,7 +98,7 @@ const Desktop = ({ children }) => {
     }
   };
 
-  const handleMouseMove = (event) => {
+  const handlePointerMove = (event) => {
     const state = dragState.current;
     if (!state) return;
 
@@ -142,7 +142,7 @@ const Desktop = ({ children }) => {
     }
   };
 
-  const handleMouseUp = () => {
+  const handlePointerUp = () => {
     if (dragState.current) {
       dragState.current = null;
     }
@@ -152,12 +152,12 @@ const Desktop = ({ children }) => {
     <>
       <div
         className={styles.desktop}
-        onTouchStart={handleMouseDown}
-        onTouchEnd={handleMouseUp}
-        onTouchMove={handleMouseMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerMove={handlePointerMove}
+        onTouchStart={handlePointerDown}
+        onTouchEnd={handlePointerUp}
+        onTouchMove={handlePointerMove}
         ref={desktopRef}
         tabIndex={-1}
       >
