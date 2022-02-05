@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
-import CloseIcon from "/src/components/Window/CloseIcon";
-import MaximizeIcon from "/src/components/Window/MaximizeIcon";
-import MinimizeIcon from "/src/components/Window/MinimizeIcon";
+import closeIcon from "/public/icons/close.png";
+import maximizeIcon from "/public/icons/maximize.png";
+import minimizeIcon from "/public/icons/minimize.png";
 
 import styles from "./Window.module.scss";
 
@@ -44,20 +45,15 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
       )}
       <div className={`titleBar ${styles.titleBar}`} style={{ height: titleBarHeight }}>
         <div className={styles.title}>{title}</div>
-        <MinimizeIcon
-          callback={() => {
-            // temporaryto
-            setIsMaximized(false);
-          }}
-        />
-        <MaximizeIcon
-          callback={() => {
-            console.log("!!!");
-            setIsMaximized(true);
-          }}
-        />
-        <CloseIcon
-          callback={() => {
+        <Image src={minimizeIcon} alt="Minimize icon" placeholder="blur" width={20} height={20} />
+        <Image src={maximizeIcon} alt="Maximize icon" placeholder="blur" width={20} height={20} />
+        <Image
+          src={closeIcon}
+          alt="Close icon"
+          placeholder="blur"
+          width={20}
+          height={20}
+          onClick={() => {
             setIsVisible(false);
           }}
         />

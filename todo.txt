@@ -7,7 +7,6 @@ Things to do:
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
-- Improve window buttons
 - Create dark themes
 - Detect theme from OS
 - Save theme in localStorage (useLocalStorage)
