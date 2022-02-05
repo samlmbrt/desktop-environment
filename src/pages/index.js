@@ -3,13 +3,13 @@ import dynamic from "next/dynamic";
 import Dock from "/src/components/Dock/Dock";
 import DockIcon from "/src/components/Dock/DockIcon";
 import Separator from "/src/components/Dock/Separator";
-import ThemeToggle from "/src/components/Dock/ThemeToggle";
 import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
 import Window from "/src/components/Window/Window";
 
 import browserIcon from "/public/icons/browser.png";
 import calculatorIcon from "/public/icons/calculator.png";
 import textEditorIcon from "/public/icons/editor.png";
+import settingsIcon from "/public/icons/settings.png";
 
 // Disabling server-side rendering so we can retrieve the screen resolution on first render.
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
@@ -25,7 +25,7 @@ const Index = () => {
         <DockIcon icon={calculatorIcon} alt="Icon for calculator" tooltip="Calculator" />
         <DockIcon icon={textEditorIcon} alt="Icon for text editor" tooltip="Text Editor" />
         <Separator />
-        <ThemeToggle />
+        <DockIcon icon={settingsIcon} alt="Icon for settings" tooltip="Settings" />
       </Dock>
     </Desktop>
   );
