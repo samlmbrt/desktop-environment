@@ -6,7 +6,7 @@ import useToggle from "/src/hooks/useToggle";
 import darkIcon from "/public/icons/dark.png";
 import lightIcon from "/public/icons/light.png";
 
-import styles from "./ThemeToggle.module.scss";
+import styles from "./ThemeToggle.module.css";
 
 const ThemeToggle = () => {
   const [isDarkTheme, toggleDarkTheme] = useToggle(false);

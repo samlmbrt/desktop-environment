@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Window from "/src/components/Window/Window";
 
-import styles from "./TextEditor.module.scss";
+import styles from "./TextEditor.module.css";
 
 const TextEditor = (props) => {
   const textAreaRef = useRef(null);

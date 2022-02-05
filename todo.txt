@@ -10,3 +10,4 @@ Things to do:
 - Create dark themes
 - Detect theme from OS
 - Save theme in localStorage (useLocalStorage)
+- Convert to CSS

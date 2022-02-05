@@ -1,4 +1,4 @@
-import styles from "./BlueScreen.module.scss";
+import styles from "./BlueScreen.module.css";
 
 const BlueScreen = ({ errorCode = "Unknown", cause = "Unknown" }) => {
   return (

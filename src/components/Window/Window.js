@@ -5,7 +5,7 @@ import closeIcon from "/public/icons/close.png";
 import maximizeIcon from "/public/icons/maximize.png";
 import minimizeIcon from "/public/icons/minimize.png";
 
-import styles from "./Window.module.scss";
+import styles from "./Window.module.css";
 
 const Window = ({ title, width, height, top, left, zIndex, focusCallback, children, isResizable = true }) => {
   const [isFocused, setIsFocused] = useState(false);

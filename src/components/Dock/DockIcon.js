@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import styles from "./DockIcon.module.scss";
+import styles from "./DockIcon.module.css";
 
 const DockIcon = ({ icon, alt, tooltip }) => {
   const [isHovered, setIsHovered] = useState(false);

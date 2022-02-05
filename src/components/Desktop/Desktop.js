@@ -5,7 +5,8 @@ import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
 import BlueScreen from "/src/components/Desktop/BlueScreen";
 import useViewport from "/src/hooks/useViewport";
 import wallpaper from "/public/wallpaper.png";
-import styles from "./Desktop.module.scss";
+
+import styles from "./Desktop.module.css";
 
 const isDragElement = (element) => {
   if (!element) return false;
