@@ -8,8 +8,8 @@
   padding: 0 10px;
   border-radius: 10px;
   transform: translateX(-50%);
-  background-color: hsla(0, 0%, 86%, 0.1);
+  background-color: var(--dock-background-color);
   backdrop-filter: blur(30px);
-  box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
+  box-shadow: 0 3px 10px var(--box-shadow-color);
   z-index: 100;
 }

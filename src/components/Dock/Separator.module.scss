@@ -1,5 +1,5 @@
 .separator {
-  border-left: 1px ridge hsla(0, 0%, 86%, 0.4);
+  border-left: 1px ridge var(--separator-color);
   margin: 0 15px;
   height: 80%;
 }

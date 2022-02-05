@@ -1,17 +1,14 @@
-$titlebar-color-focused: hsla(180, 100%, 36%, 0.6);
-$titlebar-color-unfocused: hsla(0, 0%, 86%, 0.6);
-
 .window {
   position: absolute;
-  background-color: $titlebar-color-unfocused;
+  background-color: var(--titlebar-background-color-unfocused);
   backdrop-filter: blur(30px);
-  box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
+  box-shadow: 0 3px 10px var(--box-shadow-color);
   border-radius: 5px;
 }
 
 .focused {
   outline: none;
-  background-color: $titlebar-color-focused;
+  background-color: var(--titlebar-background-color-focused);
 }
 
 .titleBar {
@@ -19,7 +16,7 @@ $titlebar-color-unfocused: hsla(0, 0%, 86%, 0.6);
   align-items: center;
   margin-top: 3px;
   padding: 0 8px;
-  color: white;
+  color: var(--titlebar-foreground-color);
   user-select: none;
 }
 
@@ -33,7 +30,7 @@ $titlebar-color-unfocused: hsla(0, 0%, 86%, 0.6);
 
 .body {
   position: absolute;
-  background-color: white;
+  background-color: var(--window-background-color);
 }
 
 .topResizer {
