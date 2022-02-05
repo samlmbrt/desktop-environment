@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import darkIcon from "/public/icons/dark.png";
@@ -9,6 +9,10 @@ import styles from "./ThemeToggle.module.scss";
 const ThemeToggle = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", isDarkTheme ? "dark" : "light");
+  }, [isDarkTheme]);
 
   const handlePointerEnter = () => {
     setIsHovered(true);
