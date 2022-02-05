@@ -2,12 +2,12 @@ Things to do:
 - Implement support for maximize button
 - Double click on title bar maximize/restore
 - Implement support for minimize button
-- Support theme/mode used by the OS amd/or browser (dark or light)
 - Make calculator
 - Make browser
-- Centralize themes with dark and light
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
 - Improve window buttons
-- Create useToggle custom hook and use it for dark mode
+- Create dark themes
+- Detect theme from OS
+- Save theme in localStorage (useLocalStorage)

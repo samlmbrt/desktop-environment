@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+import useToggle from "/src/hooks/useToggle";
+
 import darkIcon from "/public/icons/dark.png";
 import lightIcon from "/public/icons/light.png";
 
 import styles from "./ThemeToggle.module.scss";
 
 const ThemeToggle = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, toggleDarkTheme] = useToggle(false);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const ThemeToggle = () => {
   };
 
   const handlePointerDown = () => {
-    setIsDarkTheme(!isDarkTheme);
+    toggleDarkTheme();
   };
 
   return (
