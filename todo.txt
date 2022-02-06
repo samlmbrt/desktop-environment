@@ -8,5 +8,4 @@ Things to do:
 - Metadata (title, favicon, sharing images)
 - Create README
 - Create dark themes
-- Detect theme from OS
 - Save theme in localStorage (useLocalStorage)

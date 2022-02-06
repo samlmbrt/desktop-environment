@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 
 import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
@@ -57,6 +57,20 @@ const Desktop = ({ children }) => {
   // This means a drag could stop prematurely if the user moves the mouse
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
+
+  useLayoutEffect(() => {
+    const setProperTheme = (matchMedia) => {
+      document.documentElement.setAttribute("data-theme", matchMedia.matches ? "dark" : "light");
+    };
+
+    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
+    matchMedia.addEventListener("change", (event) => {
+      setProperTheme(event);
+    });
+
+    setProperTheme(matchMedia);
+    return () => matchMedia.removeEventListener("match", setProperTheme);
+  }, []);
 
   const { width, height } = useViewport();
   const desktopRef = useRef(null);

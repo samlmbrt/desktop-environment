@@ -45,27 +45,12 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
       )}
       <div className={`titleBar ${styles.titleBar}`} style={{ height: titleBarHeight }}>
         <div className={styles.title}>{title}</div>
-        <Image
-          className={styles.icon}
-          src={minimizeIcon}
-          alt="Minimize icon"
-          placeholder="blur"
-          width={20}
-          height={20}
-        />
-        <Image
-          className={styles.icon}
-          src={maximizeIcon}
-          alt="Maximize icon"
-          placeholder="blur"
-          width={20}
-          height={20}
-        />
+        <Image className={styles.icon} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
+        <Image className={styles.icon} src={maximizeIcon} alt="Maximize icon" width={20} height={20} />
         <Image
           className={styles.icon}
           src={closeIcon}
           alt="Close icon"
-          placeholder="blur"
           width={20}
           height={20}
           onClick={() => {

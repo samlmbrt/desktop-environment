@@ -14,7 +14,7 @@
   --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --box-shadow-color: hsla(0, 0%, 0%, 0.4);
   --dock-background-color: hsla(0, 0%, 86%, 0.1);
   --blue-screen-foreground-color: white;
