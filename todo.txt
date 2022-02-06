@@ -5,7 +5,7 @@ Things to do:
 - Make calculator
 - Make browser
 - Optimize by limiting reflows etc
-- Metadata (title, favicon, sharing images)
+- Metadata (favicon, sharing images)
 - Create README
-- Add a dark theme toggle
 - Save theme in localStorage (useLocalStorage)
+- Create settings popup

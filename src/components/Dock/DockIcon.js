@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import styles from "./DockIcon.module.css";
 
-const DockIcon = ({ icon, alt, tooltip }) => {
+const DockIcon = ({ icon, alt, tooltip, callback }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
@@ -24,7 +24,7 @@ const DockIcon = ({ icon, alt, tooltip }) => {
   };
 
   return (
-    <div className={styles.dockIcon}>
+    <div className={styles.dockIcon} onClick={callback}>
       <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
       <Image
         className={`${isPressed && styles.pressed}`}
