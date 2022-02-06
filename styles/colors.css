@@ -3,12 +3,13 @@
   --dock-background-color: hsla(0, 0%, 86%, 0.1);
   --blue-screen-foreground-color: white;
   --blue-screen-background-color: hsla(231, 94%, 36%, 1);
-  --tooltip-background-color: hsla(187, 0%, 11%, 0.9);
-  --tooltip-foreground-color: white;
+  --tooltip-background-color: hsla(0, 0%, 100%, 0.8);
+  --tooltip-foreground-color: black;
   --dock-dot-border-color: black;
   --dock-dot-color: white;
   --separator-color: hsla(0, 0%, 86%, 0.4);
   --window-background-color: white;
+  --window-foreground-color: black;
   --titlebar-foreground-color: white;
   --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
   --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
@@ -16,16 +17,17 @@
 
 :root[data-theme="dark"] {
   --box-shadow-color: hsla(0, 0%, 0%, 0.4);
-  --dock-background-color: hsla(0, 0%, 86%, 0.1);
+  --dock-background-color: hsla(0, 0%, 20%, 0.6);
   --blue-screen-foreground-color: white;
   --blue-screen-background-color: hsla(231, 94%, 36%, 1);
   --tooltip-background-color: hsla(187, 0%, 11%, 0.9);
   --tooltip-foreground-color: white;
   --dock-dot-border-color: black;
   --dock-dot-color: white;
-  --separator-color: hsla(0, 0%, 86%, 0.4);
-  --window-background-color: white;
+  --separator-color: hsla(0, 0%, 46%, 0.4);
+  --window-background-color: black;
+  --window-foreground-color: white;
   --titlebar-foreground-color: white;
-  --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
-  --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
+  --titlebar-background-color-focused: hsla(0, 0%, 40%, 0.6);
+  --titlebar-background-color-unfocused: hsla(0, 0%, 10%, 0.6);
 }

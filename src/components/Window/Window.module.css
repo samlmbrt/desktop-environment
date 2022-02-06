@@ -31,6 +31,7 @@
 .body {
   position: absolute;
   background-color: var(--window-background-color);
+  color: var(--window-foreground-color);
 }
 
 .icon {

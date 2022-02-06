@@ -7,5 +7,5 @@ Things to do:
 - Optimize by limiting reflows etc
 - Metadata (title, favicon, sharing images)
 - Create README
-- Create dark themes
+- Add a dark theme toggle
 - Save theme in localStorage (useLocalStorage)
