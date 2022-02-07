@@ -59,9 +59,9 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
         style={{ height: titleBarHeight, pointerEvents: isMaximized ? "none" : "auto" }}
       >
         <div className={styles.title}>{title}</div>
-        <Image className={styles.icon} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
+        <Image className={`icon ${styles.icon}`} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
         <Image
-          className={styles.icon}
+          className={`icon ${styles.icon}`}
           src={maximizeIcon}
           alt="Maximize icon"
           width={20}
@@ -71,7 +71,7 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
           }}
         />
         <Image
-          className={styles.icon}
+          className={`icon ${styles.icon}`}
           src={closeIcon}
           alt="Close icon"
           width={20}

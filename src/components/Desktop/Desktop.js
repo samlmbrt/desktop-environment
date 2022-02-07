@@ -29,7 +29,7 @@ const isDragElement = (element) => {
 const isFocusableElement = (element) => {
   if (!element) return false;
 
-  return isDragElement(element) || element.closest(".body");
+  return isDragElement(element) || element.closest(".body") || element.closest(".icon");
 };
 
 const getEventPosition = (event) => {
