@@ -36,6 +36,7 @@
 
 .icon {
   transition: opacity 0.2s ease-in;
+  pointer-events: all;
 }
 
 .icon:hover {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Window from "/src/components/Window/Window";
 
 import styles from "./TextEditor.module.css";

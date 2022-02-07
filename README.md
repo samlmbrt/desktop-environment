@@ -6,8 +6,8 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 
 ### Things left to do:
 
-- Implement support for maximize button
 - Implement support for minimize button
+- Fix bug where latest maximized window is not always on top
 - Implement calculator
 - Implement browser
 - Optimize code to prevent unnecessary reflows/layout trashing

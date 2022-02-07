@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
+import { dockHeight } from "/src/components/Dock/Dock";
+
 import closeIcon from "/public/icons/close.png";
 import maximizeIcon from "/public/icons/maximize.png";
 import minimizeIcon from "/public/icons/minimize.png";
@@ -19,8 +21,17 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
 
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused} ${isMaximized && styles.maximized}`}
-      style={{ width, height, top, left, minWidth, minHeight, zIndex, visibility: isVisible ? "visible" : "hidden" }}
+      className={`window ${styles.window} ${isFocused && styles.focused}`}
+      style={{
+        width: isMaximized ? "100%" : width,
+        height: isMaximized ? `calc(100% - ${dockHeight}px - 3 * ${bodyMargin}px)` : height,
+        top: isMaximized ? 0 : top,
+        left: isMaximized ? 0 : left,
+        minWidth,
+        minHeight,
+        zIndex,
+        visibility: isVisible ? "visible" : "hidden",
+      }}
       ref={windowRef}
       tabIndex={-1}
       onFocus={() => {
@@ -31,7 +42,7 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
         setIsFocused(false);
       }}
     >
-      {isResizable && (
+      {isResizable && !isMaximized && (
         <>
           <div className={`topResizer ${styles.topResizer}`}></div>
           <div className={`rightResizer ${styles.rightResizer}`}></div>
@@ -43,10 +54,22 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
           <div className={`bottomRightResizer ${styles.bottomRightResizer}`}></div>
         </>
       )}
-      <div className={`titleBar ${styles.titleBar}`} style={{ height: titleBarHeight }}>
+      <div
+        className={`titleBar ${styles.titleBar}`}
+        style={{ height: titleBarHeight, pointerEvents: isMaximized ? "none" : "auto" }}
+      >
         <div className={styles.title}>{title}</div>
         <Image className={styles.icon} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
-        <Image className={styles.icon} src={maximizeIcon} alt="Maximize icon" width={20} height={20} />
+        <Image
+          className={styles.icon}
+          src={maximizeIcon}
+          alt="Maximize icon"
+          width={20}
+          height={20}
+          onClick={() => {
+            setIsMaximized(!isMaximized);
+          }}
+        />
         <Image
           className={styles.icon}
           src={closeIcon}
