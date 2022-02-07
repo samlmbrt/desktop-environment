@@ -7,5 +7,4 @@ Things to do:
 - Optimize by limiting reflows etc
 - Metadata (favicon, sharing images)
 - Create README
-- Save theme in localStorage (useLocalStorage)
 - Create settings popup
