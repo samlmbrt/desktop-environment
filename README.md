@@ -11,7 +11,6 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 - Implement browser
 - Optimize code to prevent unnecessary reflows/layout trashing
 - Add the metadata stuff (favicon, images for link sharing, etc)
-- Create UI component for toggling between dark and light theme
 - Implement movable desktop icons that opens the text editor or browser
 - Add desktop icon that opens the text editor, which will show a short bio
 - Add desktop icons that links my projects, which will open in the browser

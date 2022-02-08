@@ -1,0 +1,24 @@
+.themeSwitcher {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: var(--theme-switcher-background-color);
+  border-radius: 16px;
+  transition: background-color 0.2s ease-in;
+}
+
+.switch {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: -2px;
+  left: -2px;
+  background-color: var(--theme-switcher-foreground-color);
+  border-radius: 16px;
+  box-shadow: 0 3px 10px var(--box-shadow-color);
+  transition: transform 0.2s ease-in;
+}
+
+.enabled {
+  transform: translateX(30px);
+}

@@ -19,7 +19,7 @@ const useThemeToggle = () => {
     return () => darkModeMatchMedia.removeEventListener("change", toggleTheme);
   }, [darkModeMatchMedia, isDarkTheme, toggleTheme]);
 
-  return { isDarkTheme, toggleTheme };
+  return [isDarkTheme, toggleTheme];
 };
 
 export default useThemeToggle;

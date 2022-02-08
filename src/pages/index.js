@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import Dock from "/src/components/Dock/Dock";
 import DockIcon from "/src/components/Dock/DockIcon";
 import Separator from "/src/components/Dock/Separator";
+import ThemeSwitcher from "/src/components/Dock/ThemeSwitcher";
 import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
 import Window from "/src/components/Window/Window";
 
 import browserIcon from "/public/icons/browser.png";
 import calculatorIcon from "/public/icons/calculator.png";
 import textEditorIcon from "/public/icons/editor.png";
-import settingsIcon from "/public/icons/settings.png";
 
 // Disabling server-side rendering so we can retrieve the screen resolution on first render.
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
@@ -31,16 +31,7 @@ const Index = () => {
           <DockIcon icon={calculatorIcon} alt="Icon for calculator" tooltip="Calculator" />
           <DockIcon icon={textEditorIcon} alt="Icon for text editor" tooltip="Text Editor" />
           <Separator />
-          <DockIcon
-            icon={settingsIcon}
-            alt="Icon for settings"
-            tooltip="Settings"
-            callback={() => {
-              // todosam: temporary dark theme toggle!
-              const currentTheme = document.documentElement.getAttribute("data-theme");
-              document.documentElement.setAttribute("data-theme", currentTheme === "dark" ? "light" : "dark");
-            }}
-          />
+          <ThemeSwitcher />
         </Dock>
       </Desktop>
     </>

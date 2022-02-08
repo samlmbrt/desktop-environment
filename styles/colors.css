@@ -10,6 +10,8 @@
   --separator-color: hsla(0, 0%, 86%, 0.4);
   --window-background-color: white;
   --window-foreground-color: black;
+  --theme-switcher-background-color: white;
+  --theme-switcher-foreground-color: hsla(180, 100%, 36%, 0.95);
   --titlebar-foreground-color: white;
   --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
   --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
@@ -27,6 +29,8 @@
   --separator-color: hsla(0, 0%, 86%, 0.4);
   --window-background-color: black;
   --window-foreground-color: white;
+  --theme-switcher-background-color: hsla(234, 27%, 8%, 0.8);
+  --theme-switcher-foreground-color: hsla(180, 100%, 36%, 0.95);
   --titlebar-foreground-color: white;
   --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
   --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);

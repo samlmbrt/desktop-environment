@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
 import BlueScreen from "/src/components/Desktop/BlueScreen";
-import useThemeToggle from "/src/hooks/useThemeToggle";
 import useViewport from "/src/hooks/useViewport";
 import wallpaper from "/public/wallpaper.png";
 
@@ -59,7 +58,6 @@ const Desktop = ({ children }) => {
   // too fast. By setting the event handlers on the Desktop component, we
   // can be sure not to miss any mouse event.
 
-  const { toggleTheme } = useThemeToggle();
   const { width, height } = useViewport();
   const desktopRef = useRef(null);
   const dragState = useRef(null);
