@@ -5,8 +5,8 @@ import Dock from "/src/components/Dock/Dock";
 import DockIcon from "/src/components/Dock/DockIcon";
 import Separator from "/src/components/Dock/Separator";
 import ThemeSwitcher from "/src/components/Dock/ThemeSwitcher";
+import Calculator from "/src/components/Applications/Calculator/Calculator";
 import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
-import Window from "/src/components/Window/Window";
 
 import browserIcon from "/public/icons/browser.png";
 import calculatorIcon from "/public/icons/calculator.png";
@@ -23,9 +23,8 @@ const Index = () => {
         <meta name="color-scheme" content="dark light" />
       </Head>
       <Desktop>
-        <Window title="Browser" width={640} height={480} top={10} left={10} />
-        <Window title="Calculator" width={640} height={480} top={110} left={110} />
-        <TextEditor width={640} height={480} top={210} left={210} />
+        <TextEditor width={640} height={480} top={10} left={10} />
+        <Calculator width={360} height={600} top={10} left={800} />
         <Dock>
           <DockIcon icon={browserIcon} alt="Icon for browser" tooltip="Browser" />
           <DockIcon icon={calculatorIcon} alt="Icon for calculator" tooltip="Calculator" />

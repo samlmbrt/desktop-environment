@@ -1,0 +1,145 @@
+.calculator {
+  display: grid;
+  padding: 10px;
+  font-size: 36px;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 120px repeat(5, 1fr);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: hsla(15, 5%, 36%, 1);
+  text-align: center;
+  border-radius: 50px;
+  transition: opacity 0.1s ease-in;
+}
+
+.button:hover {
+  opacity: 0.7;
+}
+
+.yellow {
+  color: white;
+  background-color: hsla(30, 78%, 52%, 1);
+}
+
+.lightGrey {
+  color: black;
+  background-color: hsla(56, 10%, 79%, 1);
+}
+
+.screen {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 70px;
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 1;
+}
+
+.screen[data-theme="dark"] {
+  color: white;
+}
+
+.divide {
+  grid-column: 4 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.percent {
+  grid-column: 3 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.negate {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.ac {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.times {
+  grid-column: 4 / span 1;
+  grid-row: 3 / span 1;
+}
+
+.nine {
+  grid-column: 3 / span 1;
+  grid-row: 3 / span 1;
+}
+
+.eight {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+}
+
+.seven {
+  grid-column: 1 / span 1;
+  grid-row: 3 / span 1;
+}
+
+.minus {
+  grid-column: 4 / span 1;
+  grid-row: 4 / span 1;
+}
+
+.six {
+  grid-column: 3 / span 1;
+  grid-row: 4 / span 1;
+}
+
+.five {
+  grid-column: 2 / span 1;
+  grid-row: 4 / span 1;
+}
+
+.four {
+  grid-column: 1 / span 1;
+  grid-row: 4 / span 1;
+}
+
+.plus {
+  grid-column: 4 / span 1;
+  grid-row: 5 / span 1;
+}
+
+.three {
+  grid-column: 3 / span 1;
+  grid-row: 5 / span 1;
+}
+
+.two {
+  grid-column: 2 / span 1;
+  grid-row: 5 / span 1;
+}
+
+.one {
+  grid-column: 1 / span 1;
+  grid-row: 5 / span 1;
+}
+
+.zero {
+  grid-column: 1 / span 2;
+  grid-row: 6 / span 1;
+}
+
+.dot {
+  grid-column: 3 / span 1;
+  grid-row: 6 / span 1;
+}
+
+.equal {
+  grid-column: 4 / span 1;
+  grid-row: 6 / span 1;
+}

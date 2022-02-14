@@ -60,16 +60,18 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
       >
         <div className={styles.title}>{title}</div>
         <Image className={`icon ${styles.icon}`} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
-        <Image
-          className={`icon ${styles.icon}`}
-          src={maximizeIcon}
-          alt="Maximize icon"
-          width={20}
-          height={20}
-          onClick={() => {
-            setIsMaximized(!isMaximized);
-          }}
-        />
+        {isResizable && (
+          <Image
+            className={`icon ${styles.icon}`}
+            src={maximizeIcon}
+            alt="Maximize icon"
+            width={20}
+            height={20}
+            onClick={() => {
+              setIsMaximized(!isMaximized);
+            }}
+          />
+        )}
         <Image
           className={`icon ${styles.icon}`}
           src={closeIcon}
