@@ -31,7 +31,11 @@ const Calculator = (props) => {
         className={className}
         onClick={() => {
           if (typeof callback === "function") {
-            callback();
+            try {
+              callback();
+            } catch (_err) {
+              setHasError(true);
+            }
           }
         }}
       >
@@ -67,7 +71,7 @@ const Calculator = (props) => {
           className={`${styles.button} ${styles.percent} ${styles.lightGrey}`}
           callback={() => {
             if (!hasError && tokens.length !== 0) {
-              setTokens([eval(sanitizeOperationString(tokens.join(""))) / 100]);
+              setTokens([+(eval(sanitizeOperationString(tokens.join(""))) / 100).toFixed(5)]);
             }
           }}
         >
