@@ -40,6 +40,7 @@
   align-items: flex-end;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 70px;
   grid-column: 1 / span 4;
   grid-row: 1 / span 1;
