@@ -9,9 +9,20 @@ import minimizeIcon from "/public/icons/minimize.png";
 
 import styles from "./Window.module.css";
 
-const Window = ({ title, width, height, top, left, zIndex, focusCallback, children, isResizable = true }) => {
+const Window = ({
+  title,
+  width,
+  height,
+  top,
+  left,
+  zIndex,
+  focusCallback,
+  children,
+  isVisible,
+  setIsVisible,
+  isResizable = true,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [isMaximized, setIsMaximized] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const windowRef = useRef(null);
