@@ -7,7 +7,6 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 ### Things left to do:
 
 - Implement support for minimize button
-- Implement calculator's logic
 - Implement browser
 - Optimize code to prevent unnecessary reflows/layout trashing
 - Add the metadata stuff (favicon, images for link sharing, etc)

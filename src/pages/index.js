@@ -24,7 +24,7 @@ const Index = () => {
       </Head>
       <Desktop>
         <TextEditor width={640} height={480} top={10} left={10} />
-        <Calculator width={360} height={600} top={10} left={800} />
+        <Calculator width={280} height={480} top={10} left={800} />
         <Dock>
           <DockIcon icon={browserIcon} alt="Icon for browser" tooltip="Browser" />
           <DockIcon icon={calculatorIcon} alt="Icon for calculator" tooltip="Calculator" />
