@@ -27,7 +27,7 @@
   --dock-dot-border-color: black;
   --dock-dot-color: white;
   --separator-color: hsla(0, 0%, 86%, 0.4);
-  --window-background-color: black;
+  --window-background-color: hsla(80, 1%, 16%, 1);
   --window-foreground-color: white;
   --theme-switcher-background-color: hsla(234, 27%, 8%, 0.8);
   --theme-switcher-foreground-color: hsla(180, 100%, 36%, 0.95);
