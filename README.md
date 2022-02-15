@@ -6,6 +6,7 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 
 ### Things left to do:
 
+- Clean up code in calculator
 - Implement support for minimize button
 - Implement browser
 - Optimize code to prevent unnecessary reflows/layout trashing

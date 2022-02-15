@@ -13,6 +13,7 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
   const [isFocused, setIsFocused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const windowRef = useRef(null);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
 
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused}`}
+      className={`window ${styles.window} ${isFocused && styles.focused} ${isAnimating && styles.animated}`}
       style={{
         width: isMaximized ? "100%" : width,
         height: isMaximized ? `calc(100% - ${dockHeight}px - 3 * ${bodyMargin}px)` : height,
@@ -68,7 +69,11 @@ const Window = ({ title, width, height, top, left, zIndex, focusCallback, childr
             width={20}
             height={20}
             onClick={() => {
+              setIsAnimating(true);
               setIsMaximized(!isMaximized);
+              setTimeout(() => {
+                setIsAnimating(false);
+              }, 100);
             }}
           />
         )}

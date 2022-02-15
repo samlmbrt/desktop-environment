@@ -11,6 +11,10 @@
   background-color: var(--titlebar-background-color-focused);
 }
 
+.animated {
+  transition: width 0.1s ease-in, height 0.1s ease-in, top 0.1s ease-in, left 0.1s ease-in;
+}
+
 .titleBar {
   display: flex;
   align-items: center;
