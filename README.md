@@ -2,11 +2,13 @@
 
 This is a simple prototype of a web-based desktop environment, which is written in React. Eventually, I would like to transform this into a cool personal page.
 
-You can try to prototype [here](https://desktop-environment.vercel.app).
+You can try to prototype [here](https://slambert.dev).
 
 ### Things left to do:
 
 - Clean up code in calculator
+- Clean up animations (use CSS variables, data attributes)
+- Clean up window state (implement state machine?)
 - Implement support for minimize button
 - Implement browser
 - Optimize code to prevent unnecessary reflows/layout trashing
