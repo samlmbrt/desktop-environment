@@ -3,10 +3,6 @@ import Window from "/src/components/Window/Window";
 
 import styles from "./Calculator.module.css";
 
-const sanitizeOperationString = (str) => {
-  return str.replaceAll("÷", "/").replaceAll("×", "*");
-};
-
 // todo:
 // - numbers too large = scientific notation
 // - prevent multiple operators
@@ -48,6 +44,10 @@ const Calculator = (props) => {
     );
   };
 
+  const tokensToString = () => {
+    return tokens.join("").replaceAll("÷", "/").replaceAll("×", "*");
+  };
+
   return (
     <Window {...props} title="Calculator" isResizable={false}>
       <div className={styles.calculator} tabIndex={-1}>
@@ -65,7 +65,7 @@ const Calculator = (props) => {
           className={`${styles.button} ${styles.negate} ${styles.lightGrey}`}
           callback={() => {
             if (!hasError && tokens.length !== 0) {
-              setTokens([-eval(sanitizeOperationString(tokens.join("")))]);
+              setTokens([-eval(tokensToString())]);
             }
           }}
         >
@@ -75,7 +75,7 @@ const Calculator = (props) => {
           className={`${styles.button} ${styles.percent} ${styles.lightGrey}`}
           callback={() => {
             if (!hasError && tokens.length !== 0) {
-              setTokens([+(eval(sanitizeOperationString(tokens.join(""))) / 100)]);
+              setTokens([+(eval(tokensToString()) / 100)]);
             }
           }}
         >
@@ -100,8 +100,7 @@ const Calculator = (props) => {
           className={`${styles.button} ${styles.equal} ${styles.yellow}`}
           callback={() => {
             if (tokens.length !== 0) {
-              const evalString = sanitizeOperationString(tokens.join(""));
-              const result = eval(evalString);
+              const result = eval(tokensToString());
               if (isNaN(result)) {
                 setHasError(true);
               } else {
