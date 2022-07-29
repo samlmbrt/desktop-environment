@@ -5,7 +5,6 @@ import styles from "./Calculator.module.css";
 
 // todo:
 // - numbers too large = scientific notation
-// - prevent multiple operators
 
 const Calculator = (props) => {
   const [tokens, setTokens] = useState([]);
@@ -17,6 +16,11 @@ const Calculator = (props) => {
         className={className}
         onClick={() => {
           if (tokens.length === 0 && children === "0") return;
+
+          const operators = ["+", "-", "×", "÷"];
+          if (operators.includes(children) && operators.includes(tokens.at(-1))) {
+            tokens.pop();
+          }
           setTokens([...tokens, children]);
         }}
       >
