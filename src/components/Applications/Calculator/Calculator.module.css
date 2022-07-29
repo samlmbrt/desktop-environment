@@ -37,11 +37,11 @@
 .screen {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 34px;
+  font-size: 20px;
   grid-column: 1 / span 4;
   grid-row: 1 / span 1;
 }

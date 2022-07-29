@@ -6,7 +6,6 @@ You can try to prototype [here](https://slambert.dev).
 
 ### Things left to do:
 
-- Clean up code in calculator
 - Clean up animations (use CSS variables, data attributes)
 - Clean up window state (implement state machine?)
 - Implement support for minimize button
