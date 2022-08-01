@@ -31,6 +31,14 @@ const Window = ({
     typeof focusCallback === "function" && focusCallback();
   }, [focusCallback]);
 
+  // todo:
+  // - change inline styles to css
+  // - create states (minimized, maximized, windowed)
+  // - create state (open)
+  // - retrieve state from ref for pointer events and resizers
+  // - act on states acordingly
+  // - create transitions
+
   return (
     <div
       className={`window ${styles.window} ${isFocused && styles.focused} ${isAnimating && styles.animated}`}
