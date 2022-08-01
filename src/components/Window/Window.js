@@ -11,20 +11,18 @@ import styles from "./Window.module.css";
 
 const Window = ({
   title,
-  width,
-  height,
-  top,
-  left,
+  initialWidth,
+  initialHeight,
+  initialTop,
+  initialLeft,
   zIndex,
+  windowState,
+  setWindowState,
   focusCallback,
   children,
-  isVisible,
-  setIsVisible,
   isResizable = true,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isMaximized, setIsMaximized] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const windowRef = useRef(null);
 
   useEffect(() => {
@@ -33,24 +31,45 @@ const Window = ({
 
   // todo:
   // - change inline styles to css
-  // - create states (minimized, maximized, windowed)
-  // - create state (open)
-  // - retrieve state from ref for pointer events and resizers
   // - act on states acordingly
   // - create transitions
+  // - get all constnts from css
+
+  const maximize = () => {
+    const currentState = windowRef.current.dataset.state;
+    const nextState = currentState === "maximized" ? "user" : "maximized";
+    windowRef.current.dataset.state = nextState;
+    setWindowState(nextState);
+  };
+
+  const minimize = () => {
+    const currentState = windowRef.current.dataset.state;
+    const nextState = currentState === "minimized" ? "user" : "minimized";
+    windowRef.current.dataset.state = nextState;
+    setWindowState(nextState);
+  };
+
+  const close = () => {
+    windowRef.current.dataset.state = "closed";
+    setWindowState("closed");
+  };
 
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused} ${isAnimating && styles.animated}`}
+      className={`window ${styles.window} ${isFocused && styles.focused}`}
       style={{
-        width: isMaximized ? "100%" : width,
-        height: isMaximized ? `calc(100% - ${dockHeight}px - 3 * ${bodyMargin}px)` : height,
-        top: isMaximized ? 0 : top,
-        left: isMaximized ? 0 : left,
+        // width: windowState === "maximized" ? "100%" : width,
+        // height: windowState === "maximized" ? `calc(100% - ${dockHeight}px - 3 * ${bodyMargin}px)` : height,
+        // top: windowState === "maximized" ? 0 : top,
+        // left: windowState === "maximized" ? 0 : left,
+        // width: initialWidth,
+        // height: initialHeight,
+        // top: initialTop,
+        // left: initialLeft,
         minWidth,
         minHeight,
         zIndex,
-        visibility: isVisible ? "visible" : "hidden",
+        visibility: windowState !== "closed" ? "visible" : "hidden",
       }}
       ref={windowRef}
       tabIndex={-1}
@@ -61,8 +80,9 @@ const Window = ({
       onBlur={() => {
         setIsFocused(false);
       }}
+      data-state={windowState}
     >
-      {isResizable && !isMaximized && (
+      {isResizable && windowState !== "maximized" && (
         <>
           <div className={`topResizer ${styles.topResizer}`}></div>
           <div className={`rightResizer ${styles.rightResizer}`}></div>
@@ -76,10 +96,17 @@ const Window = ({
       )}
       <div
         className={`titleBar ${styles.titleBar}`}
-        style={{ height: titleBarHeight, pointerEvents: isMaximized ? "none" : "auto" }}
+        style={{ height: titleBarHeight, pointerEvents: windowState === "maximized" ? "none" : "auto" }}
       >
         <div className={styles.title}>{title}</div>
-        <Image className={`icon ${styles.icon}`} src={minimizeIcon} alt="Minimize icon" width={20} height={20} />
+        <Image
+          className={`icon ${styles.icon}`}
+          src={minimizeIcon}
+          alt="Minimize icon"
+          width={20}
+          height={20}
+          onClick={minimize}
+        />
         {isResizable && (
           <Image
             className={`icon ${styles.icon}`}
@@ -87,13 +114,7 @@ const Window = ({
             alt="Maximize icon"
             width={20}
             height={20}
-            onClick={() => {
-              setIsAnimating(true);
-              setIsMaximized(!isMaximized);
-              setTimeout(() => {
-                setIsAnimating(false);
-              }, 100);
-            }}
+            onClick={maximize}
           />
         )}
         <Image
@@ -102,9 +123,7 @@ const Window = ({
           alt="Close icon"
           width={20}
           height={20}
-          onClick={() => {
-            setIsVisible(false);
-          }}
+          onClick={close}
         />
       </div>
       <div

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -16,8 +16,8 @@ import textEditorIcon from "/public/icons/editor.png";
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
 
 const Index = () => {
-  const [isTextEditorVisible, setIsTextEditorVisible] = useState(false);
-  const [isCalculatorVisible, setIsCalculatorVisible] = useState(false);
+  const [textEditorWindowState, setTextEditorWindowState] = useState("closed");
+  const [calculatorWindowState, setCalculatorWindowState] = useState("closed");
 
   return (
     <>
@@ -27,35 +27,35 @@ const Index = () => {
       </Head>
       <Desktop>
         <TextEditor
-          width={640}
-          height={480}
-          top={10}
-          left={10}
-          isVisible={isTextEditorVisible}
-          setIsVisible={setIsTextEditorVisible}
+          // initialWidth={640}
+          // initialHeight={480}
+          // initialTop={10}
+          // initialLeft={10}
+          windowState={textEditorWindowState}
+          setWindowState={setTextEditorWindowState}
         />
         <Calculator
-          width={280}
-          height={480}
-          top={10}
-          left={800}
-          isVisible={isCalculatorVisible}
-          setIsVisible={setIsCalculatorVisible}
+          initialWidth={280}
+          initialHeight={480}
+          initialTop={10}
+          initialLeft={800}
+          windowState={calculatorWindowState}
+          setWindowState={setCalculatorWindowState}
         />
         <Dock>
           <DockIcon
             icon={textEditorIcon}
             alt="Icon for text editor"
             tooltip="Text Editor"
-            isAppOpen={isTextEditorVisible}
-            setIsAppOpen={setIsTextEditorVisible}
+            windowState={textEditorWindowState}
+            setWindowState={setTextEditorWindowState}
           />
           <DockIcon
             icon={calculatorIcon}
             alt="Icon for calculator"
             tooltip="Calculator"
-            isAppOpen={isCalculatorVisible}
-            setIsAppOpen={setIsCalculatorVisible}
+            windowState={calculatorWindowState}
+            setWindowState={setCalculatorWindowState}
           />
           <Separator />
           <ThemeSwitcher />
