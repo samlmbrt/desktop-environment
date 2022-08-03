@@ -1,6 +1,10 @@
 :root {
+  --body-width: calc(100% - 2 * var(--body-margin));
+  --body-height: calc(100% - var(--titlebar-height) - 3 * var(--body-margin));
+  --body-margin: 3px;
   --box-shadow-color: hsla(0, 0%, 0%, 0.4);
   --dock-background-color: hsla(0, 0%, 100%, 0.2);
+  --dock-height: 80px;
   --blue-screen-foreground-color: white;
   --blue-screen-background-color: hsla(231, 94%, 36%, 1);
   --tooltip-background-color: hsla(0, 100%, 100%, 0.8);
@@ -15,6 +19,7 @@
   --titlebar-foreground-color: white;
   --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
   --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
+  --titlebar-height: 30px;
 }
 
 :root[data-theme="dark"] {

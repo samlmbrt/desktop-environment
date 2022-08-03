@@ -1,5 +1,5 @@
 import "/styles/globals.css";
-import "/styles/colors.css";
+import "/styles/variables.css";
 
 const App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;

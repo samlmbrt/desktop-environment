@@ -27,10 +27,10 @@ const Index = () => {
       </Head>
       <Desktop>
         <TextEditor
-          // initialWidth={640}
-          // initialHeight={480}
-          // initialTop={10}
-          // initialLeft={10}
+          initialWidth={640}
+          initialHeight={480}
+          initialTop={10}
+          initialLeft={10}
           windowState={textEditorWindowState}
           setWindowState={setTextEditorWindowState}
         />

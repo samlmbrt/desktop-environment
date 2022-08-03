@@ -10,6 +10,7 @@ You can try to prototype [here](https://slambert.dev).
 - Implement support for minimize button
 - Clean up animations (use CSS variables, data attributes)
 - Clean up calculator code (variable display size, logic)
+- Try to remove inline styles as much as possible
 - Implement browser
 - Add the metadata stuff (favicon, images for link sharing, etc)
 - Implement movable desktop icons that opens the text editor or browser

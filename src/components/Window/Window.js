@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import { dockHeight } from "/src/components/Dock/Dock";
-
 import closeIcon from "/public/icons/close.png";
 import maximizeIcon from "/public/icons/maximize.png";
 import minimizeIcon from "/public/icons/minimize.png";
@@ -29,22 +27,14 @@ const Window = ({
     typeof focusCallback === "function" && focusCallback();
   }, [focusCallback]);
 
-  // todo:
-  // - change inline styles to css
-  // - act on states acordingly
-  // - create transitions
-  // - get all constnts from css
-
   const maximize = () => {
-    const currentState = windowRef.current.dataset.state;
-    const nextState = currentState === "maximized" ? "user" : "maximized";
+    const nextState = windowState === "maximized" ? "user" : "maximized";
     windowRef.current.dataset.state = nextState;
     setWindowState(nextState);
   };
 
   const minimize = () => {
-    const currentState = windowRef.current.dataset.state;
-    const nextState = currentState === "minimized" ? "user" : "minimized";
+    const nextState = windowState === "minimized" ? "user" : "minimized";
     windowRef.current.dataset.state = nextState;
     setWindowState(nextState);
   };
@@ -58,18 +48,13 @@ const Window = ({
     <div
       className={`window ${styles.window} ${isFocused && styles.focused}`}
       style={{
-        // width: windowState === "maximized" ? "100%" : width,
-        // height: windowState === "maximized" ? `calc(100% - ${dockHeight}px - 3 * ${bodyMargin}px)` : height,
-        // top: windowState === "maximized" ? 0 : top,
-        // left: windowState === "maximized" ? 0 : left,
-        // width: initialWidth,
-        // height: initialHeight,
-        // top: initialTop,
-        // left: initialLeft,
+        width: initialWidth,
+        height: initialHeight,
+        top: initialTop,
+        left: initialLeft,
         minWidth,
         minHeight,
         zIndex,
-        visibility: windowState !== "closed" ? "visible" : "hidden",
       }}
       ref={windowRef}
       tabIndex={-1}
@@ -96,7 +81,7 @@ const Window = ({
       )}
       <div
         className={`titleBar ${styles.titleBar}`}
-        style={{ height: titleBarHeight, pointerEvents: windowState === "maximized" ? "none" : "auto" }}
+        style={{ pointerEvents: windowState === "maximized" ? "none" : "auto" }}
       >
         <div className={styles.title}>{title}</div>
         <Image
@@ -126,16 +111,7 @@ const Window = ({
           onClick={close}
         />
       </div>
-      <div
-        className={`body ${styles.body}`}
-        style={{
-          width: `calc(100% - 2 * ${bodyMargin}px)`,
-          height: `calc(100% - ${titleBarHeight}px - 3 * ${bodyMargin}px)`,
-          margin: bodyMargin,
-        }}
-      >
-        {children}
-      </div>
+      <div className={`body ${styles.body}`}>{children}</div>
     </div>
   );
 };
