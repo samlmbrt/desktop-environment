@@ -7,7 +7,6 @@ You can try to prototype [here](https://slambert.dev).
 ### Things left to do:
 
 - Clean up animations (use CSS variables, data attributes)
-- Fix Calculator minimizing glitch
 - Implement support for minimize button
 - Implement browser
 - Clean up calculator code (variable display size, logic)
