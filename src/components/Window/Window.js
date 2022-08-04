@@ -84,14 +84,16 @@ const Window = ({
         style={{ pointerEvents: windowState === "maximized" ? "none" : "auto" }}
       >
         <div className={styles.title}>{title}</div>
-        <Image
-          className={`icon ${styles.icon}`}
-          src={minimizeIcon}
-          alt="Minimize icon"
-          width={20}
-          height={20}
-          onClick={minimize}
-        />
+        {isResizable && (
+          <Image
+            className={`icon ${styles.icon}`}
+            src={minimizeIcon}
+            alt="Minimize icon"
+            width={20}
+            height={20}
+            onClick={minimize}
+          />
+        )}
         {isResizable && (
           <Image
             className={`icon ${styles.icon}`}
