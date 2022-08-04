@@ -6,8 +6,8 @@ You can try to prototype [here](https://slambert.dev).
 
 ### Things left to do:
 
-- Clean up animations (use CSS variables, data attributes)
 - Implement support for minimize button
+- Clean up data attributes. Are they necessary? Or state change?
 - Implement browser
 - Clean up calculator code (variable display size, logic)
 - Try to remove inline styles as much as possible

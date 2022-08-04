@@ -4,6 +4,12 @@
   backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px var(--box-shadow-color);
   border-radius: 5px;
+  transition: all 0.2s linear;
+  transition-property: width, height, top, left;
+}
+
+.window:active {
+  transition: none;
 }
 
 .window[data-state="minimized"] {
@@ -61,6 +67,7 @@
 
 .icon:hover {
   opacity: 0.6;
+  transform: none;
 }
 
 .topResizer {
