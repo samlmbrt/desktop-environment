@@ -6,12 +6,12 @@ You can try to prototype [here](https://slambert.dev).
 
 ### Things left to do:
 
-- Clean up window state (implement state machine?)
-- Implement support for minimize button
 - Clean up animations (use CSS variables, data attributes)
+- Fix Calculator minimizing glitch
+- Implement support for minimize button
+- Implement browser
 - Clean up calculator code (variable display size, logic)
 - Try to remove inline styles as much as possible
-- Implement browser
 - Add the metadata stuff (favicon, images for link sharing, etc)
 - Implement movable desktop icons that opens the text editor or browser
 - Add desktop icon that opens the text editor, which will show a short bio

@@ -3,9 +3,6 @@ import Window from "/src/components/Window/Window";
 
 import styles from "./Calculator.module.css";
 
-// todo:
-// - numbers too large = scientific notation
-
 const Calculator = (props) => {
   const [tokens, setTokens] = useState([]);
   const [hasError, setHasError] = useState(false);
