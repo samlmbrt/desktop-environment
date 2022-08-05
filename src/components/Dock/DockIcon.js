@@ -27,7 +27,9 @@ const DockIcon = ({ icon, alt, tooltip, windowState, setWindowState }) => {
     <div
       className={styles.dockIcon}
       onClick={() => {
-        setWindowState(true);
+        if (windowState === "closed") {
+          setWindowState("user");
+        }
       }}
     >
       <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
