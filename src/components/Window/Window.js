@@ -29,24 +29,27 @@ const Window = ({
 
   const maximize = () => {
     const nextState = windowState === "maximized" ? "user" : "maximized";
-    windowRef.current.dataset.state = nextState;
     setWindowState(nextState);
   };
 
   const minimize = () => {
     const nextState = windowState === "minimized" ? "user" : "minimized";
-    windowRef.current.dataset.state = nextState;
     setWindowState(nextState);
   };
 
   const close = () => {
-    windowRef.current.dataset.state = "closed";
     setWindowState("closed");
   };
 
+  const isMinimized = windowState === "minimized";
+  const isMaximized = windowState === "maximized";
+  const isClosed = windowState === "closed";
+
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused}`}
+      className={`window ${styles.window} ${isFocused && styles.focused} ${isMinimized && styles.minimized} ${
+        isMaximized && styles.maximized
+      } ${isClosed && styles.closed}`}
       style={{
         width: initialWidth,
         height: initialHeight,
@@ -65,7 +68,6 @@ const Window = ({
       onBlur={() => {
         setIsFocused(false);
       }}
-      data-state={windowState}
     >
       {isResizable && windowState !== "maximized" && (
         <>

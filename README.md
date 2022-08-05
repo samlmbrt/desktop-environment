@@ -6,7 +6,7 @@ You can try to prototype [here](https://slambert.dev).
 
 ### Things left to do:
 
-- Clean up data attributes. Are they necessary? Or state change?
+- Put window on top when icon clicked
 - Implement browser
 - Clean up calculator code (variable display size, logic)
 - Try to remove inline styles as much as possible
