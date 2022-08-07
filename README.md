@@ -6,7 +6,8 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 
 ### Things left to do:
 
-- Remove browser stuff
+- Add transition on theme color change
+- Find new icons (maybe?)
 - Add text and icon attribution
 - Put window on top when icon clicked
 - Clean up calculator code (variable display size, logic)

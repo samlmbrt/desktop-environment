@@ -6,11 +6,9 @@ import Dock from "/src/components/Dock/Dock";
 import DockIcon from "/src/components/Dock/DockIcon";
 import Separator from "/src/components/Dock/Separator";
 import ThemeSwitcher from "/src/components/Dock/ThemeSwitcher";
-import Browser from "/src/components/Applications/Browser/Browser";
 import Calculator from "/src/components/Applications/Calculator/Calculator";
 import TextEditor from "/src/components/Applications/TextEditor/TextEditor";
 
-import browserIcon from "/public/icons/browser.png";
 import calculatorIcon from "/public/icons/calculator.png";
 import textEditorIcon from "/public/icons/editor.png";
 
@@ -18,7 +16,6 @@ import textEditorIcon from "/public/icons/editor.png";
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
 
 const Index = () => {
-  const [browserWindowState, setBrowserWindowState] = useState("closed");
   const [textEditorWindowState, setTextEditorWindowState] = useState("closed");
   const [calculatorWindowState, setCalculatorWindowState] = useState("closed");
 
@@ -29,14 +26,6 @@ const Index = () => {
         <meta name="color-scheme" content="dark light" />
       </Head>
       <Desktop>
-        <Browser
-          initialWidth={640}
-          initialHeight={480}
-          initialTop={10}
-          initialLeft={10}
-          windowState={browserWindowState}
-          setWindowState={setBrowserWindowState}
-        />
         <TextEditor
           initialWidth={640}
           initialHeight={480}
@@ -54,13 +43,6 @@ const Index = () => {
           setWindowState={setCalculatorWindowState}
         />
         <Dock>
-          <DockIcon
-            icon={browserIcon}
-            alt="Icon for browser"
-            tooltip="Browser"
-            windowState={browserWindowState}
-            setWindowState={setBrowserWindowState}
-          />
           <DockIcon
             icon={textEditorIcon}
             alt="Icon for text editor"
