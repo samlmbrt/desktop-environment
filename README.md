@@ -6,7 +6,4 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 
 ### Things left to do:
 
-- Put window on top when icon clicked
-- Clean up calculator code (variable display size, logic)
-- Try to remove inline styles as much as possible
 - Recreate readme once completed

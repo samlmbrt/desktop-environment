@@ -14,7 +14,13 @@ const TextEditor = (props) => {
         textAreaRef.current.focus();
       }}
     >
-      <div className={styles.textArea} contentEditable="true" ref={textAreaRef} tabIndex={-1}>
+      <div
+        className={styles.textArea}
+        contentEditable="true"
+        suppressContentEditableWarning={true}
+        ref={textAreaRef}
+        tabIndex={-1}
+      >
         {"This is a simple desktop environment I created for fun using JavaScript,\n"}
         {"React.js, Next.js and vanilla CSS.\n"}
         {"\n"}
