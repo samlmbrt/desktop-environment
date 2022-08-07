@@ -16,7 +16,7 @@ import textEditorIcon from "/public/icons/editor.png";
 const Desktop = dynamic(() => import("/src/components/Desktop/Desktop"), { ssr: false });
 
 const Index = () => {
-  const [textEditorWindowState, setTextEditorWindowState] = useState("closed");
+  const [textEditorWindowState, setTextEditorWindowState] = useState("open");
   const [calculatorWindowState, setCalculatorWindowState] = useState("closed");
 
   return (
@@ -37,8 +37,8 @@ const Index = () => {
         <Calculator
           initialWidth={280}
           initialHeight={480}
-          initialTop={90}
-          initialLeft={90}
+          initialTop={100}
+          initialLeft={50}
           windowState={calculatorWindowState}
           setWindowState={setCalculatorWindowState}
         />

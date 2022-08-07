@@ -6,11 +6,7 @@ You can try to prototype [here](https://desktop-environment.vercel.app).
 
 ### Things left to do:
 
-- Add transition on theme color change
-- Find new icons (maybe?)
-- Add text and icon attribution
 - Put window on top when icon clicked
 - Clean up calculator code (variable display size, logic)
 - Try to remove inline styles as much as possible
-- Add the metadata stuff (favicon, images for link sharing, etc)
 - Recreate readme once completed
