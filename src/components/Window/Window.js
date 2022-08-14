@@ -16,6 +16,9 @@ const Window = ({
   zIndex,
   windowState,
   setWindowState,
+  minimizeCallback,
+  maximizeCallback,
+  closeCallback,
   focusCallback,
   children,
   isResizable = true,
@@ -30,15 +33,21 @@ const Window = ({
   const maximize = () => {
     const nextState = windowState === "maximized" ? "user" : "maximized";
     setWindowState(nextState);
+
+    typeof maximizeCallback === "function" && maximizeCallback();
   };
 
   const minimize = () => {
     const nextState = windowState === "minimized" ? "user" : "minimized";
     setWindowState(nextState);
+
+    typeof minimizeCallback === "function" && minimizeCallback();
   };
 
   const close = () => {
     setWindowState("closed");
+
+    typeof closeCallback === "function" && closeCallback();
   };
 
   const isMinimized = windowState === "minimized";
