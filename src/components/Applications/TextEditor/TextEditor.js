@@ -27,9 +27,6 @@ const TextEditor = (props) => {
         {"You can move, resize, focus windows, and you can also toggle between the\n"}
         {"light and the dark theme.\n"}
         {"\n"}
-        {"I also ported most of Diablo 2 (using WebAssembly), but the game is not\n"}
-        {"very playable and/or stable. Please have low expectations!\n"}
-        {"\n"}
         {"Attributions:\n"}
         {"- Icons were made by Freepik from www.flaticon.com\n"}
         {"- Desktop wallpaper was made by Mikael Gustafsson\n"}
