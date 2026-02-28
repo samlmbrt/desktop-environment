@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Window from "/src/components/Window/Window";
+import Window from "@/components/Window/Window";
 
 import styles from "./TextEditor.module.css";
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 
 import styles from "./DockIcon.module.css";
 
@@ -33,11 +32,10 @@ const DockIcon = ({ icon, alt, tooltip, windowState, setWindowState }) => {
       }}
     >
       <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
-      <Image
+      <img
         className={`${isPressed && styles.pressed}`}
         src={icon}
         alt={alt}
-        placeholder="blur"
         width={64}
         height={64}
         onPointerEnter={handlePointerEnter}

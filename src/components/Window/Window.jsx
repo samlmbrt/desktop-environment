@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
-import closeIcon from "/public/icons/close.png";
-import maximizeIcon from "/public/icons/maximize.png";
-import minimizeIcon from "/public/icons/minimize.png";
+import closeIcon from "@/assets/icons/close.png";
+import maximizeIcon from "@/assets/icons/maximize.png";
+import minimizeIcon from "@/assets/icons/minimize.png";
 
 import styles from "./Window.module.css";
 
@@ -87,7 +86,7 @@ const Window = ({
       >
         <div className={styles.title}>{title}</div>
         {isResizable && (
-          <Image
+          <img
             className={`icon ${styles.icon}`}
             src={minimizeIcon}
             alt="Minimize icon"
@@ -97,7 +96,7 @@ const Window = ({
           />
         )}
         {isResizable && (
-          <Image
+          <img
             className={`icon ${styles.icon}`}
             src={maximizeIcon}
             alt="Maximize icon"
@@ -106,7 +105,7 @@ const Window = ({
             onClick={maximize}
           />
         )}
-        <Image
+        <img
           className={`icon ${styles.icon}`}
           src={closeIcon}
           alt="Close icon"

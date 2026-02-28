@@ -1,10 +1,8 @@
 import { useRef } from "react";
-import Image from "next/image";
 
-import { bodyMargin, minWidth, minHeight } from "/src/components/Window/Window";
-import BlueScreen from "/src/components/Desktop/BlueScreen";
-import useViewport from "/src/hooks/useViewport";
-import wallpaper from "/public/wallpaper.png";
+import { bodyMargin, minWidth, minHeight } from "@/components/Window/Window";
+import BlueScreen from "@/components/Desktop/BlueScreen";
+import useViewport from "@/hooks/useViewport";
 
 import styles from "./Desktop.module.css";
 
@@ -52,7 +50,7 @@ const resizeElement = (element, width = 0, height = 0) => {
 };
 
 const Desktop = ({ children }) => {
-  // We manage the drag events ˇˇˇˇˇor Window components here since 'mousemove'
+  // We manage the drag events for Window components here since 'mousemove'
   // events are not triggered for every pixel when moving the mouse around.
   // This means a drag could stop prematurely if the user moves the mouse
   // too fast. By setting the event handlers on the Desktop component, we
@@ -162,7 +160,7 @@ const Desktop = ({ children }) => {
         ref={desktopRef}
         tabIndex={-1}
       >
-        <Image src={wallpaper} alt="" placeholder="blur" layout="fill" objectFit="cover" />
+        <img className={styles.wallpaper} src="/wallpaper.png" alt="" />
         {children}
       </div>
     </>
