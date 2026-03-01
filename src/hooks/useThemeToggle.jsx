@@ -1,23 +1,23 @@
-import { useCallback, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+
+const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 const useThemeToggle = () => {
-  const darkModeMatchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-  const [isDarkTheme, setIsDarkTheme] = useState(() => darkModeMatchMedia.matches);
-
-  const toggleTheme = useCallback(() => {
-    setIsDarkTheme(!isDarkTheme);
-    document.documentElement.setAttribute("data-theme", isDarkTheme ? "dark" : "light");
-  }, [isDarkTheme, setIsDarkTheme]);
+  const [isDarkTheme, setIsDarkTheme] = useState(() => mediaQuery.matches);
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute("data-theme", isDarkTheme ? "dark" : "light");
+  }, [isDarkTheme]);
 
-    darkModeMatchMedia.addEventListener("change", () => {
-      toggleTheme();
-    });
+  useEffect(() => {
+    const handleChange = (event) => setIsDarkTheme(event.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
-    return () => darkModeMatchMedia.removeEventListener("change", toggleTheme);
-  }, [darkModeMatchMedia, isDarkTheme, toggleTheme]);
+  const toggleTheme = useCallback(() => {
+    setIsDarkTheme((prev) => !prev);
+  }, []);
 
   return [isDarkTheme, toggleTheme];
 };
