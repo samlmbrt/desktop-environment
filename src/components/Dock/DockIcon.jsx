@@ -2,25 +2,11 @@ import { useState } from "react";
 
 import styles from "./DockIcon.module.css";
 
-const DockIcon = ({ icon, tooltip, windowState, setWindowState }) => {
+const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
-  const handlePointerEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handlePointerLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handlePointerDown = () => {
-    setIsPressed(true);
-  };
-
-  const handlePointerUp = () => {
-    setIsPressed(false);
-  };
+  const isOpen = windowState !== "closed";
 
   return (
     <div
@@ -34,14 +20,13 @@ const DockIcon = ({ icon, tooltip, windowState, setWindowState }) => {
       <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
       <div
         className={`${styles.iconWrapper} ${isPressed && styles.pressed}`}
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
+        onPointerEnter={() => setIsHovered(true)}
+        onPointerLeave={() => setIsHovered(false)}
+        onPointerDown={() => setIsPressed(true)}
+        onPointerUp={() => setIsPressed(false)}
       >
-        {icon}
+        <Icon size={40} strokeWidth={1.5} className={isOpen ? styles.active : undefined} />
       </div>
-      <div className={styles.dot} style={{ opacity: windowState !== "closed" ? 1 : 0 }} />
     </div>
   );
 };

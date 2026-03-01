@@ -34,13 +34,13 @@ const App = () => {
       />
       <Dock>
         <DockIcon
-          icon={<CalculatorIcon size={40} />}
+          Icon={CalculatorIcon}
           tooltip="Calculator"
           windowState={calculatorWindowState}
           setWindowState={setCalculatorWindowState}
         />
         <DockIcon
-          icon={<Rows4 size={40} />}
+          Icon={Rows4}
           tooltip="Text Editor"
           windowState={textEditorWindowState}
           setWindowState={setTextEditorWindowState}

@@ -10,8 +10,7 @@
   --tooltip-background-color: hsla(0, 100%, 100%, 0.8);
   --tooltip-foreground-color: black;
   --dock-icon-color: black;
-  --dock-dot-border-color: black;
-  --dock-dot-color: white;
+  --dock-icon-fill: hsla(0, 0%, 0%, 0.25);
   --separator-color: hsla(0, 0%, 86%, 0.4);
   --window-background-color: white;
   --window-foreground-color: black;
@@ -31,8 +30,7 @@
   --tooltip-background-color: hsla(187, 0%, 11%, 0.9);
   --tooltip-foreground-color: white;
   --dock-icon-color: white;
-  --dock-dot-border-color: black;
-  --dock-dot-color: white;
+  --dock-icon-fill: hsla(0, 0%, 100%, 0.25);
   --separator-color: hsla(0, 0%, 86%, 0.4);
   --window-background-color: hsla(80, 1%, 16%, 1);
   --window-foreground-color: white;
