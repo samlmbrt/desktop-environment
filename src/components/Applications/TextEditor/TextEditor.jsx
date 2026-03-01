@@ -22,14 +22,14 @@ const TextEditor = (props) => {
         tabIndex={-1}
       >
         {"This is a simple desktop environment I created for fun using JavaScript,\n"}
-        {"React.js, Next.js and vanilla CSS.\n"}
+        {"React and vanilla CSS.\n"}
         {"\n"}
         {"You can move, resize, focus windows, and you can also toggle between the\n"}
         {"light and the dark theme.\n"}
         {"\n"}
         {"Attributions:\n"}
         {"- Icons were made by Freepik from www.flaticon.com\n"}
-        {"- Desktop wallpaper was made by Mikael Gustafsson\n"}
+        {"- Desktop wallpaper was made by Simon Berger\n"}
         {"\n"}
         {"P.S. Please do not use the provided calculator for important calculations!"}
       </div>
