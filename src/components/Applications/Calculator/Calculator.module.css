@@ -19,6 +19,8 @@
   text-align: center;
   border-radius: 50px;
   transition: opacity 0.1s ease-in;
+  cursor: pointer;
+  user-select: none;
 }
 
 .button:hover {

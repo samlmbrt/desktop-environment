@@ -3,118 +3,162 @@ import Window from "@/components/Window/Window";
 
 import styles from "./Calculator.module.css";
 
-const Calculator = (props) => {
-  const [tokens, setTokens] = useState([]);
+const OPERATORS = ["+", "-", "×", "÷"];
+
+const BUTTONS = [
+  { label: "AC", position: "ac", variant: "lightGrey" },
+  { label: "±", position: "negate", variant: "lightGrey", action: "negate" },
+  { label: "%", position: "percent", variant: "lightGrey", action: "percent" },
+  { label: "÷", position: "divide", variant: "yellow" },
+  { label: "7", position: "seven" },
+  { label: "8", position: "eight" },
+  { label: "9", position: "nine" },
+  { label: "×", position: "times", variant: "yellow" },
+  { label: "4", position: "four" },
+  { label: "5", position: "five" },
+  { label: "6", position: "six" },
+  { label: "-", position: "minus", variant: "yellow" },
+  { label: "1", position: "one" },
+  { label: "2", position: "two" },
+  { label: "3", position: "three" },
+  { label: "+", position: "plus", variant: "yellow" },
+  { label: "0", position: "zero" },
+  { label: ".", position: "dot" },
+  { label: "=", position: "equal", variant: "yellow", action: "equals" },
+];
+
+const cx = (...names) => names.filter(Boolean).join(" ");
+
+function isDigit(ch) {
+  return ch >= "0" && ch <= "9";
+}
+
+function parseExpr(chars, pos) {
+  let [left, i] = parseTerm(chars, pos);
+  while (i < chars.length && (chars[i] === "+" || chars[i] === "-")) {
+    const op = chars[i];
+    const [right, next] = parseTerm(chars, i + 1);
+    left = op === "+" ? left + right : left - right;
+    i = next;
+  }
+  return [left, i];
+}
+
+function parseTerm(chars, pos) {
+  let [left, i] = parseNumber(chars, pos);
+  while (i < chars.length && (chars[i] === "×" || chars[i] === "÷")) {
+    const op = chars[i];
+    const [right, next] = parseNumber(chars, i + 1);
+    left = op === "×" ? left * right : left / right;
+    i = next;
+  }
+  return [left, i];
+}
+
+function parseNumber(chars, pos) {
+  let i = pos;
+  let numStr = "";
+  if (i < chars.length && chars[i] === "-") {
+    numStr += "-";
+    i++;
+  }
+  if (i >= chars.length || (!isDigit(chars[i]) && chars[i] !== ".")) {
+    throw new Error("Expected number");
+  }
+  while (i < chars.length && (isDigit(chars[i]) || chars[i] === ".")) {
+    numStr += chars[i];
+    i++;
+  }
+  return [parseFloat(numStr), i];
+}
+
+function evaluate(input) {
+  if (input.length === 0) return null;
+  const chars = [...input];
+  while (chars.length > 0 && OPERATORS.includes(chars.at(-1))) {
+    chars.pop();
+  }
+  if (chars.length === 0) return null;
+  const [result, consumed] = parseExpr(chars, 0);
+  if (consumed !== chars.length) throw new Error("Unexpected characters");
+  return result;
+}
+
+function formatResult(value) {
+  if (value === null || !isFinite(value)) return null;
+  return parseFloat(value.toPrecision(12));
+}
+
+export default function Calculator(props) {
+  const [input, setInput] = useState([]);
   const [hasError, setHasError] = useState(false);
 
-  const ArithmeticButton = ({ className, children }) => {
-    return (
-      <div
-        className={className}
-        onClick={() => {
-          if (tokens.length === 0 && children === "0") return;
+  const handlePress = (value) => {
+    if (hasError) return;
+    if (input.length === 0 && value === "0") return;
+    if (input.length === 0 && (value === "×" || value === "÷")) return;
 
-          const operators = ["+", "-", "×", "÷"];
-          if (operators.includes(children) && operators.includes(tokens.at(-1))) {
-            tokens.pop();
-          }
-          setTokens([...tokens, children]);
-        }}
-      >
-        {children}
-      </div>
-    );
+    if (value === ".") {
+      const lastOperatorIndex = input.findLastIndex((ch) => OPERATORS.includes(ch));
+      const currentSegment = input.slice(lastOperatorIndex + 1);
+      if (currentSegment.includes(".")) return;
+    }
+
+    if (OPERATORS.includes(value) && OPERATORS.includes(input.at(-1))) {
+      setInput((prev) => [...prev.slice(0, -1), value]);
+      return;
+    }
+
+    setInput((prev) => [...prev, value]);
   };
 
-  const FunctionButton = ({ className, callback, children }) => {
-    return (
-      <div
-        className={className}
-        onClick={() => {
-          if (typeof callback === "function") {
-            try {
-              callback();
-            } catch (_err) {
-              setHasError(true);
-            }
-          }
-        }}
-      >
-        {children}
-      </div>
-    );
+  const evaluateWith = (transform) => {
+    if (hasError || input.length === 0) return;
+    try {
+      const raw = evaluate(input);
+      if (raw === null) return;
+      const result = formatResult(transform(raw));
+      if (result === null) {
+        setHasError(true);
+      } else {
+        setInput([String(result)]);
+      }
+    } catch {
+      setHasError(true);
+    }
   };
 
-  const tokensToString = () => {
-    return tokens.join("").replaceAll("÷", "/").replaceAll("×", "*");
+  const handleClick = ({ label, action }) => {
+    if (label === "AC") {
+      setHasError(false);
+      setInput([]);
+    } else if (action === "negate") {
+      evaluateWith((v) => -v);
+    } else if (action === "percent") {
+      evaluateWith((v) => v / 100);
+    } else if (action === "equals") {
+      evaluateWith((v) => v);
+    } else {
+      handlePress(label);
+    }
   };
+
+  const display = hasError ? "Error" : input.length === 0 ? "0" : input.join("");
 
   return (
     <Window {...props} title="Calculator" isResizable={false}>
       <div className={styles.calculator} tabIndex={-1}>
-        <div className={styles.screen}>{hasError ? "Error" : tokens.length === 0 ? 0 : tokens.join("")}</div>
-        <FunctionButton
-          className={`${styles.button} ${styles.ac} ${styles.lightGrey}`}
-          callback={() => {
-            setHasError(false);
-            setTokens([]);
-          }}
-        >
-          AC
-        </FunctionButton>
-        <FunctionButton
-          className={`${styles.button} ${styles.negate} ${styles.lightGrey}`}
-          callback={() => {
-            if (!hasError && tokens.length !== 0) {
-              setTokens([-eval(tokensToString())]);
-            }
-          }}
-        >
-          ±
-        </FunctionButton>
-        <FunctionButton
-          className={`${styles.button} ${styles.percent} ${styles.lightGrey}`}
-          callback={() => {
-            if (!hasError && tokens.length !== 0) {
-              setTokens([+(eval(tokensToString()) / 100)]);
-            }
-          }}
-        >
-          %
-        </FunctionButton>
-        <ArithmeticButton className={`${styles.button} ${styles.Buttonide} ${styles.yellow}`}>÷</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.seven}`}>7</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.eight}`}>8</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.nine}`}>9</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.times} ${styles.yellow}`}>×</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.four}`}>4</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.five}`}>5</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.six}`}>6</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.minus} ${styles.yellow}`}>-</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.one}`}>1</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.two}`}>2</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.three}`}>3</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.plus} ${styles.yellow}`}>+</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.zero}`}>0</ArithmeticButton>
-        <ArithmeticButton className={`${styles.button} ${styles.dot}`}>.</ArithmeticButton>
-        <FunctionButton
-          className={`${styles.button} ${styles.equal} ${styles.yellow}`}
-          callback={() => {
-            if (tokens.length !== 0) {
-              const result = eval(tokensToString());
-              if (isNaN(result)) {
-                setHasError(true);
-              } else {
-                setTokens([result]);
-              }
-            }
-          }}
-        >
-          =
-        </FunctionButton>
+        <div className={styles.screen}>{display}</div>
+        {BUTTONS.map((button) => (
+          <div
+            key={button.position}
+            className={cx(styles.button, styles[button.position], button.variant && styles[button.variant])}
+            onClick={() => handleClick(button)}
+          >
+            {button.label}
+          </div>
+        ))}
       </div>
     </Window>
   );
-};
-
-export default Calculator;
+}
