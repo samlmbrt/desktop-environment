@@ -21,17 +21,17 @@ export const TextEditor = (props) => {
         ref={textAreaRef}
         tabIndex={-1}
       >
-        {"This is a simple desktop environment I created for fun using JavaScript,\n"}
-        {"React and vanilla CSS.\n"}
+        {"This is a simple desktop environment I built for fun using JavaScript,\n"}
+        {"React, and vanilla CSS.\n"}
         {"\n"}
-        {"You can move, resize, focus windows, and you can also toggle between the\n"}
-        {"light and the dark theme.\n"}
+        {"You can move, resize, and focus windows, and toggle between the\n"}
+        {"light and dark themes.\n"}
         {"\n"}
         {"Attributions:\n"}
         {"- Icons by Lucide (lucide.dev)\n"}
-        {"- Desktop wallpaper was made by Simon Berger\n"}
+        {"- Desktop wallpaper by Simon Berger\n"}
         {"\n"}
-        {"P.S. Please do not use the provided calculator for important calculations!"}
+        {"P.S. The calculator here is just for show — don't trust it with anything important!"}
       </div>
     </Window>
   );
