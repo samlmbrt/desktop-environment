@@ -6,21 +6,49 @@ import useViewport from "@/hooks/useViewport";
 
 import styles from "./Desktop.module.css";
 
+const dragBehavior = {
+  titleBar: (w, d) => {
+    move(w, d.xMoveDelta, d.yMoveDelta);
+  },
+  rightResizer: (w, d) => {
+    resize(w, d.xResizeDelta);
+  },
+  bottomResizer: (w, d) => {
+    resize(w, null, d.yResizeDelta);
+  },
+  bottomRightResizer: (w, d) => {
+    resize(w, d.xResizeDelta, d.yResizeDelta);
+  },
+  topRightResizer: (w, d) => {
+    move(w, null, d.yMoveDelta);
+    resize(w, d.xResizeDelta, d.yResizeOffset);
+  },
+  leftResizer: (w, d) => {
+    move(w, Math.min(d.xMoveDelta, d.xMoveLimit));
+    resize(w, Math.max(d.xResizeOffset, minWidth));
+  },
+  topResizer: (w, d) => {
+    move(w, null, Math.min(d.yMoveDelta, d.yMoveLimit));
+    resize(w, null, Math.max(d.yResizeOffset, minHeight));
+  },
+  bottomLeftResizer: (w, d) => {
+    move(w, Math.min(d.xMoveDelta, d.xMoveLimit));
+    resize(w, Math.max(d.xResizeOffset, minWidth), d.yResizeDelta);
+  },
+  topLeftResizer: (w, d) => {
+    move(w, Math.min(d.xMoveDelta, d.xMoveLimit), Math.min(d.yMoveDelta, d.yMoveLimit));
+    resize(w, Math.max(d.xResizeOffset, minWidth), Math.max(d.yResizeOffset, minHeight));
+  },
+};
+
+const dragTypes = new Set(Object.keys(dragBehavior));
+
 const isDragElement = (element) => {
   if (!element) return false;
-
-  const classes = element.classList;
-  return (
-    classes.contains("titleBar") ||
-    classes.contains("topResizer") ||
-    classes.contains("leftResizer") ||
-    classes.contains("rightResizer") ||
-    classes.contains("bottomResizer") ||
-    classes.contains("topLeftResizer") ||
-    classes.contains("topRightResizer") ||
-    classes.contains("bottomLeftResizer") ||
-    classes.contains("bottomRightResizer")
-  );
+  for (const cls of element.classList) {
+    if (dragTypes.has(cls)) return true;
+  }
+  return false;
 };
 
 const isFocusableElement = (element) => {
@@ -29,24 +57,14 @@ const isFocusableElement = (element) => {
   return isDragElement(element) || element.closest(".body") || element.closest(".icon");
 };
 
-const getEventPosition = (event) => {
-  return event.type.startsWith("touch")
-    ? [event.touches[0].clientX, event.touches[0].clientY]
-    : [event.clientX, event.clientY];
+const move = (element, x, y) => {
+  if (x != null) element.style.left = `${x}px`;
+  if (y != null) element.style.top = `${y}px`;
 };
 
-const moveElement = (element, x = 0, y = 0) => {
-  if (!element) return;
-
-  if (x) element.style.left = `${x}px`;
-  if (y) element.style.top = `${y}px`;
-};
-
-const resizeElement = (element, width = 0, height = 0) => {
-  if (!element) return;
-
-  if (width) element.style.width = `${width}px`;
-  if (height) element.style.height = `${height}px`;
+const resize = (element, width, height) => {
+  if (width != null) element.style.width = `${width}px`;
+  if (height != null) element.style.height = `${height}px`;
 };
 
 const Desktop = ({ children }) => {
@@ -61,20 +79,17 @@ const Desktop = ({ children }) => {
   const dragState = useRef(null);
 
   const handleFocusChange = (element) => {
-    // Fixme: use idiomatic React code instead of using the DOM API.
-    const visibleWindows = document.getElementsByClassName("window");
-
     const targetWindow = element.closest(".window");
-    const cutoffIndex = targetWindow.style.zIndex;
+    const allWindows = [...document.getElementsByClassName("window")];
 
-    for (const window of visibleWindows) {
-      const currentIndex = window.style.zIndex;
-      if (currentIndex > cutoffIndex) {
-        window.style.zIndex = currentIndex - 1;
-      }
-    }
+    const sorted = allWindows
+      .filter((w) => w !== targetWindow)
+      .sort((a, b) => (Number(a.style.zIndex) || 0) - (Number(b.style.zIndex) || 0));
 
-    targetWindow.style.zIndex = Math.max(visibleWindows.length - 1, 0);
+    sorted.forEach((w, i) => {
+      w.style.zIndex = i;
+    });
+    targetWindow.style.zIndex = sorted.length;
     targetWindow.focus({ preventScroll: true });
   };
 
@@ -88,12 +103,11 @@ const Desktop = ({ children }) => {
     }
 
     if (isDragElement(element)) {
-      const [x, y] = getEventPosition(event);
-
       const window = element.parentNode;
       const { top, left, width, height } = window.getBoundingClientRect();
+      const dragType = [...element.classList].find((cls) => dragTypes.has(cls));
 
-      dragState.current = { element, x, y, top, left, width, height };
+      dragState.current = { dragType, window, x: event.clientX, y: event.clientY, top, left, width, height };
     }
   };
 
@@ -101,44 +115,20 @@ const Desktop = ({ children }) => {
     const state = dragState.current;
     if (!state) return;
 
-    const element = dragState.current.element;
-    const window = element.parentNode;
-    const [x, y] = getEventPosition(event);
+    const { clientX: x, clientY: y } = event;
 
-    // Various calculations for next window position and size.
-    const xResizeDelta = state.width + x - state.x;
-    const yResizeDelta = state.height + y - state.y;
-    const xResizeOffset = state.width - x + state.x;
-    const yResizeOffset = state.height - y + state.y;
-    const xMoveDelta = state.left + x - state.x;
-    const yMoveDelta = state.top + y - state.y;
-    const xMoveLimit = state.left + state.width - minWidth;
-    const yMoveLimit = state.top + state.height - minHeight - bodyMargin - 1;
+    const deltas = {
+      xResizeDelta: state.width + x - state.x,
+      yResizeDelta: state.height + y - state.y,
+      xResizeOffset: state.width - x + state.x,
+      yResizeOffset: state.height - y + state.y,
+      xMoveDelta: state.left + x - state.x,
+      yMoveDelta: state.top + y - state.y,
+      xMoveLimit: state.left + state.width - minWidth,
+      yMoveLimit: state.top + state.height - minHeight - bodyMargin - 1,
+    };
 
-    if (element.classList.contains("titleBar")) {
-      moveElement(window, xMoveDelta, yMoveDelta);
-    } else if (element.classList.contains("rightResizer")) {
-      resizeElement(window, xResizeDelta, 0);
-    } else if (element.classList.contains("bottomResizer")) {
-      resizeElement(window, 0, yResizeDelta);
-    } else if (element.classList.contains("bottomRightResizer")) {
-      resizeElement(window, xResizeDelta, yResizeDelta);
-    } else if (element.classList.contains("topRightResizer")) {
-      moveElement(window, 0, yMoveDelta);
-      resizeElement(window, xResizeDelta, yResizeOffset);
-    } else if (element.classList.contains("leftResizer")) {
-      moveElement(window, Math.min(xMoveDelta, xMoveLimit), 0);
-      resizeElement(window, Math.max(xResizeOffset, minWidth), 0);
-    } else if (element.classList.contains("topResizer")) {
-      moveElement(window, 0, Math.min(yMoveDelta, yMoveLimit));
-      resizeElement(window, 0, Math.max(yResizeOffset, minHeight));
-    } else if (element.classList.contains("bottomLeftResizer")) {
-      moveElement(window, Math.min(xMoveDelta, xMoveLimit), 0);
-      resizeElement(window, Math.max(xResizeOffset, minWidth), yResizeDelta);
-    } else if (element.classList.contains("topLeftResizer")) {
-      moveElement(window, Math.min(xMoveDelta, xMoveLimit), Math.min(yMoveDelta, yMoveLimit));
-      resizeElement(window, Math.max(xResizeOffset, minWidth), Math.max(yResizeOffset, minHeight));
-    }
+    dragBehavior[state.dragType](state.window, deltas);
   };
 
   const handlePointerUp = () => {
@@ -154,9 +144,6 @@ const Desktop = ({ children }) => {
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerMove={handlePointerMove}
-        onTouchStart={handlePointerDown}
-        onTouchEnd={handlePointerUp}
-        onTouchMove={handlePointerMove}
         ref={desktopRef}
         tabIndex={-1}
       >
