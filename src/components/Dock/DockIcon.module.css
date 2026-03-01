@@ -1,3 +1,11 @@
+.dockIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+
 .toolTip {
   position: absolute;
   background-color: var(--tooltip-background-color);
@@ -9,9 +17,10 @@
   white-space: nowrap;
   box-shadow: 0 3px 10px var(--box-shadow-color);
   transition: opacity 0.2s ease-in;
+  pointer-events: none;
 }
 
-.hovered {
+.dockIcon:hover .toolTip {
   opacity: 1;
 }
 
@@ -24,18 +33,10 @@
   color: var(--dock-icon-color);
 }
 
-.active {
-  fill: var(--dock-icon-fill);
-}
-
-.pressed {
+.iconWrapper:active {
   opacity: 0.5;
 }
 
-.dockIcon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 6px;
+.active {
+  fill: var(--dock-icon-fill);
 }

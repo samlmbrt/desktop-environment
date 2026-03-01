@@ -1,11 +1,6 @@
-import { useState } from "react";
-
 import styles from "./DockIcon.module.css";
 
 export const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
-
   const isOpen = windowState !== "closed";
 
   return (
@@ -17,14 +12,8 @@ export const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
         }
       }}
     >
-      <div className={`${styles.toolTip} ${isHovered && styles.hovered}`}>{tooltip}</div>
-      <div
-        className={`${styles.iconWrapper} ${isPressed && styles.pressed}`}
-        onPointerEnter={() => setIsHovered(true)}
-        onPointerLeave={() => setIsHovered(false)}
-        onPointerDown={() => setIsPressed(true)}
-        onPointerUp={() => setIsPressed(false)}
-      >
+      <div className={styles.toolTip}>{tooltip}</div>
+      <div className={styles.iconWrapper}>
         <Icon size={40} strokeWidth={1.5} className={isOpen ? styles.active : undefined} />
       </div>
     </div>
