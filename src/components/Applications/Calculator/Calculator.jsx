@@ -6,25 +6,25 @@ import styles from "./Calculator.module.css";
 const OPERATORS = ["+", "-", "×", "÷"];
 
 const BUTTONS = [
-  { label: "AC", position: "ac", variant: "lightGrey" },
-  { label: "±", position: "negate", variant: "lightGrey", action: "negate" },
-  { label: "%", position: "percent", variant: "lightGrey", action: "percent" },
-  { label: "÷", position: "divide", variant: "yellow" },
-  { label: "7", position: "seven" },
-  { label: "8", position: "eight" },
-  { label: "9", position: "nine" },
-  { label: "×", position: "times", variant: "yellow" },
-  { label: "4", position: "four" },
-  { label: "5", position: "five" },
-  { label: "6", position: "six" },
-  { label: "-", position: "minus", variant: "yellow" },
-  { label: "1", position: "one" },
-  { label: "2", position: "two" },
-  { label: "3", position: "three" },
-  { label: "+", position: "plus", variant: "yellow" },
-  { label: "0", position: "zero" },
-  { label: ".", position: "dot" },
-  { label: "=", position: "equal", variant: "yellow", action: "equals" },
+  { label: "AC", variant: "lightGrey" },
+  { label: "±", variant: "lightGrey", action: "negate" },
+  { label: "%", variant: "lightGrey", action: "percent" },
+  { label: "÷", variant: "yellow" },
+  { label: "7" },
+  { label: "8" },
+  { label: "9" },
+  { label: "×", variant: "yellow" },
+  { label: "4" },
+  { label: "5" },
+  { label: "6" },
+  { label: "-", variant: "yellow" },
+  { label: "1" },
+  { label: "2" },
+  { label: "3" },
+  { label: "+", variant: "yellow" },
+  { label: "0", className: "zero" },
+  { label: "." },
+  { label: "=", variant: "yellow", action: "equals" },
 ];
 
 const cx = (...names) => names.filter(Boolean).join(" ");
@@ -149,8 +149,12 @@ export const Calculator = (props) => {
         <div className={styles.screen}>{display}</div>
         {BUTTONS.map((button) => (
           <div
-            key={button.position}
-            className={cx(styles.button, styles[button.position], button.variant && styles[button.variant])}
+            key={button.label}
+            className={cx(
+              styles.button,
+              button.className && styles[button.className],
+              button.variant && styles[button.variant],
+            )}
             onClick={() => handleClick(button)}
           >
             {button.label}

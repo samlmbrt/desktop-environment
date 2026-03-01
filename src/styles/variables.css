@@ -2,41 +2,33 @@
   --body-width: calc(100% - 2 * var(--body-margin));
   --body-height: calc(100% - var(--titlebar-height) - 3 * var(--body-margin));
   --body-margin: 3px;
-  --box-shadow-color: hsla(0, 0%, 0%, 0.4);
-  --dock-background-color: hsla(0, 0%, 100%, 0.2);
+  --box-shadow-color: hsl(0 0% 0% / 0.4);
+  --dock-background-color: hsl(0 0% 100% / 0.2);
   --dock-height: 80px;
   --blue-screen-foreground-color: white;
-  --blue-screen-background-color: hsla(231, 94%, 36%, 1);
-  --tooltip-background-color: hsla(0, 100%, 100%, 0.8);
+  --blue-screen-background-color: hsl(231 94% 36%);
+  --tooltip-background-color: hsl(0 0% 100% / 0.8);
   --tooltip-foreground-color: black;
   --dock-icon-color: black;
-  --dock-icon-fill: hsla(0, 0%, 0%, 0.25);
-  --separator-color: hsla(0, 0%, 86%, 0.4);
+  --dock-icon-fill: hsl(0 0% 0% / 0.25);
+  --separator-color: hsl(0 0% 86% / 0.4);
   --window-background-color: white;
   --window-foreground-color: black;
   --theme-switcher-background-color: white;
-  --theme-switcher-foreground-color: hsla(180, 100%, 36%, 0.95);
+  --theme-switcher-foreground-color: hsl(180 100% 36% / 0.95);
   --titlebar-foreground-color: white;
-  --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
-  --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
+  --titlebar-background-color-focused: hsl(180 100% 36% / 0.6);
+  --titlebar-background-color-unfocused: hsl(0 0% 86% / 0.6);
   --titlebar-height: 30px;
 }
 
 :root[data-theme="dark"] {
-  --box-shadow-color: hsla(0, 0%, 0%, 0.4);
-  --dock-background-color: hsla(0, 0%, 86%, 0.1);
-  --blue-screen-foreground-color: white;
-  --blue-screen-background-color: hsla(231, 94%, 36%, 1);
-  --tooltip-background-color: hsla(187, 0%, 11%, 0.9);
+  --dock-background-color: hsl(0 0% 86% / 0.1);
+  --tooltip-background-color: hsl(187 0% 11% / 0.9);
   --tooltip-foreground-color: white;
   --dock-icon-color: white;
-  --dock-icon-fill: hsla(0, 0%, 100%, 0.25);
-  --separator-color: hsla(0, 0%, 86%, 0.4);
-  --window-background-color: hsla(80, 1%, 16%, 1);
+  --dock-icon-fill: hsl(0 0% 100% / 0.25);
+  --window-background-color: hsl(80 1% 16%);
   --window-foreground-color: white;
-  --theme-switcher-background-color: hsla(234, 27%, 8%, 0.8);
-  --theme-switcher-foreground-color: hsla(180, 100%, 36%, 0.95);
-  --titlebar-foreground-color: white;
-  --titlebar-background-color-focused: hsla(180, 100%, 36%, 0.6);
-  --titlebar-background-color-unfocused: hsla(0, 0%, 86%, 0.6);
+  --theme-switcher-background-color: hsl(234 27% 8% / 0.8);
 }

@@ -28,7 +28,7 @@ export const App = () => {
         initialWidth={280}
         initialHeight={480}
         initialTop={100}
-        initialLeft={50}
+        initialLeft={350}
         windowState={calculatorWindowState}
         setWindowState={setCalculatorWindowState}
       />

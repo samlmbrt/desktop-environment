@@ -4,8 +4,11 @@
   backdrop-filter: blur(30px);
   box-shadow: 0 3px 10px var(--box-shadow-color);
   border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-  transition-property: width, height, top, left;
+  transition:
+    width 0.2s ease-in-out,
+    height 0.2s ease-in-out,
+    top 0.2s ease-in-out,
+    left 0.2s ease-in-out;
 }
 
 .window:active {
@@ -44,7 +47,7 @@
 }
 
 .title {
-  flex-grow: 1;
+  flex: 1;
   pointer-events: none;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -68,81 +71,77 @@
 
 .icon:hover {
   opacity: 0.6;
-  transform: none;
+}
+
+.topResizer,
+.rightResizer,
+.bottomResizer,
+.leftResizer,
+.topLeftResizer,
+.topRightResizer,
+.bottomLeftResizer,
+.bottomRightResizer {
+  position: absolute;
+  z-index: 1;
 }
 
 .topResizer {
-  position: absolute;
   top: 0;
   width: 100%;
   height: 5px;
   cursor: n-resize;
-  z-index: 1;
 }
 
 .rightResizer {
-  position: absolute;
   right: 0;
   width: 5px;
   height: 100%;
   cursor: e-resize;
-  z-index: 1;
 }
 
 .bottomResizer {
-  position: absolute;
   bottom: 0;
   width: 100%;
   height: 5px;
   cursor: s-resize;
-  z-index: 1;
 }
 
 .leftResizer {
-  position: absolute;
   left: 0;
   width: 5px;
   height: 100%;
   cursor: w-resize;
-  z-index: 1;
+}
+
+.topLeftResizer,
+.topRightResizer,
+.bottomLeftResizer,
+.bottomRightResizer {
+  width: 5px;
+  height: 5px;
+  z-index: 2;
 }
 
 .topLeftResizer {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 5px;
-  height: 5px;
   cursor: nw-resize;
-  z-index: 2;
 }
 
 .topRightResizer {
-  position: absolute;
   top: 0;
   right: 0;
-  width: 5px;
-  height: 5px;
   cursor: ne-resize;
-  z-index: 2;
 }
 
 .bottomLeftResizer {
-  position: absolute;
   bottom: 0;
   left: 0;
-  width: 5px;
-  height: 5px;
   cursor: sw-resize;
-  z-index: 2;
 }
 
 .bottomRightResizer {
-  position: absolute;
   bottom: 0;
   right: 0;
-  width: 5px;
-  height: 5px;
   cursor: se-resize;
-  z-index: 2;
 }
