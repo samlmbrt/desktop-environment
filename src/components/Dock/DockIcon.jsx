@@ -9,6 +9,10 @@ export const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
       onClick={() => {
         if (windowState === "closed") {
           setWindowState("user");
+        } else if (windowState === "minimized") {
+          setWindowState("user");
+        } else {
+          setWindowState("minimized");
         }
       }}
     >

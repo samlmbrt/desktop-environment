@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from "clsx";
 
 import { Minus, Square, X } from "lucide-react";
 
@@ -20,15 +21,12 @@ const RESIZERS = [
   "bottomRightResizer",
 ];
 
-const cx = (...names) => names.filter(Boolean).join(" ");
-
 export const Window = ({
   title,
   initialWidth,
   initialHeight,
   initialTop,
   initialLeft,
-  zIndex,
   windowState,
   setWindowState,
   focusCallback,
@@ -55,7 +53,7 @@ export const Window = ({
 
   return (
     <div
-      className={cx(
+      className={clsx(
         "window",
         styles.window,
         isFocused && styles.focused,
@@ -70,7 +68,6 @@ export const Window = ({
         left: initialLeft,
         minWidth,
         minHeight,
-        zIndex,
       }}
       tabIndex={-1}
       onFocus={() => {

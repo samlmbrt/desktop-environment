@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from "clsx";
 import { Window } from "@/components/Window/Window";
 
 import styles from "./Calculator.module.css";
@@ -26,8 +27,6 @@ const BUTTONS = [
   { label: "." },
   { label: "=", variant: "yellow", action: "equals" },
 ];
-
-const cx = (...names) => names.filter(Boolean).join(" ");
 
 const isDigit = (ch) => ch >= "0" && ch <= "9";
 
@@ -150,7 +149,7 @@ export const Calculator = (props) => {
         {BUTTONS.map((button) => (
           <div
             key={button.label}
-            className={cx(
+            className={clsx(
               styles.button,
               button.className && styles[button.className],
               button.variant && styles[button.variant],

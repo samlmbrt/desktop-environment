@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import { Window } from "@/components/Window/Window";
 
 import styles from "./TextEditor.module.css";
@@ -18,12 +18,8 @@ P.S. The calculator here is just for show — don't trust it with anything impor
 export const TextEditor = (props) => {
   const textAreaRef = useRef(null);
 
-  const focusTextArea = useCallback(() => {
-    textAreaRef.current?.focus();
-  }, []);
-
   return (
-    <Window {...props} title="Text Editor" focusCallback={focusTextArea}>
+    <Window {...props} title="Text Editor" focusCallback={() => textAreaRef.current?.focus()}>
       <div className={styles.textArea} contentEditable suppressContentEditableWarning ref={textAreaRef} tabIndex={-1}>
         {DEFAULT_CONTENT}
       </div>
