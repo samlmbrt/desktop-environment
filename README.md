@@ -32,4 +32,4 @@ npm run dev
 ## Attributions
 
 - Icons by [Freepik](https://www.flaticon.com)
-- Desktop wallpaper by Mikael Gustafsson
+- Desktop wallpaper by Richard Hulge

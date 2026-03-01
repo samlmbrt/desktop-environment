@@ -160,7 +160,7 @@ const Desktop = ({ children }) => {
         ref={desktopRef}
         tabIndex={-1}
       >
-        <img className={styles.wallpaper} src="/wallpaper.png" alt="" />
+        <img className={styles.wallpaper} src="/wallpaper.jpg" alt="" />
         {children}
       </div>
     </>
