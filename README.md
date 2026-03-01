@@ -31,5 +31,5 @@ npm run dev
 
 ## Attributions
 
-- Icons by [Freepik](https://www.flaticon.com)
+- Icons by [Lucide](https://lucide.dev)
 - Desktop wallpaper by Simon Berger

@@ -8,8 +8,7 @@ import Calculator from "@/components/Applications/Calculator/Calculator";
 import TextEditor from "@/components/Applications/TextEditor/TextEditor";
 import Desktop from "@/components/Desktop/Desktop";
 
-import calculatorIcon from "@/assets/icons/calculator.png";
-import textEditorIcon from "@/assets/icons/editor.png";
+import { Calculator as CalculatorIcon, Rows4 } from "lucide-react";
 
 const App = () => {
   const [textEditorWindowState, setTextEditorWindowState] = useState("open");
@@ -35,15 +34,13 @@ const App = () => {
       />
       <Dock>
         <DockIcon
-          icon={calculatorIcon}
-          alt="Icon for calculator"
+          icon={<CalculatorIcon size={40} />}
           tooltip="Calculator"
           windowState={calculatorWindowState}
           setWindowState={setCalculatorWindowState}
         />
         <DockIcon
-          icon={textEditorIcon}
-          alt="Icon for text editor"
+          icon={<Rows4 size={40} />}
           tooltip="Text Editor"
           windowState={textEditorWindowState}
           setWindowState={setTextEditorWindowState}

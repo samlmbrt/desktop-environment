@@ -63,6 +63,7 @@
 .icon {
   transition: opacity 0.2s ease-in;
   pointer-events: all;
+  margin-left: 8px;
 }
 
 .icon:hover {

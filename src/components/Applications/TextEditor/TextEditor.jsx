@@ -28,7 +28,7 @@ const TextEditor = (props) => {
         {"light and the dark theme.\n"}
         {"\n"}
         {"Attributions:\n"}
-        {"- Icons were made by Freepik from www.flaticon.com\n"}
+        {"- Icons by Lucide (lucide.dev)\n"}
         {"- Desktop wallpaper was made by Simon Berger\n"}
         {"\n"}
         {"P.S. Please do not use the provided calculator for important calculations!"}

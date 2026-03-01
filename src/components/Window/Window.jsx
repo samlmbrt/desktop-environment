@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import closeIcon from "@/assets/icons/close.png";
-import maximizeIcon from "@/assets/icons/maximize.png";
-import minimizeIcon from "@/assets/icons/minimize.png";
+import { Minus, Square, X } from "lucide-react";
 
 import styles from "./Window.module.css";
 
@@ -85,34 +83,9 @@ const Window = ({
         style={{ pointerEvents: windowState === "maximized" ? "none" : "auto" }}
       >
         <div className={styles.title}>{title}</div>
-        {isResizable && (
-          <img
-            className={`icon ${styles.icon}`}
-            src={minimizeIcon}
-            alt="Minimize icon"
-            width={20}
-            height={20}
-            onClick={minimize}
-          />
-        )}
-        {isResizable && (
-          <img
-            className={`icon ${styles.icon}`}
-            src={maximizeIcon}
-            alt="Maximize icon"
-            width={20}
-            height={20}
-            onClick={maximize}
-          />
-        )}
-        <img
-          className={`icon ${styles.icon}`}
-          src={closeIcon}
-          alt="Close icon"
-          width={20}
-          height={20}
-          onClick={close}
-        />
+        {isResizable && <Minus className={`icon ${styles.icon}`} size={18} onClick={minimize} />}
+        {isResizable && <Square className={`icon ${styles.icon}`} size={14} onClick={maximize} />}
+        <X className={`icon ${styles.icon}`} size={18} onClick={close} />
       </div>
       <div className={`body ${styles.body}`}>{children}</div>
     </div>
