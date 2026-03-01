@@ -1,9 +1,9 @@
 import { Sun, Moon } from "lucide-react";
-import useThemeToggle from "@/hooks/useThemeToggle";
+import { useThemeToggle } from "@/hooks/useThemeToggle";
 
 import styles from "./ThemeSwitcher.module.css";
 
-const ThemeSwitcher = () => {
+export const ThemeSwitcher = () => {
   const [isDarkTheme, toggleTheme] = useThemeToggle();
 
   return (
@@ -12,5 +12,3 @@ const ThemeSwitcher = () => {
     </div>
   );
 };
-
-export default ThemeSwitcher;

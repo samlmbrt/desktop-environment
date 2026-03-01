@@ -4,7 +4,7 @@ import { Minus, Square, X } from "lucide-react";
 
 import styles from "./Window.module.css";
 
-const Window = ({
+export const Window = ({
   title,
   initialWidth,
   initialHeight,
@@ -91,8 +91,6 @@ const Window = ({
     </div>
   );
 };
-
-export default Window;
 export const titleBarHeight = 30;
 export const bodyMargin = 3;
 export const minWidth = 200;

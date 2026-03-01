@@ -1,8 +1,8 @@
 import { useRef } from "react";
 
 import { bodyMargin, minWidth, minHeight } from "@/components/Window/Window";
-import BlueScreen from "@/components/Desktop/BlueScreen";
-import useViewport from "@/hooks/useViewport";
+import { BlueScreen } from "@/components/Desktop/BlueScreen";
+import { useViewport } from "@/hooks/useViewport";
 
 import styles from "./Desktop.module.css";
 
@@ -71,7 +71,7 @@ const resize = (el, width, height) => {
   if (height != null) el.style.height = `${height}px`;
 };
 
-export default function Desktop({ children }) {
+export const Desktop = ({ children }) => {
   // Pointer events are handled here (not on individual windows) because
   // pointermove events can be missed when the cursor moves faster than the
   // element can follow. Listening on the desktop ensures no events are lost.
@@ -163,4 +163,4 @@ export default function Desktop({ children }) {
       cause={`The system requires a screen resolution of at least ${requiredViewportWidth}x${requiredViewportHeight}. Current resolution is ${width}x${height}.`}
     />
   );
-}
+};

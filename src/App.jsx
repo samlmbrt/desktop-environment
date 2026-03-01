@@ -1,16 +1,16 @@
 import { useState } from "react";
 
-import Dock from "@/components/Dock/Dock";
-import DockIcon from "@/components/Dock/DockIcon";
-import Separator from "@/components/Dock/Separator";
-import ThemeSwitcher from "@/components/Dock/ThemeSwitcher";
-import Calculator from "@/components/Applications/Calculator/Calculator";
-import TextEditor from "@/components/Applications/TextEditor/TextEditor";
-import Desktop from "@/components/Desktop/Desktop";
+import { Dock } from "@/components/Dock/Dock";
+import { DockIcon } from "@/components/Dock/DockIcon";
+import { Separator } from "@/components/Dock/Separator";
+import { ThemeSwitcher } from "@/components/Dock/ThemeSwitcher";
+import { Calculator } from "@/components/Applications/Calculator/Calculator";
+import { TextEditor } from "@/components/Applications/TextEditor/TextEditor";
+import { Desktop } from "@/components/Desktop/Desktop";
 
 import { Calculator as CalculatorIcon, Rows4 } from "lucide-react";
 
-const App = () => {
+export const App = () => {
   const [textEditorWindowState, setTextEditorWindowState] = useState("open");
   const [calculatorWindowState, setCalculatorWindowState] = useState("closed");
 
@@ -51,5 +51,3 @@ const App = () => {
     </Desktop>
   );
 };
-
-export default App;

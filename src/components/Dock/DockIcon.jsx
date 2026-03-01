@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from "./DockIcon.module.css";
 
-const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
+export const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
@@ -30,5 +30,3 @@ const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
     </div>
   );
 };
-
-export default DockIcon;

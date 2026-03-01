@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Window from "@/components/Window/Window";
+import { Window } from "@/components/Window/Window";
 
 import styles from "./Calculator.module.css";
 
@@ -29,33 +29,9 @@ const BUTTONS = [
 
 const cx = (...names) => names.filter(Boolean).join(" ");
 
-function isDigit(ch) {
-  return ch >= "0" && ch <= "9";
-}
+const isDigit = (ch) => ch >= "0" && ch <= "9";
 
-function parseExpr(chars, pos) {
-  let [left, i] = parseTerm(chars, pos);
-  while (i < chars.length && (chars[i] === "+" || chars[i] === "-")) {
-    const op = chars[i];
-    const [right, next] = parseTerm(chars, i + 1);
-    left = op === "+" ? left + right : left - right;
-    i = next;
-  }
-  return [left, i];
-}
-
-function parseTerm(chars, pos) {
-  let [left, i] = parseNumber(chars, pos);
-  while (i < chars.length && (chars[i] === "×" || chars[i] === "÷")) {
-    const op = chars[i];
-    const [right, next] = parseNumber(chars, i + 1);
-    left = op === "×" ? left * right : left / right;
-    i = next;
-  }
-  return [left, i];
-}
-
-function parseNumber(chars, pos) {
+const parseNumber = (chars, pos) => {
   let i = pos;
   let numStr = "";
   if (i < chars.length && chars[i] === "-") {
@@ -70,9 +46,31 @@ function parseNumber(chars, pos) {
     i++;
   }
   return [parseFloat(numStr), i];
-}
+};
 
-function evaluate(input) {
+const parseTerm = (chars, pos) => {
+  let [left, i] = parseNumber(chars, pos);
+  while (i < chars.length && (chars[i] === "×" || chars[i] === "÷")) {
+    const op = chars[i];
+    const [right, next] = parseNumber(chars, i + 1);
+    left = op === "×" ? left * right : left / right;
+    i = next;
+  }
+  return [left, i];
+};
+
+const parseExpr = (chars, pos) => {
+  let [left, i] = parseTerm(chars, pos);
+  while (i < chars.length && (chars[i] === "+" || chars[i] === "-")) {
+    const op = chars[i];
+    const [right, next] = parseTerm(chars, i + 1);
+    left = op === "+" ? left + right : left - right;
+    i = next;
+  }
+  return [left, i];
+};
+
+const evaluate = (input) => {
   if (input.length === 0) return null;
   const chars = [...input];
   while (chars.length > 0 && OPERATORS.includes(chars.at(-1))) {
@@ -82,14 +80,14 @@ function evaluate(input) {
   const [result, consumed] = parseExpr(chars, 0);
   if (consumed !== chars.length) throw new Error("Unexpected characters");
   return result;
-}
+};
 
-function formatResult(value) {
+const formatResult = (value) => {
   if (value === null || !isFinite(value)) return null;
   return parseFloat(value.toPrecision(12));
-}
+};
 
-export default function Calculator(props) {
+export const Calculator = (props) => {
   const [input, setInput] = useState([]);
   const [hasError, setHasError] = useState(false);
 
@@ -161,4 +159,4 @@ export default function Calculator(props) {
       </div>
     </Window>
   );
-}
+};

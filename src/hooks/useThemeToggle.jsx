@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-export default function useThemeToggle() {
+export const useThemeToggle = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(() => mediaQuery.matches);
 
   useLayoutEffect(() => {
@@ -20,4 +20,4 @@ export default function useThemeToggle() {
   }, []);
 
   return [isDarkTheme, toggleTheme];
-}
+};

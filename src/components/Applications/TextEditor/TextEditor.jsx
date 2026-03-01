@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import Window from "@/components/Window/Window";
+import { Window } from "@/components/Window/Window";
 
 import styles from "./TextEditor.module.css";
 
-const TextEditor = (props) => {
+export const TextEditor = (props) => {
   const textAreaRef = useRef(null);
 
   return (
@@ -36,5 +36,3 @@ const TextEditor = (props) => {
     </Window>
   );
 };
-
-export default TextEditor;
