@@ -1,8 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { Minus, Square, X } from "lucide-react";
 
 import styles from "./Window.module.css";
+
+export const titleBarHeight = 30;
+export const bodyMargin = 3;
+export const minWidth = 200;
+export const minHeight = titleBarHeight + 3 * bodyMargin;
+
+const RESIZERS = [
+  "topResizer",
+  "rightResizer",
+  "bottomResizer",
+  "leftResizer",
+  "topLeftResizer",
+  "topRightResizer",
+  "bottomLeftResizer",
+  "bottomRightResizer",
+];
+
+const cx = (...names) => names.filter(Boolean).join(" ");
 
 export const Window = ({
   title,
@@ -18,20 +36,13 @@ export const Window = ({
   isResizable = true,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const windowRef = useRef(null);
-
-  useEffect(() => {
-    typeof focusCallback === "function" && focusCallback();
-  }, [focusCallback]);
 
   const maximize = () => {
-    const nextState = windowState === "maximized" ? "user" : "maximized";
-    setWindowState(nextState);
+    setWindowState(windowState === "maximized" ? "user" : "maximized");
   };
 
   const minimize = () => {
-    const nextState = windowState === "minimized" ? "user" : "minimized";
-    setWindowState(nextState);
+    setWindowState(windowState === "minimized" ? "user" : "minimized");
   };
 
   const close = () => {
@@ -44,9 +55,14 @@ export const Window = ({
 
   return (
     <div
-      className={`window ${styles.window} ${isFocused && styles.focused} ${isMinimized && styles.minimized} ${
-        isMaximized && styles.maximized
-      } ${isClosed && styles.closed}`}
+      className={cx(
+        "window",
+        styles.window,
+        isFocused && styles.focused,
+        isMinimized && styles.minimized,
+        isMaximized && styles.maximized,
+        isClosed && styles.closed,
+      )}
       style={{
         width: initialWidth,
         height: initialHeight,
@@ -56,32 +72,21 @@ export const Window = ({
         minHeight,
         zIndex,
       }}
-      ref={windowRef}
       tabIndex={-1}
       onFocus={() => {
-        typeof focusCallback === "function" && focusCallback();
+        focusCallback?.();
         setIsFocused(true);
       }}
-      onBlur={() => {
-        setIsFocused(false);
-      }}
+      onBlur={() => setIsFocused(false)}
     >
-      {isResizable && windowState !== "maximized" && (
+      {isResizable && !isMaximized && (
         <>
-          <div className={`topResizer ${styles.topResizer}`}></div>
-          <div className={`rightResizer ${styles.rightResizer}`}></div>
-          <div className={`bottomResizer ${styles.bottomResizer}`}></div>
-          <div className={`leftResizer ${styles.leftResizer}`}></div>
-          <div className={`topLeftResizer ${styles.topLeftResizer}`}></div>
-          <div className={`topRightResizer ${styles.topRightResizer}`}></div>
-          <div className={`bottomLeftResizer ${styles.bottomLeftResizer}`}></div>
-          <div className={`bottomRightResizer ${styles.bottomRightResizer}`}></div>
+          {RESIZERS.map((name) => (
+            <div key={name} className={`${name} ${styles[name]}`} />
+          ))}
         </>
       )}
-      <div
-        className={`titleBar ${styles.titleBar}`}
-        style={{ pointerEvents: windowState === "maximized" ? "none" : "auto" }}
-      >
+      <div className={`titleBar ${styles.titleBar}`} style={{ pointerEvents: isMaximized ? "none" : "auto" }}>
         <div className={styles.title}>{title}</div>
         {isResizable && <Minus className={`icon ${styles.icon}`} size={18} onClick={minimize} />}
         {isResizable && <Square className={`icon ${styles.icon}`} size={14} onClick={maximize} />}
@@ -91,7 +96,3 @@ export const Window = ({
     </div>
   );
 };
-export const titleBarHeight = 30;
-export const bodyMargin = 3;
-export const minWidth = 200;
-export const minHeight = titleBarHeight + 3 * bodyMargin;
