@@ -1,5 +1,35 @@
-# Desktop environment UI prototype
+# Desktop Environment
 
-This is a simple prototype of a web-based desktop environment, which is written in JavaScript, React, Next.js and vanilla CSS.
+A web-based desktop environment prototype built with React and vanilla CSS.
 
-You can try the prototype [here](https://desktop-environment.vercel.app).
+You can try it live [here](https://desktop-environment.vercel.app).
+
+## Features
+
+- Draggable and resizable windows
+- Window management (minimize, maximize, close, focus)
+- Built-in calculator and text editor
+- Light and dark theme with system preference detection
+- Touch and mouse support
+
+## Getting Started
+
+```sh
+npm install
+npm run dev
+```
+
+## Scripts
+
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `npm run dev`     | Start the development server   |
+| `npm run build`   | Build for production           |
+| `npm run preview` | Preview the production build   |
+| `npm run lint`    | Run ESLint                     |
+| `npm run format`  | Format all files with Prettier |
+
+## Attributions
+
+- Icons by [Freepik](https://www.flaticon.com)
+- Desktop wallpaper by Mikael Gustafsson
