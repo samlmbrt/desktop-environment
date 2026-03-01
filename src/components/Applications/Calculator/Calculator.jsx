@@ -90,7 +90,7 @@ export const Calculator = (props) => {
   const [input, setInput] = useState([]);
   const [hasError, setHasError] = useState(false);
 
-  const handlePress = (value) => {
+  const appendInput = (value) => {
     if (hasError) return;
     if (input.length === 0 && value === "0") return;
     if (input.length === 0 && (value === "×" || value === "÷")) return;
@@ -136,7 +136,7 @@ export const Calculator = (props) => {
     } else if (action === "equals") {
       evaluateWith((v) => v);
     } else {
-      handlePress(label);
+      appendInput(label);
     }
   };
 

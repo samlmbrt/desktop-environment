@@ -7,13 +7,7 @@ export const DockIcon = ({ Icon, tooltip, windowState, setWindowState }) => {
     <div
       className={styles.dockIcon}
       onClick={() => {
-        if (windowState === "closed") {
-          setWindowState("user");
-        } else if (windowState === "minimized") {
-          setWindowState("user");
-        } else {
-          setWindowState("minimized");
-        }
+        setWindowState(windowState === "closed" || windowState === "minimized" ? "user" : "minimized");
       }}
     >
       <div className={styles.toolTip}>{tooltip}</div>

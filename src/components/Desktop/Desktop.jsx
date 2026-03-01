@@ -10,37 +10,37 @@ export const requiredViewportWidth = 800;
 export const requiredViewportHeight = 600;
 
 const dragBehavior = {
-  titleBar: (el, d) => {
-    move(el, d.newLeft, d.newTop);
+  titleBar: (el, metrics) => {
+    move(el, metrics.newLeft, metrics.newTop);
   },
-  rightResizer: (el, d) => {
-    resize(el, d.newWidth);
+  rightResizer: (el, metrics) => {
+    resize(el, metrics.newWidth);
   },
-  bottomResizer: (el, d) => {
-    resize(el, null, d.newHeight);
+  bottomResizer: (el, metrics) => {
+    resize(el, null, metrics.newHeight);
   },
-  bottomRightResizer: (el, d) => {
-    resize(el, d.newWidth, d.newHeight);
+  bottomRightResizer: (el, metrics) => {
+    resize(el, metrics.newWidth, metrics.newHeight);
   },
-  topRightResizer: (el, d) => {
-    move(el, null, d.newTop);
-    resize(el, d.newWidth, d.invertedHeight);
+  topRightResizer: (el, metrics) => {
+    move(el, null, metrics.newTop);
+    resize(el, metrics.newWidth, metrics.invertedHeight);
   },
-  leftResizer: (el, d) => {
-    move(el, Math.min(d.newLeft, d.maxLeft));
-    resize(el, Math.max(d.invertedWidth, minWidth));
+  leftResizer: (el, metrics) => {
+    move(el, Math.min(metrics.newLeft, metrics.maxLeft));
+    resize(el, Math.max(metrics.invertedWidth, minWidth));
   },
-  topResizer: (el, d) => {
-    move(el, null, Math.min(d.newTop, d.maxTop));
-    resize(el, null, Math.max(d.invertedHeight, minHeight));
+  topResizer: (el, metrics) => {
+    move(el, null, Math.min(metrics.newTop, metrics.maxTop));
+    resize(el, null, Math.max(metrics.invertedHeight, minHeight));
   },
-  bottomLeftResizer: (el, d) => {
-    move(el, Math.min(d.newLeft, d.maxLeft));
-    resize(el, Math.max(d.invertedWidth, minWidth), d.newHeight);
+  bottomLeftResizer: (el, metrics) => {
+    move(el, Math.min(metrics.newLeft, metrics.maxLeft));
+    resize(el, Math.max(metrics.invertedWidth, minWidth), metrics.newHeight);
   },
-  topLeftResizer: (el, d) => {
-    move(el, Math.min(d.newLeft, d.maxLeft), Math.min(d.newTop, d.maxTop));
-    resize(el, Math.max(d.invertedWidth, minWidth), Math.max(d.invertedHeight, minHeight));
+  topLeftResizer: (el, metrics) => {
+    move(el, Math.min(metrics.newLeft, metrics.maxLeft), Math.min(metrics.newTop, metrics.maxTop));
+    resize(el, Math.max(metrics.invertedWidth, minWidth), Math.max(metrics.invertedHeight, minHeight));
   },
 };
 
@@ -84,14 +84,14 @@ export const Desktop = ({ children }) => {
     const targetWindow = element.closest(".window");
     const allWindows = [...document.getElementsByClassName("window")];
 
-    const sorted = allWindows
+    const otherWindows = allWindows
       .filter((w) => w !== targetWindow)
       .sort((a, b) => (Number(a.style.zIndex) || 0) - (Number(b.style.zIndex) || 0));
 
-    sorted.forEach((w, i) => {
+    otherWindows.forEach((w, i) => {
       w.style.zIndex = i;
     });
-    targetWindow.style.zIndex = sorted.length;
+    targetWindow.style.zIndex = otherWindows.length;
     targetWindow.focus({ preventScroll: true });
   };
 
