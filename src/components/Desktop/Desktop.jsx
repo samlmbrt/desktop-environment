@@ -6,38 +6,41 @@ import useViewport from "@/hooks/useViewport";
 
 import styles from "./Desktop.module.css";
 
+export const requiredViewportWidth = 800;
+export const requiredViewportHeight = 600;
+
 const dragBehavior = {
-  titleBar: (w, d) => {
-    move(w, d.xMoveDelta, d.yMoveDelta);
+  titleBar: (el, d) => {
+    move(el, d.newLeft, d.newTop);
   },
-  rightResizer: (w, d) => {
-    resize(w, d.xResizeDelta);
+  rightResizer: (el, d) => {
+    resize(el, d.newWidth);
   },
-  bottomResizer: (w, d) => {
-    resize(w, null, d.yResizeDelta);
+  bottomResizer: (el, d) => {
+    resize(el, null, d.newHeight);
   },
-  bottomRightResizer: (w, d) => {
-    resize(w, d.xResizeDelta, d.yResizeDelta);
+  bottomRightResizer: (el, d) => {
+    resize(el, d.newWidth, d.newHeight);
   },
-  topRightResizer: (w, d) => {
-    move(w, null, d.yMoveDelta);
-    resize(w, d.xResizeDelta, d.yResizeOffset);
+  topRightResizer: (el, d) => {
+    move(el, null, d.newTop);
+    resize(el, d.newWidth, d.invertedHeight);
   },
-  leftResizer: (w, d) => {
-    move(w, Math.min(d.xMoveDelta, d.xMoveLimit));
-    resize(w, Math.max(d.xResizeOffset, minWidth));
+  leftResizer: (el, d) => {
+    move(el, Math.min(d.newLeft, d.maxLeft));
+    resize(el, Math.max(d.invertedWidth, minWidth));
   },
-  topResizer: (w, d) => {
-    move(w, null, Math.min(d.yMoveDelta, d.yMoveLimit));
-    resize(w, null, Math.max(d.yResizeOffset, minHeight));
+  topResizer: (el, d) => {
+    move(el, null, Math.min(d.newTop, d.maxTop));
+    resize(el, null, Math.max(d.invertedHeight, minHeight));
   },
-  bottomLeftResizer: (w, d) => {
-    move(w, Math.min(d.xMoveDelta, d.xMoveLimit));
-    resize(w, Math.max(d.xResizeOffset, minWidth), d.yResizeDelta);
+  bottomLeftResizer: (el, d) => {
+    move(el, Math.min(d.newLeft, d.maxLeft));
+    resize(el, Math.max(d.invertedWidth, minWidth), d.newHeight);
   },
-  topLeftResizer: (w, d) => {
-    move(w, Math.min(d.xMoveDelta, d.xMoveLimit), Math.min(d.yMoveDelta, d.yMoveLimit));
-    resize(w, Math.max(d.xResizeOffset, minWidth), Math.max(d.yResizeOffset, minHeight));
+  topLeftResizer: (el, d) => {
+    move(el, Math.min(d.newLeft, d.maxLeft), Math.min(d.newTop, d.maxTop));
+    resize(el, Math.max(d.invertedWidth, minWidth), Math.max(d.invertedHeight, minHeight));
   },
 };
 
@@ -45,10 +48,11 @@ const dragTypes = new Set(Object.keys(dragBehavior));
 
 const isDragElement = (element) => {
   if (!element) return false;
-  for (const cls of element.classList) {
-    if (dragTypes.has(cls)) return true;
-  }
-  return false;
+  return [...element.classList].some((cls) => dragTypes.has(cls));
+};
+
+const getDragType = (element) => {
+  return [...element.classList].find((cls) => dragTypes.has(cls));
 };
 
 const isFocusableElement = (element) => {
@@ -57,28 +61,26 @@ const isFocusableElement = (element) => {
   return isDragElement(element) || element.closest(".body") || element.closest(".icon");
 };
 
-const move = (element, x, y) => {
-  if (x != null) element.style.left = `${x}px`;
-  if (y != null) element.style.top = `${y}px`;
+const move = (el, left, top) => {
+  if (left != null) el.style.left = `${left}px`;
+  if (top != null) el.style.top = `${top}px`;
 };
 
-const resize = (element, width, height) => {
-  if (width != null) element.style.width = `${width}px`;
-  if (height != null) element.style.height = `${height}px`;
+const resize = (el, width, height) => {
+  if (width != null) el.style.width = `${width}px`;
+  if (height != null) el.style.height = `${height}px`;
 };
 
-const Desktop = ({ children }) => {
-  // We manage the drag events for Window components here since 'mousemove'
-  // events are not triggered for every pixel when moving the mouse around.
-  // This means a drag could stop prematurely if the user moves the mouse
-  // too fast. By setting the event handlers on the Desktop component, we
-  // can be sure not to miss any mouse event.
+export default function Desktop({ children }) {
+  // Pointer events are handled here (not on individual windows) because
+  // pointermove events can be missed when the cursor moves faster than the
+  // element can follow. Listening on the desktop ensures no events are lost.
 
   const { width, height } = useViewport();
   const desktopRef = useRef(null);
   const dragState = useRef(null);
 
-  const handleFocusChange = (element) => {
+  const bringToFront = (element) => {
     const targetWindow = element.closest(".window");
     const allWindows = [...document.getElementsByClassName("window")];
 
@@ -97,17 +99,25 @@ const Desktop = ({ children }) => {
     const element = event.target;
 
     if (isFocusableElement(element)) {
-      handleFocusChange(element);
+      bringToFront(element);
     } else {
       desktopRef.current.focus({ preventScroll: true });
     }
 
     if (isDragElement(element)) {
-      const window = element.parentNode;
-      const { top, left, width, height } = window.getBoundingClientRect();
-      const dragType = [...element.classList].find((cls) => dragTypes.has(cls));
+      const windowEl = element.parentNode;
+      const { top, left, width, height } = windowEl.getBoundingClientRect();
 
-      dragState.current = { dragType, window, x: event.clientX, y: event.clientY, top, left, width, height };
+      dragState.current = {
+        dragType: getDragType(element),
+        windowEl,
+        startX: event.clientX,
+        startY: event.clientY,
+        top,
+        left,
+        width,
+        height,
+      };
     }
   };
 
@@ -117,48 +127,40 @@ const Desktop = ({ children }) => {
 
     const { clientX: x, clientY: y } = event;
 
-    const deltas = {
-      xResizeDelta: state.width + x - state.x,
-      yResizeDelta: state.height + y - state.y,
-      xResizeOffset: state.width - x + state.x,
-      yResizeOffset: state.height - y + state.y,
-      xMoveDelta: state.left + x - state.x,
-      yMoveDelta: state.top + y - state.y,
-      xMoveLimit: state.left + state.width - minWidth,
-      yMoveLimit: state.top + state.height - minHeight - bodyMargin - 1,
+    const metrics = {
+      newWidth: state.width + x - state.startX,
+      newHeight: state.height + y - state.startY,
+      invertedWidth: state.width - x + state.startX,
+      invertedHeight: state.height - y + state.startY,
+      newLeft: state.left + x - state.startX,
+      newTop: state.top + y - state.startY,
+      maxLeft: state.left + state.width - minWidth,
+      maxTop: state.top + state.height - minHeight - bodyMargin - 1,
     };
 
-    dragBehavior[state.dragType](state.window, deltas);
+    dragBehavior[state.dragType](state.windowEl, metrics);
   };
 
   const handlePointerUp = () => {
-    if (dragState.current) {
-      dragState.current = null;
-    }
+    dragState.current = null;
   };
 
   return width >= requiredViewportWidth && height >= requiredViewportHeight ? (
-    <>
-      <div
-        className={styles.desktop}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerMove={handlePointerMove}
-        ref={desktopRef}
-        tabIndex={-1}
-      >
-        <img className={styles.wallpaper} src="/wallpaper.jpg" alt="" />
-        {children}
-      </div>
-    </>
+    <div
+      className={styles.desktop}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerMove={handlePointerMove}
+      ref={desktopRef}
+      tabIndex={-1}
+    >
+      <img className={styles.wallpaper} src="/wallpaper.jpg" alt="" />
+      {children}
+    </div>
   ) : (
     <BlueScreen
       errorCode={"0x1A (INVALID_SCREEN_SIZE)"}
       cause={`The system requires a screen resolution of at least ${requiredViewportWidth}x${requiredViewportHeight}. Current resolution is ${width}x${height}.`}
     />
   );
-};
-
-export default Desktop;
-export const requiredViewportWidth = 800;
-export const requiredViewportHeight = 600;
+}
